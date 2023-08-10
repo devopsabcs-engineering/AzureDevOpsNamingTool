@@ -31,7 +31,8 @@ jobs:
       with:
         push: true
         tags: devopsabcsaznamingtool.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_a0b22fb9af6c45f58c3890d48bc2fc32 }}/azurenamingtool:${{ github.sha }}
-        file: ./Dockerfile
+        #file: ./Dockerfile
+        context: ./src
 
   deploy:
     runs-on: ubuntu-latest
