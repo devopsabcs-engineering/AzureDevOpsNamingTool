@@ -19,7 +19,7 @@
 @implements IDisposable
 @inject NavigationManager NavigationManager
 
-<PageTitle>Azure Naming Tool - Configuration</PageTitle>
+<PageTitle>Azure DevOps Naming Tool - Configuration</PageTitle>
 <div class="card @theme!.ThemeStyle">
     <div class="card-body">
         <div style="float:left;">
@@ -33,7 +33,7 @@
             </button>
         </div>
         <div style="clear:both;"></div>
-        <div class="mb-3">This page contains the inputs to customize the Azure Naming Tool configuration.</div>
+        <div class="mb-3">This page contains the inputs to customize the Azure DevOps Naming Tool configuration.</div>
         @if (admin)
         {
             @if ((!ConfigurationHelper.VerifyConnectivity().Result) && (!connectivityalertshown))
@@ -42,7 +42,7 @@
                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                         <h4>ATTENTION</h4>
                         <div class="mb-3">
-                            <p>The Azure Naming Tool cannot verify intenternet connectivity, so some features have been disabled. This includes the ability to <strong>Refresh</strong> resource types and locations.</p>
+                            <p>The Azure DevOps Naming Tool cannot verify intenternet connectivity, so some features have been disabled. This includes the ability to <strong>Refresh</strong> resource types and locations.</p>
                             <p>Please check the <a href="/adminlog" class="fw-bold">Admin Log</a> for additional details.</p>
                             <p>You can disable the connectivity check in the <span class="fw-bold">Site Settings</span> section in the <a href="/admin" class="fw-bold">Admin</a> utility.</p>
                         </div>
@@ -1016,7 +1016,7 @@
                                                             </div>
                                                             <div class="card card-body @theme.ThemeStyle">
                                                                 <p>
-                                                                    Click <strong>Refresh</strong> to download the latest Resource Locations Configuration file from the Azure Naming Tool GitHub repository.
+                                                                    Click <strong>Refresh</strong> to download the latest Resource Locations Configuration file from the Azure DevOps Naming Tool GitHub repository.
                                                                 </p>
                                                                 <p>
                                                                     <strong>NOTES:</strong>
@@ -1549,7 +1549,7 @@
                                                             </div>
                                                             <div class="card card-body @theme.ThemeStyle">
                                                                 <p>
-                                                                    Click <strong>Refresh</strong> to download the latest Resource Types Configuration file from the Azure Naming Tool GitHub repository.
+                                                                    Click <strong>Refresh</strong> to download the latest Resource Types Configuration file from the Azure DevOps Naming Tool GitHub repository.
                                                                 </p>
                                                                 <p>
                                                                     <strong>NOTES:</strong>
@@ -4129,7 +4129,7 @@
             refreshlocationshortnames = bool.Parse(e.Value.ToString()!);
             if (refreshlocationshortnames)
             {
-                ModalHelper.ShowInformationModal(Modal!, theme, "bg-danger", "ATTENTION", "<div class=\"my-4\">This will reset the Locations short names and details to match the latest Azure Naming Tool values and cannot be undone!</div>", "", admin);
+                ModalHelper.ShowInformationModal(Modal!, theme, "bg-danger", "ATTENTION", "<div class=\"my-4\">This will reset the Locations short names and details to match the latest Azure DevOps Naming Tool values and cannot be undone!</div>", "", admin);
             }
         }
     }
@@ -4141,7 +4141,7 @@
             refreshtypeshortnames = bool.Parse(e.Value.ToString()!);
             if (refreshtypeshortnames)
             {
-                ModalHelper.ShowInformationModal(Modal!, theme, "bg-danger", "ATTENTION", "<div class=\"my-4\">This will reset the Types short names and details to match the latest Azure Naming Tool values and cannot be undone!</div>", "", admin);
+                ModalHelper.ShowInformationModal(Modal!, theme, "bg-danger", "ATTENTION", "<div class=\"my-4\">This will reset the Types short names and details to match the latest Azure DevOps Naming Tool values and cannot be undone!</div>", "", admin);
             }
         }
     }

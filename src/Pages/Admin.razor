@@ -14,7 +14,7 @@
 @inject NavigationManager NavigationManager
 @inject ProtectedLocalStorage storage
 
-<PageTitle>Azure Naming Tool - Admin</PageTitle>
+<PageTitle>Azure DevOps Naming Tool - Admin</PageTitle>
 <div class="card  @theme.ThemeStyle">
     <div class="card-body">
         <!-- Pop it above the backdrop -->
@@ -37,7 +37,7 @@
                 @if (!admin)
                 {
                     <p>
-                        Enter the Global Admin Password to configure the Azure Naming Tool site.
+                        Enter the Global Admin Password to configure the Azure DevOps Naming Tool site.
                     </p>
                     <div class="form-group">
                         <label for="password" style="font-weight:bold">Global Admin Password</label>
@@ -47,7 +47,7 @@
                 else
                 {
                     <p>
-                        This page allows you to security settings, view cache data, and site configurations for the Azure Naming Tool.
+                        This page allows you to security settings, view cache data, and site configurations for the Azure DevOps Naming Tool.
                     </p>
                     <div class="card mb-3" style="width:auto;">
                         <div class="card-header bg-default text-dark">
@@ -161,7 +161,7 @@
                             @if (currentuser == "GlobalAdmin")
                             {
                                 <p>
-                                    This section is used to configure the <strong>Identity Provider</strong> settings for the site if authentication is implemented. The Azure Naming Tool is designed to work with <strong><a href="https://learn.microsoft.com/en-us/azure/app-service/overview-authentication-authorization" target="_blank">Azure App Service Authentication</a></strong>, by default. If the Azure Naming Tool is configured to identify users, the site will track user activity. Users can also be designated as Admins using the <strong>Admin Users</strong> configuration.
+                                    This section is used to configure the <strong>Identity Provider</strong> settings for the site if authentication is implemented. The Azure DevOps Naming Tool is designed to work with <strong><a href="https://learn.microsoft.com/en-us/azure/app-service/overview-authentication-authorization" target="_blank">Azure App Service Authentication</a></strong>, by default. If the Azure DevOps Naming Tool is configured to identify users, the site will track user activity. Users can also be designated as Admins using the <strong>Admin Users</strong> configuration.
                                 </p>
                                 <p>
                                     You can learn more about the new Identity Provider Integration <a href="https://soltisweb.com/blog/detail/2023-06-azurenamingtool-identityproviderintegrationdeepdive" target="_blank"><strong>HERE</strong></a>.
@@ -192,7 +192,7 @@
                                         </div>
                                         <p class="alert alert-info" role="alert">
                                             <strong>NOTE</strong><br />
-                                            The Azure Naming Tool is configured for <strong><a href="https://learn.microsoft.com/en-us/azure/app-service/overview-authentication-authorization" target="_blank">Azure App Service Authentication</a></strong> using the <a href="https://learn.microsoft.com/en-us/azure/app-service/configure-authentication-user-identities#access-user-claims-in-app-code" target="_blank"><strong>X-MS-CLIENT-PRINCIPAL-NAME</strong></a> header name. If using a different Identity provider, update the setting to the header name that contains the user's id.
+                                            The Azure DevOps Naming Tool is configured for <strong><a href="https://learn.microsoft.com/en-us/azure/app-service/overview-authentication-authorization" target="_blank">Azure App Service Authentication</a></strong> using the <a href="https://learn.microsoft.com/en-us/azure/app-service/configure-authentication-user-identities#access-user-claims-in-app-code" target="_blank"><strong>X-MS-CLIENT-PRINCIPAL-NAME</strong></a> header name. If using a different Identity provider, update the setting to the header name that contains the user's id.
                                         </p>
                                     </div>
                                 </div>
@@ -205,7 +205,7 @@
                                     <div class="collapse show card card-body @theme.ThemeStyle" id="adminusers">
                                         <div class="mb-3">
                                             <p>
-                                                When authenticating users with an Identity provider, the <strong>Identity Header Name</strong> setting can be used to idenity site users. Enter the user id below to assign the user as an <strong>Admin</strong> for the Azure Naming Tool.
+                                                When authenticating users with an Identity provider, the <strong>Identity Header Name</strong> setting can be used to idenity site users. Enter the user id below to assign the user as an <strong>Admin</strong> for the Azure DevOps Naming Tool.
                                             </p>
                                             @if (!String.IsNullOrEmpty(currentidentityprovider))
                                             {
@@ -327,7 +327,7 @@
                                 <div class="collapse show card card-body @theme.ThemeStyle" id="duplicatenames">
                                     <div class="mb-3">
                                         <p>
-                                            By default, the Azure Naming Tool prevents duplicate resource names from being generated. This setting can be used to allow duplicate names.
+                                            By default, the Azure DevOps Naming Tool prevents duplicate resource names from being generated. This setting can be used to allow duplicate names.
                                         </p>
                                     </div>
                                     <div>
@@ -370,7 +370,7 @@
                                 <div class="collapse show card card-body @theme.ThemeStyle" id="connectivitycheck">
                                     <div class="mb-3">
                                         <p>
-                                            The Azure Naming Tool will verify the tool has internet connectivity to enable update features. Use this setting to disable the connectivity check functionality.
+                                            The Azure DevOps Naming Tool will verify the tool has internet connectivity to enable update features. Use this setting to disable the connectivity check functionality.
                                         </p>
                                     </div>
                                     <div>
@@ -391,7 +391,7 @@
                                 <div class="collapse show card card-body @theme.ThemeStyle" id="generationwebhook">
                                     <div class="mb-3">
                                         <p>
-                                            The Azure Naming Tool can post generated names to a webhook. This can be used to integrate with other systems. Enter a valid URL below to save the webhook setting.
+                                            The Azure DevOps Naming Tool can post generated names to a webhook. This can be used to integrate with other systems. Enter a valid URL below to save the webhook setting.
                                         </p>
                                         <p>
                                             Generated names will be posted using the <strong><a href="https://github.com/mspnp/AzureNamingTool/blob/main/src/Models/GeneratedName.cs" target="_blank">GeneratedName</a></strong> JSON format.

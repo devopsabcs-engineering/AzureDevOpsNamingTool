@@ -24,7 +24,7 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Installation Method**
-A description of the installation environment for the Azure Naming Tool. 
+A description of the installation environment for the Azure DevOps Naming Tool. 
 
 **Additional context**
 Add any other context about the problem here.

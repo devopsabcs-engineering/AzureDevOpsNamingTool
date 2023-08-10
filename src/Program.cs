@@ -33,8 +33,8 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v" + Assembly.GetEntryAssembly()!.GetCustomAttribute<AssemblyInformationalVersionAttribute>()!.InformationalVersion,
-        Title = "Azure Naming Tool API",
-        Description = "An ASP.NET Core Web API for managing the Azure Naming tool configuration. All API requests require the configured API Key (found in the site Admin configuration). You can find more details in the <a href=\"https://github.com/devopsabcs-engineering/AzureDevOpsNamingTool/wiki/Using-the-API\" target=\"_new\">Azure Naming Tool API documentation</a>."
+        Title = "Azure DevOps Naming Tool API",
+        Description = "An ASP.NET Core Web API for managing the Azure DevOps Naming Tool configuration. All API requests require the configured API Key (found in the site Admin configuration). You can find more details in the <a href=\"https://github.com/devopsabcs-engineering/AzureDevOpsNamingTool/wiki/Using-the-API\" target=\"_new\">Azure DevOps Naming Tool API documentation</a>."
     });
 
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
