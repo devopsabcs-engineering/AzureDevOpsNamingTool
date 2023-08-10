@@ -494,19 +494,19 @@ namespace AzureNamingTool.Services
                             }
                             else
                             {
-                                validateNameResponse.Message = "Resoruce Type is invalid!";
+                                validateNameResponse.Message = "Resource Type is invalid!";
                                 validateNameResponse.Valid = false;
                             }
                         }
                         else
                         {
-                            validateNameResponse.Message = "Resoruce Type is invalid!";
+                            validateNameResponse.Message = "Resource Type is invalid!";
                             validateNameResponse.Valid = false;
                         }
                     }
                     else
                     {
-                        validateNameResponse.Message = "Resoruce Type is invalid!";
+                        validateNameResponse.Message = "Resource Type is invalid!";
                         validateNameResponse.Valid = false;
                     }
                 }
