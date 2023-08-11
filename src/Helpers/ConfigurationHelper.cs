@@ -230,7 +230,7 @@ namespace AzureNamingTool.Helpers
                         {
                             // Atempt to download a file
                             var client = new HttpClient(new HttpClientHandler() { UseDefaultCredentials = true });
-                            using var response = await client.GetAsync("https://github.com/mspnp/AzureNamingTool/blob/main/src/connectiontest.png");
+                            using var response = await client.GetAsync("https://github.com/devopsabcs-engineering/AzureDevOpsNamingTool/blob/main/src/connectiontest.png");
                             if (response.StatusCode == HttpStatusCode.OK)
                             {
                                 result = true;
@@ -412,7 +412,7 @@ namespace AzureNamingTool.Helpers
             string versiondata = String.Empty;
             try
             {
-                versiondata = await GeneralHelper.DownloadString("https://raw.githubusercontent.com/mspnp/AzureNamingTool/main/src/configurationfileversions.json");
+                versiondata = await GeneralHelper.DownloadString("https://raw.githubusercontent.com/devopsabcs-engineering/AzureDevOpsNamingTool/main/src/configurationfileversions.json");
             }
             catch (Exception ex)
             {
@@ -726,7 +726,7 @@ namespace AzureNamingTool.Helpers
                 string data = (string)CacheHelper.GetCacheObject(programSetting)!;
                 if (String.IsNullOrEmpty(data))
                 {
-                    var response = await GeneralHelper.DownloadString("https://raw.githubusercontent.com/mspnp/AzureNamingTool/main/src/programsettings.json");
+                    var response = await GeneralHelper.DownloadString("https://raw.githubusercontent.com/devopsabcs-engineering/AzureDevOpsNamingTool/main/src/programsettings.json");
                     var setting = JsonDocument.Parse(response);
                     result = setting.RootElement.GetProperty(programSetting).ToString();
                     CacheHelper.SetCacheObject(programSetting, result);

@@ -240,7 +240,7 @@ namespace AzureNamingTool.Services
                     List<ResourceLocation> locations = (List<ResourceLocation>)serviceResponse.ResponseObject!;
                     if (GeneralHelper.IsNotNull(locations))
                     {
-                        string url = "https://raw.githubusercontent.com/mspnp/AzureNamingTool/main/src/repository/resourcelocations.json";
+                        string url = "https://raw.githubusercontent.com/devopsabcs-engineering/AzureDevOpsNamingTool/main/src/repository/resourcelocations.json";
 
                         string refreshdata = await GeneralHelper.DownloadString(url);
                         if (!String.IsNullOrEmpty(refreshdata))

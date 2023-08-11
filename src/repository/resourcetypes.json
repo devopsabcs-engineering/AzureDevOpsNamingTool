@@ -1,6 +1,25 @@
 [
   {
-    "id": 1,
+    "id": 101,
+    "resource": "AzureDevOps/endpoints",
+    "optional": "UnitDept",
+    "exclude": "Org,Function",
+    "property": "",
+    "ShortName": "ado-ep",
+    "scope": "project",
+    "lengthMin": "3",
+    "lengthMax": "63",
+    "validText": "Lowercase letters and numbers. Start with lowercase letter.",
+    "invalidText": "",
+    "invalidCharacters": "",
+    "invalidCharactersStart": "",
+    "invalidCharactersEnd": "",
+    "invalidCharactersConsecutive": "",
+    "regx": "^[a-z][a-z0-9]{2,62}$",
+    "staticValues": ""
+  },
+  {
+    "id": 1001,
     "resource": "AnalysisServices/servers",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -19,7 +38,7 @@
     "staticValues": ""
   },
   {
-    "id": 2,
+    "id": 1002,
     "resource": "ApiManagement/service",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -38,7 +57,7 @@
     "staticValues": ""
   },
   {
-    "id": 3,
+    "id": 1003,
     "resource": "ApiManagement/service/apis",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -57,7 +76,7 @@
     "staticValues": ""
   },
   {
-    "id": 4,
+    "id": 1004,
     "resource": "ApiManagement/service/apis/issues",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -76,7 +95,7 @@
     "staticValues": ""
   },
   {
-    "id": 5,
+    "id": 1005,
     "resource": "ApiManagement/service/apis/issues/attachments",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -95,7 +114,7 @@
     "staticValues": ""
   },
   {
-    "id": 6,
+    "id": 1006,
     "resource": "ApiManagement/service/apis/issues/comments",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -114,7 +133,7 @@
     "staticValues": ""
   },
   {
-    "id": 7,
+    "id": 1007,
     "resource": "ApiManagement/service/apis/operations",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -133,7 +152,7 @@
     "staticValues": ""
   },
   {
-    "id": 8,
+    "id": 1008,
     "resource": "ApiManagement/service/apis/operations/tags",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -152,7 +171,7 @@
     "staticValues": ""
   },
   {
-    "id": 9,
+    "id": 1009,
     "resource": "ApiManagement/service/apis/releases",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -171,7 +190,7 @@
     "staticValues": ""
   },
   {
-    "id": 10,
+    "id": 1010,
     "resource": "ApiManagement/service/apis/schemas",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -190,7 +209,7 @@
     "staticValues": ""
   },
   {
-    "id": 11,
+    "id": 1011,
     "resource": "ApiManagement/service/apis/tagDescriptions",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -209,7 +228,7 @@
     "staticValues": ""
   },
   {
-    "id": 12,
+    "id": 1012,
     "resource": "ApiManagement/service/apis/tags",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -228,7 +247,7 @@
     "staticValues": ""
   },
   {
-    "id": 13,
+    "id": 1013,
     "resource": "ApiManagement/service/api-version-sets",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -247,7 +266,7 @@
     "staticValues": ""
   },
   {
-    "id": 14,
+    "id": 1014,
     "resource": "ApiManagement/service/authorizationServers",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -266,7 +285,7 @@
     "staticValues": ""
   },
   {
-    "id": 15,
+    "id": 1015,
     "resource": "ApiManagement/service/backends",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -285,7 +304,7 @@
     "staticValues": ""
   },
   {
-    "id": 16,
+    "id": 1016,
     "resource": "ApiManagement/service/certificates",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -304,7 +323,7 @@
     "staticValues": ""
   },
   {
-    "id": 17,
+    "id": 1017,
     "resource": "ApiManagement/service/diagnostics",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -323,7 +342,7 @@
     "staticValues": ""
   },
   {
-    "id": 18,
+    "id": 1018,
     "resource": "ApiManagement/service/groups",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -342,7 +361,7 @@
     "staticValues": ""
   },
   {
-    "id": 19,
+    "id": 1019,
     "resource": "ApiManagement/service/groups/users",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -361,7 +380,7 @@
     "staticValues": ""
   },
   {
-    "id": 20,
+    "id": 1020,
     "resource": "ApiManagement/service/identityProviders",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -380,7 +399,7 @@
     "staticValues": ""
   },
   {
-    "id": 21,
+    "id": 1021,
     "resource": "ApiManagement/service/loggers",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -399,7 +418,7 @@
     "staticValues": ""
   },
   {
-    "id": 22,
+    "id": 1022,
     "resource": "ApiManagement/service/notifications",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -418,7 +437,7 @@
     "staticValues": ""
   },
   {
-    "id": 23,
+    "id": 1023,
     "resource": "ApiManagement/service/notifications/recipientEmails",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -437,7 +456,7 @@
     "staticValues": ""
   },
   {
-    "id": 24,
+    "id": 1024,
     "resource": "ApiManagement/service/openidConnectProviders",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -456,7 +475,7 @@
     "staticValues": ""
   },
   {
-    "id": 25,
+    "id": 1025,
     "resource": "ApiManagement/service/policies",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -475,7 +494,7 @@
     "staticValues": ""
   },
   {
-    "id": 26,
+    "id": 1026,
     "resource": "ApiManagement/service/products",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -494,7 +513,7 @@
     "staticValues": ""
   },
   {
-    "id": 27,
+    "id": 1027,
     "resource": "ApiManagement/service/products/apis",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -513,7 +532,7 @@
     "staticValues": ""
   },
   {
-    "id": 28,
+    "id": 1028,
     "resource": "ApiManagement/service/products/groups",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -532,7 +551,7 @@
     "staticValues": ""
   },
   {
-    "id": 29,
+    "id": 1029,
     "resource": "ApiManagement/service/products/tags",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -551,7 +570,7 @@
     "staticValues": ""
   },
   {
-    "id": 30,
+    "id": 1030,
     "resource": "ApiManagement/service/properties",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -570,7 +589,7 @@
     "staticValues": ""
   },
   {
-    "id": 31,
+    "id": 1031,
     "resource": "ApiManagement/service/subscriptions",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -589,7 +608,7 @@
     "staticValues": ""
   },
   {
-    "id": 32,
+    "id": 1032,
     "resource": "ApiManagement/service/tags",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -608,7 +627,7 @@
     "staticValues": ""
   },
   {
-    "id": 33,
+    "id": 1033,
     "resource": "ApiManagement/service/templates",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -627,7 +646,7 @@
     "staticValues": ""
   },
   {
-    "id": 34,
+    "id": 1034,
     "resource": "ApiManagement/service/users",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -646,7 +665,7 @@
     "staticValues": ""
   },
   {
-    "id": 35,
+    "id": 1035,
     "resource": "AppConfiguration/configurationStores",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -665,7 +684,7 @@
     "staticValues": ""
   },
   {
-    "id": 36,
+    "id": 1036,
     "resource": "Authorization/locks",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -684,7 +703,7 @@
     "staticValues": ""
   },
   {
-    "id": 37,
+    "id": 1037,
     "resource": "Authorization/policyAssignments",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -703,7 +722,7 @@
     "staticValues": ""
   },
   {
-    "id": 38,
+    "id": 1038,
     "resource": "Authorization/policyAssignments",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -722,7 +741,7 @@
     "staticValues": ""
   },
   {
-    "id": 39,
+    "id": 1039,
     "resource": "Authorization/policyAssignments",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -741,7 +760,7 @@
     "staticValues": ""
   },
   {
-    "id": 40,
+    "id": 1040,
     "resource": "Authorization/policyDefinitions",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -760,7 +779,7 @@
     "staticValues": ""
   },
   {
-    "id": 41,
+    "id": 1041,
     "resource": "Authorization/policyDefinitions",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -779,7 +798,7 @@
     "staticValues": ""
   },
   {
-    "id": 42,
+    "id": 1042,
     "resource": "Authorization/policySetDefinitions",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -798,7 +817,7 @@
     "staticValues": ""
   },
   {
-    "id": 43,
+    "id": 1043,
     "resource": "Authorization/policySetDefinitions",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -817,7 +836,7 @@
     "staticValues": ""
   },
   {
-    "id": 44,
+    "id": 1044,
     "resource": "Authorization/policySetDefinitions",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -836,7 +855,7 @@
     "staticValues": ""
   },
   {
-    "id": 45,
+    "id": 1045,
     "resource": "Automation/automationAccounts",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -855,7 +874,7 @@
     "staticValues": ""
   },
   {
-    "id": 46,
+    "id": 1046,
     "resource": "Automation/automationAccounts/certificates",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -874,7 +893,7 @@
     "staticValues": ""
   },
   {
-    "id": 47,
+    "id": 1047,
     "resource": "Automation/automationAccounts/connections",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -893,7 +912,7 @@
     "staticValues": ""
   },
   {
-    "id": 48,
+    "id": 1048,
     "resource": "Automation/automationAccounts/credentials",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -912,7 +931,7 @@
     "staticValues": ""
   },
   {
-    "id": 49,
+    "id": 1049,
     "resource": "Automation/automationAccounts/runbooks",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -931,7 +950,7 @@
     "staticValues": ""
   },
   {
-    "id": 50,
+    "id": 1050,
     "resource": "Automation/automationAccounts/schedules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -950,7 +969,7 @@
     "staticValues": ""
   },
   {
-    "id": 51,
+    "id": 1051,
     "resource": "Automation/automationAccounts/variables",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -969,7 +988,7 @@
     "staticValues": ""
   },
   {
-    "id": 52,
+    "id": 1052,
     "resource": "Automation/automationAccounts/watchers",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -988,7 +1007,7 @@
     "staticValues": ""
   },
   {
-    "id": 53,
+    "id": 1053,
     "resource": "Automation/automationAccounts/webhooks",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1007,7 +1026,7 @@
     "staticValues": ""
   },
   {
-    "id": 54,
+    "id": 1054,
     "resource": "Batch/batchAccounts",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1026,7 +1045,7 @@
     "staticValues": ""
   },
   {
-    "id": 55,
+    "id": 1055,
     "resource": "Batch/batchAccounts/applications",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1045,7 +1064,7 @@
     "staticValues": ""
   },
   {
-    "id": 56,
+    "id": 1056,
     "resource": "Batch/batchAccounts/certificates",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1064,7 +1083,7 @@
     "staticValues": ""
   },
   {
-    "id": 57,
+    "id": 1057,
     "resource": "Batch/batchAccounts/pools",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1083,7 +1102,7 @@
     "staticValues": ""
   },
   {
-    "id": 58,
+    "id": 1058,
     "resource": "Blockchain/blockchainMembers",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1102,7 +1121,7 @@
     "staticValues": ""
   },
   {
-    "id": 59,
+    "id": 1059,
     "resource": "Blueprint/blueprintAssignments",
     "optional": "Org,UnitDept,Location,Instance",
     "exclude": "Function",
@@ -1121,7 +1140,7 @@
     "staticValues": ""
   },
   {
-    "id": 60,
+    "id": 1060,
     "resource": "Blueprint/blueprints",
     "optional": "Org,UnitDept,Location,Instance",
     "exclude": "Function",
@@ -1140,7 +1159,7 @@
     "staticValues": ""
   },
   {
-    "id": 61,
+    "id": 1061,
     "resource": "Blueprint/blueprints/artifacts",
     "optional": "Org,UnitDept,Location,Instance",
     "exclude": "Function",
@@ -1159,7 +1178,7 @@
     "staticValues": ""
   },
   {
-    "id": 62,
+    "id": 1062,
     "resource": "Blueprint/blueprints/versions",
     "optional": "Org,UnitDept,Location,Instance",
     "exclude": "Function",
@@ -1178,7 +1197,7 @@
     "staticValues": ""
   },
   {
-    "id": 63,
+    "id": 1063,
     "resource": "BotService/botServices",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1197,7 +1216,7 @@
     "staticValues": ""
   },
   {
-    "id": 64,
+    "id": 1064,
     "resource": "BotService/botServices/channels",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1216,7 +1235,7 @@
     "staticValues": ""
   },
   {
-    "id": 65,
+    "id": 1065,
     "resource": "BotService/botServices/Connections",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1235,7 +1254,7 @@
     "staticValues": ""
   },
   {
-    "id": 66,
+    "id": 1066,
     "resource": "BotService/enterpriseChannels",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1254,7 +1273,7 @@
     "staticValues": ""
   },
   {
-    "id": 67,
+    "id": 1067,
     "resource": "Cache/Redis",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1273,7 +1292,7 @@
     "staticValues": ""
   },
   {
-    "id": 68,
+    "id": 1068,
     "resource": "Cache/Redis/firewallRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1292,7 +1311,7 @@
     "staticValues": ""
   },
   {
-    "id": 69,
+    "id": 1069,
     "resource": "Cdn/profiles",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1311,7 +1330,7 @@
     "staticValues": ""
   },
   {
-    "id": 70,
+    "id": 1070,
     "resource": "Cdn/profiles/endpoints",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1330,7 +1349,7 @@
     "staticValues": ""
   },
   {
-    "id": 71,
+    "id": 1071,
     "resource": "CertificateRegistration/certificateOrders",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1349,7 +1368,7 @@
     "staticValues": ""
   },
   {
-    "id": 72,
+    "id": 1072,
     "resource": "CognitiveServices/accounts",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1368,7 +1387,7 @@
     "staticValues": ""
   },
   {
-    "id": 73,
+    "id": 1073,
     "resource": "Compute/availabilitySets",
     "optional": "UnitDept,Function",
     "exclude": "Org",
@@ -1387,7 +1406,7 @@
     "staticValues": ""
   },
   {
-    "id": 74,
+    "id": 1074,
     "resource": "Compute/cloudServices",
     "optional": "",
     "exclude": "",
@@ -1406,7 +1425,7 @@
     "staticValues": ""
   },
   {
-    "id": 75,
+    "id": 1075,
     "resource": "Compute/diskEncryptionSets",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1425,7 +1444,7 @@
     "staticValues": ""
   },
   {
-    "id": 76,
+    "id": 1076,
     "resource": "Compute/disks",
     "optional": "UnitDept",
     "exclude": "Org",
@@ -1444,7 +1463,7 @@
     "staticValues": ""
   },
   {
-    "id": 77,
+    "id": 1077,
     "resource": "Compute/disks",
     "optional": "UnitDept",
     "exclude": "Org",
@@ -1463,7 +1482,7 @@
     "staticValues": ""
   },
   {
-    "id": 78,
+    "id": 1078,
     "resource": "Compute/galleries",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1482,7 +1501,7 @@
     "staticValues": ""
   },
   {
-    "id": 79,
+    "id": 1079,
     "resource": "Compute/galleries/applications",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1501,7 +1520,7 @@
     "staticValues": ""
   },
   {
-    "id": 80,
+    "id": 1080,
     "resource": "Compute/galleries/applications/versions",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1520,7 +1539,7 @@
     "staticValues": "1.0.0"
   },
   {
-    "id": 81,
+    "id": 1081,
     "resource": "Compute/galleries/images",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1539,7 +1558,7 @@
     "staticValues": ""
   },
   {
-    "id": 82,
+    "id": 1082,
     "resource": "Compute/galleries/images/versions",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1558,7 +1577,7 @@
     "staticValues": "1.0.0"
   },
   {
-    "id": 83,
+    "id": 1083,
     "resource": "Compute/images",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1577,7 +1596,7 @@
     "staticValues": ""
   },
   {
-    "id": 84,
+    "id": 1084,
     "resource": "Compute/snapshots",
     "optional": "UnitDept",
     "exclude": "Org",
@@ -1596,7 +1615,7 @@
     "staticValues": ""
   },
   {
-    "id": 85,
+    "id": 1085,
     "resource": "Compute/virtualMachines",
     "optional": "UnitDept",
     "exclude": "Org",
@@ -1615,7 +1634,7 @@
     "staticValues": ""
   },
   {
-    "id": 86,
+    "id": 1086,
     "resource": "Compute/virtualMachines",
     "optional": "UnitDept",
     "exclude": "Org",
@@ -1634,7 +1653,7 @@
     "staticValues": ""
   },
   {
-    "id": 87,
+    "id": 1087,
     "resource": "Compute/virtualMachineScaleSets",
     "optional": "UnitDept",
     "exclude": "Org",
@@ -1653,7 +1672,7 @@
     "staticValues": ""
   },
   {
-    "id": 88,
+    "id": 1088,
     "resource": "Compute/virtualMachineScaleSets",
     "optional": "UnitDept",
     "exclude": "Org",
@@ -1672,7 +1691,7 @@
     "staticValues": ""
   },
   {
-    "id": 89,
+    "id": 1089,
     "resource": "ContainerInstance/containerGroups",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1691,7 +1710,7 @@
     "staticValues": ""
   },
   {
-    "id": 90,
+    "id": 1090,
     "resource": "ContainerRegistry/registries",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1710,7 +1729,7 @@
     "staticValues": ""
   },
   {
-    "id": 91,
+    "id": 1091,
     "resource": "ContainerRegistry/registries/buildTasks",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1729,7 +1748,7 @@
     "staticValues": ""
   },
   {
-    "id": 92,
+    "id": 1092,
     "resource": "ContainerRegistry/registries/buildTasks/steps",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1748,7 +1767,7 @@
     "staticValues": ""
   },
   {
-    "id": 93,
+    "id": 1093,
     "resource": "ContainerRegistry/registries/replications",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1767,7 +1786,7 @@
     "staticValues": ""
   },
   {
-    "id": 94,
+    "id": 1094,
     "resource": "ContainerRegistry/registries/scopeMaps",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1786,7 +1805,7 @@
     "staticValues": ""
   },
   {
-    "id": 95,
+    "id": 1095,
     "resource": "ContainerRegistry/registries/tasks",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1805,7 +1824,7 @@
     "staticValues": ""
   },
   {
-    "id": 96,
+    "id": 1096,
     "resource": "ContainerRegistry/registries/tokens",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1824,7 +1843,7 @@
     "staticValues": ""
   },
   {
-    "id": 97,
+    "id": 1097,
     "resource": "ContainerRegistry/registries/webhooks",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1843,7 +1862,7 @@
     "staticValues": ""
   },
   {
-    "id": 98,
+    "id": 1098,
     "resource": "ContainerService/managedClusters",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1862,7 +1881,7 @@
     "staticValues": ""
   },
   {
-    "id": 99,
+    "id": 1099,
     "resource": "ContainerServiceopenShiftManagedClusters",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1881,7 +1900,7 @@
     "staticValues": ""
   },
   {
-    "id": 100,
+    "id": 1100,
     "resource": "CustomerInsights/hubs",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1900,7 +1919,7 @@
     "staticValues": ""
   },
   {
-    "id": 101,
+    "id": 1101,
     "resource": "CustomerInsights/hubs/authorizationPolicies",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1919,7 +1938,7 @@
     "staticValues": ""
   },
   {
-    "id": 102,
+    "id": 1102,
     "resource": "CustomerInsights/hubs/connectors",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1938,7 +1957,7 @@
     "staticValues": ""
   },
   {
-    "id": 103,
+    "id": 1103,
     "resource": "CustomerInsights/hubs/connectors/mappings",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1957,7 +1976,7 @@
     "staticValues": ""
   },
   {
-    "id": 104,
+    "id": 1104,
     "resource": "CustomerInsights/hubs/interactions",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1976,7 +1995,7 @@
     "staticValues": ""
   },
   {
-    "id": 105,
+    "id": 1105,
     "resource": "CustomerInsights/hubs/kpi",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -1995,7 +2014,7 @@
     "staticValues": ""
   },
   {
-    "id": 106,
+    "id": 1106,
     "resource": "CustomerInsights/hubs/links",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2014,7 +2033,7 @@
     "staticValues": ""
   },
   {
-    "id": 107,
+    "id": 1107,
     "resource": "CustomerInsights/hubs/predictions",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2033,7 +2052,7 @@
     "staticValues": ""
   },
   {
-    "id": 108,
+    "id": 1108,
     "resource": "CustomerInsights/hubs/profiles",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2052,7 +2071,7 @@
     "staticValues": ""
   },
   {
-    "id": 109,
+    "id": 1109,
     "resource": "CustomerInsights/hubs/relationshipLinks",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2071,7 +2090,7 @@
     "staticValues": ""
   },
   {
-    "id": 110,
+    "id": 1110,
     "resource": "CustomerInsights/hubs/relationships",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2090,7 +2109,7 @@
     "staticValues": ""
   },
   {
-    "id": 111,
+    "id": 1111,
     "resource": "CustomerInsights/hubs/roleAssignments",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2109,7 +2128,7 @@
     "staticValues": ""
   },
   {
-    "id": 112,
+    "id": 1112,
     "resource": "CustomerInsights/hubs/views",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2128,7 +2147,7 @@
     "staticValues": ""
   },
   {
-    "id": 113,
+    "id": 1113,
     "resource": "CustomProviders/associations",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2147,7 +2166,7 @@
     "staticValues": ""
   },
   {
-    "id": 114,
+    "id": 1114,
     "resource": "CustomProviders/resourceProviders",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2166,7 +2185,7 @@
     "staticValues": ""
   },
   {
-    "id": 115,
+    "id": 1115,
     "resource": "DataBox/jobs",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2185,7 +2204,7 @@
     "staticValues": ""
   },
   {
-    "id": 116,
+    "id": 1116,
     "resource": "Databricks/workspaces",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2204,7 +2223,7 @@
     "staticValues": ""
   },
   {
-    "id": 117,
+    "id": 1117,
     "resource": "DataFactory/factories",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2223,7 +2242,7 @@
     "staticValues": ""
   },
   {
-    "id": 118,
+    "id": 1118,
     "resource": "DataFactory/factories/dataflows",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2242,7 +2261,7 @@
     "staticValues": ""
   },
   {
-    "id": 119,
+    "id": 1119,
     "resource": "DataFactory/factories/datasets",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2261,7 +2280,7 @@
     "staticValues": ""
   },
   {
-    "id": 120,
+    "id": 1120,
     "resource": "DataFactory/factories/integrationRuntimes",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2280,7 +2299,7 @@
     "staticValues": ""
   },
   {
-    "id": 121,
+    "id": 1121,
     "resource": "DataFactory/factories/linkedservices",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2299,7 +2318,7 @@
     "staticValues": ""
   },
   {
-    "id": 122,
+    "id": 1122,
     "resource": "DataFactory/factories/pipelines",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2318,7 +2337,7 @@
     "staticValues": ""
   },
   {
-    "id": 123,
+    "id": 1123,
     "resource": "DataFactory/factories/triggers",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2337,7 +2356,7 @@
     "staticValues": ""
   },
   {
-    "id": 124,
+    "id": 1124,
     "resource": "DataFactory/factories/triggers/rerunTriggers",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2356,7 +2375,7 @@
     "staticValues": ""
   },
   {
-    "id": 125,
+    "id": 1125,
     "resource": "DataLakeAnalytics/accounts",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2375,7 +2394,7 @@
     "staticValues": ""
   },
   {
-    "id": 126,
+    "id": 1126,
     "resource": "DataLakeAnalytics/accounts/computePolicies",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2394,7 +2413,7 @@
     "staticValues": ""
   },
   {
-    "id": 127,
+    "id": 1127,
     "resource": "DataLakeAnalytics/accounts/dataLakeStoreAccounts",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2413,7 +2432,7 @@
     "staticValues": ""
   },
   {
-    "id": 128,
+    "id": 1128,
     "resource": "DataLakeAnalytics/accounts/firewallRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2432,7 +2451,7 @@
     "staticValues": ""
   },
   {
-    "id": 129,
+    "id": 1129,
     "resource": "DataLakeAnalytics/accounts/storageAccounts",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2451,7 +2470,7 @@
     "staticValues": ""
   },
   {
-    "id": 130,
+    "id": 1130,
     "resource": "DataLakeStore/accounts",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2470,7 +2489,7 @@
     "staticValues": ""
   },
   {
-    "id": 131,
+    "id": 1131,
     "resource": "DataLakeStore/accounts/firewallRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2489,7 +2508,7 @@
     "staticValues": ""
   },
   {
-    "id": 132,
+    "id": 1132,
     "resource": "DataLakeStore/accounts/virtualNetworkRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2508,7 +2527,7 @@
     "staticValues": ""
   },
   {
-    "id": 133,
+    "id": 1133,
     "resource": "DataMigration/services",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2527,7 +2546,7 @@
     "staticValues": ""
   },
   {
-    "id": 134,
+    "id": 1134,
     "resource": "DataMigration/services/projects",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2546,7 +2565,7 @@
     "staticValues": ""
   },
   {
-    "id": 135,
+    "id": 1135,
     "resource": "DBforMariaDB/servers",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2565,7 +2584,7 @@
     "staticValues": ""
   },
   {
-    "id": 136,
+    "id": 1136,
     "resource": "DBforMariaDB/servers/databases",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2584,7 +2603,7 @@
     "staticValues": ""
   },
   {
-    "id": 137,
+    "id": 1137,
     "resource": "DBforMariaDB/servers/firewallRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2603,7 +2622,7 @@
     "staticValues": ""
   },
   {
-    "id": 138,
+    "id": 1138,
     "resource": "DBforMariaDB/servers/virtualNetworkRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2622,7 +2641,7 @@
     "staticValues": ""
   },
   {
-    "id": 139,
+    "id": 1139,
     "resource": "DBforMySQL/servers",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2641,7 +2660,7 @@
     "staticValues": ""
   },
   {
-    "id": 140,
+    "id": 1140,
     "resource": "DBforMySQL/servers/databases",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2660,7 +2679,7 @@
     "staticValues": ""
   },
   {
-    "id": 141,
+    "id": 1141,
     "resource": "DBforMySQL/servers/firewallRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2679,7 +2698,7 @@
     "staticValues": ""
   },
   {
-    "id": 142,
+    "id": 1142,
     "resource": "DBforMySQL/servers/virtualNetworkRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2698,7 +2717,7 @@
     "staticValues": ""
   },
   {
-    "id": 143,
+    "id": 1143,
     "resource": "DBforPostgreSQL/servers",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2717,7 +2736,7 @@
     "staticValues": ""
   },
   {
-    "id": 144,
+    "id": 1144,
     "resource": "DBforPostgreSQL/servers/databases",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2736,7 +2755,7 @@
     "staticValues": ""
   },
   {
-    "id": 145,
+    "id": 1145,
     "resource": "DBforPostgreSQL/servers/firewallRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2755,7 +2774,7 @@
     "staticValues": ""
   },
   {
-    "id": 146,
+    "id": 1146,
     "resource": "DBforPostgreSQL/servers/virtualNetworkRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2774,7 +2793,7 @@
     "staticValues": ""
   },
   {
-    "id": 147,
+    "id": 1147,
     "resource": "Devices/IotHubs",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2793,7 +2812,7 @@
     "staticValues": ""
   },
   {
-    "id": 148,
+    "id": 1148,
     "resource": "Devices/IotHubs/certificates",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2812,7 +2831,7 @@
     "staticValues": ""
   },
   {
-    "id": 149,
+    "id": 1149,
     "resource": "Devices/IotHubs/eventHubEndpoints/ConsumerGroups",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2831,7 +2850,7 @@
     "staticValues": ""
   },
   {
-    "id": 150,
+    "id": 1150,
     "resource": "Devices/provisioningServices",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2850,7 +2869,7 @@
     "staticValues": ""
   },
   {
-    "id": 151,
+    "id": 1151,
     "resource": "Devices/provisioningServices/certificates",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2869,7 +2888,7 @@
     "staticValues": ""
   },
   {
-    "id": 152,
+    "id": 1152,
     "resource": "DevTestLab/labs",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2888,7 +2907,7 @@
     "staticValues": ""
   },
   {
-    "id": 153,
+    "id": 1153,
     "resource": "DevTestLab/labs/customimages",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2907,7 +2926,7 @@
     "staticValues": ""
   },
   {
-    "id": 154,
+    "id": 1154,
     "resource": "DevTestLab/labs/formulas",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2926,7 +2945,7 @@
     "staticValues": ""
   },
   {
-    "id": 155,
+    "id": 1155,
     "resource": "DevTestLab/labs/virtualmachines",
     "optional": "UnitDept",
     "exclude": "Org",
@@ -2945,7 +2964,7 @@
     "staticValues": ""
   },
   {
-    "id": 156,
+    "id": 1156,
     "resource": "DevTestLab/labs/virtualmachines",
     "optional": "UnitDept",
     "exclude": "Org",
@@ -2964,7 +2983,7 @@
     "staticValues": ""
   },
   {
-    "id": 157,
+    "id": 1157,
     "resource": "DocumentDB/databaseAccounts",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -2983,7 +3002,7 @@
     "staticValues": ""
   },
   {
-    "id": 158,
+    "id": 1158,
     "resource": "DocumentDB/databaseAccounts/sqlDatabases",
     "optional": "",
     "exclude": "",
@@ -3002,7 +3021,7 @@
     "staticValues": ""
   },
   {
-    "id": 159,
+    "id": 1159,
     "resource": "EventGrid/domains",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3021,7 +3040,7 @@
     "staticValues": ""
   },
   {
-    "id": 160,
+    "id": 1160,
     "resource": "EventGrid/domains/topics",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3040,7 +3059,7 @@
     "staticValues": ""
   },
   {
-    "id": 161,
+    "id": 1161,
     "resource": "EventGrid/eventSubscriptions",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3059,7 +3078,7 @@
     "staticValues": ""
   },
   {
-    "id": 162,
+    "id": 1162,
     "resource": "EventGrid/topics",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3078,7 +3097,7 @@
     "staticValues": ""
   },
   {
-    "id": 163,
+    "id": 1163,
     "resource": "EventHub/clusters",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3097,7 +3116,7 @@
     "staticValues": ""
   },
   {
-    "id": 164,
+    "id": 1164,
     "resource": "EventHub/namespaces",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3116,7 +3135,7 @@
     "staticValues": ""
   },
   {
-    "id": 165,
+    "id": 1165,
     "resource": "EventHub/namespaces/AuthorizationRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3135,7 +3154,7 @@
     "staticValues": ""
   },
   {
-    "id": 166,
+    "id": 1166,
     "resource": "EventHub/namespaces/disasterRecoveryConfigs",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3154,7 +3173,7 @@
     "staticValues": ""
   },
   {
-    "id": 167,
+    "id": 1167,
     "resource": "EventHub/namespaces/eventhubs",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3173,7 +3192,7 @@
     "staticValues": ""
   },
   {
-    "id": 168,
+    "id": 1168,
     "resource": "EventHub/namespaces/eventhubs/authorizationRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3192,7 +3211,7 @@
     "staticValues": ""
   },
   {
-    "id": 169,
+    "id": 1169,
     "resource": "EventHub/namespaces/eventhubs/consumergroups",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3211,7 +3230,7 @@
     "staticValues": ""
   },
   {
-    "id": 170,
+    "id": 1170,
     "resource": "HDInsight/clusters",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3230,7 +3249,7 @@
     "staticValues": ""
   },
   {
-    "id": 171,
+    "id": 1171,
     "resource": "HDInsight/clusters",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3249,7 +3268,7 @@
     "staticValues": ""
   },
   {
-    "id": 172,
+    "id": 1172,
     "resource": "HDInsight/clusters",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3268,7 +3287,7 @@
     "staticValues": ""
   },
   {
-    "id": 173,
+    "id": 1173,
     "resource": "HDInsight/clusters",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3287,7 +3306,7 @@
     "staticValues": ""
   },
   {
-    "id": 174,
+    "id": 1174,
     "resource": "HDInsight/clusters",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3306,7 +3325,7 @@
     "staticValues": ""
   },
   {
-    "id": 175,
+    "id": 1175,
     "resource": "HDInsight/clusters",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3325,7 +3344,7 @@
     "staticValues": ""
   },
   {
-    "id": 176,
+    "id": 1176,
     "resource": "HybridCompute/machines",
     "optional": "",
     "exclude": "",
@@ -3344,7 +3363,7 @@
     "staticValues": ""
   },
   {
-    "id": 177,
+    "id": 1177,
     "resource": "ImportExport/jobs",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3363,7 +3382,7 @@
     "staticValues": ""
   },
   {
-    "id": 178,
+    "id": 1178,
     "resource": "Insights/actionGroups",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3382,7 +3401,7 @@
     "staticValues": ""
   },
   {
-    "id": 179,
+    "id": 1179,
     "resource": "Insights/activityLogAlerts",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3401,7 +3420,7 @@
     "staticValues": ""
   },
   {
-    "id": 180,
+    "id": 1180,
     "resource": "Insights/components",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3420,7 +3439,7 @@
     "staticValues": ""
   },
   {
-    "id": 181,
+    "id": 1181,
     "resource": "Insights/metricAlerts",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3439,7 +3458,7 @@
     "staticValues": ""
   },
   {
-    "id": 182,
+    "id": 1182,
     "resource": "Insights/scheduledQueryRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3458,7 +3477,7 @@
     "staticValues": ""
   },
   {
-    "id": 183,
+    "id": 1183,
     "resource": "IoTCentral/IoTApps",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3477,7 +3496,7 @@
     "staticValues": ""
   },
   {
-    "id": 184,
+    "id": 1184,
     "resource": "KeyVault/vaults",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3496,7 +3515,7 @@
     "staticValues": ""
   },
   {
-    "id": 185,
+    "id": 1185,
     "resource": "KeyVault/vaults/secrets",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3515,7 +3534,7 @@
     "staticValues": ""
   },
   {
-    "id": 186,
+    "id": 1186,
     "resource": "Kubernetes/connectedClusters",
     "optional": "",
     "exclude": "",
@@ -3534,7 +3553,7 @@
     "staticValues": ""
   },
   {
-    "id": 187,
+    "id": 1187,
     "resource": "Kusto/clusters",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3553,7 +3572,7 @@
     "staticValues": ""
   },
   {
-    "id": 188,
+    "id": 1188,
     "resource": "Kusto/clusters/databases",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3572,7 +3591,7 @@
     "staticValues": ""
   },
   {
-    "id": 189,
+    "id": 1189,
     "resource": "Kusto/clusters/databases/dataConnections",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3591,7 +3610,7 @@
     "staticValues": ""
   },
   {
-    "id": 190,
+    "id": 1190,
     "resource": "Kusto/clusters/databases/eventhubconnections",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3610,7 +3629,7 @@
     "staticValues": ""
   },
   {
-    "id": 191,
+    "id": 1191,
     "resource": "Logic/integrationAccounts",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3629,7 +3648,7 @@
     "staticValues": ""
   },
   {
-    "id": 192,
+    "id": 1192,
     "resource": "Logic/integrationAccounts/assemblies",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3648,7 +3667,7 @@
     "staticValues": ""
   },
   {
-    "id": 193,
+    "id": 1193,
     "resource": "Logic/integrationAccounts/batchConfigurations",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3667,7 +3686,7 @@
     "staticValues": ""
   },
   {
-    "id": 194,
+    "id": 1194,
     "resource": "Logic/integrationAccounts/certificates",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3686,7 +3705,7 @@
     "staticValues": ""
   },
   {
-    "id": 195,
+    "id": 1195,
     "resource": "Logic/integrationAccounts/maps",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3705,7 +3724,7 @@
     "staticValues": ""
   },
   {
-    "id": 196,
+    "id": 1196,
     "resource": "Logic/integrationAccounts/partners",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3724,7 +3743,7 @@
     "staticValues": ""
   },
   {
-    "id": 197,
+    "id": 1197,
     "resource": "Logic/integrationAccounts/rosettanetprocessconfigurations",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3743,7 +3762,7 @@
     "staticValues": ""
   },
   {
-    "id": 198,
+    "id": 1198,
     "resource": "Logic/integrationAccounts/schemas",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3762,7 +3781,7 @@
     "staticValues": ""
   },
   {
-    "id": 199,
+    "id": 1199,
     "resource": "Logic/integrationAccounts/sessions",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3781,7 +3800,7 @@
     "staticValues": ""
   },
   {
-    "id": 200,
+    "id": 1200,
     "resource": "Logic/integrationServiceEnvironments",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3800,7 +3819,7 @@
     "staticValues": ""
   },
   {
-    "id": 201,
+    "id": 1201,
     "resource": "Logic/integrationServiceEnvironments/managedApis",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3819,7 +3838,7 @@
     "staticValues": ""
   },
   {
-    "id": 202,
+    "id": 1202,
     "resource": "Logic/workflows",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3838,7 +3857,7 @@
     "staticValues": ""
   },
   {
-    "id": 203,
+    "id": 1203,
     "resource": "MachineLearning/commitmentPlans",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3857,7 +3876,7 @@
     "staticValues": ""
   },
   {
-    "id": 204,
+    "id": 1204,
     "resource": "MachineLearning/webServices",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3876,7 +3895,7 @@
     "staticValues": ""
   },
   {
-    "id": 205,
+    "id": 1205,
     "resource": "MachineLearning/workspaces",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3895,7 +3914,7 @@
     "staticValues": ""
   },
   {
-    "id": 206,
+    "id": 1206,
     "resource": "MachineLearningServices/workspaces",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3914,7 +3933,7 @@
     "staticValues": ""
   },
   {
-    "id": 207,
+    "id": 1207,
     "resource": "MachineLearningServices/workspaces/computes",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3933,7 +3952,7 @@
     "staticValues": ""
   },
   {
-    "id": 208,
+    "id": 1208,
     "resource": "ManagedIdentity/userAssignedIdentities",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3952,7 +3971,7 @@
     "staticValues": ""
   },
   {
-    "id": 209,
+    "id": 1209,
     "resource": "Management/managementGroups",
     "optional": "Org,UnitDept,ProjAppSvc,Environment",
     "exclude": "Function,Instance,Location",
@@ -3971,7 +3990,7 @@
     "staticValues": ""
   },
   {
-    "id": 210,
+    "id": 1210,
     "resource": "Maps/accounts",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -3990,7 +4009,7 @@
     "staticValues": ""
   },
   {
-    "id": 211,
+    "id": 1211,
     "resource": "Media/mediaservices",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4009,7 +4028,7 @@
     "staticValues": ""
   },
   {
-    "id": 212,
+    "id": 1212,
     "resource": "Media/mediaservices/liveEvents",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4028,7 +4047,7 @@
     "staticValues": ""
   },
   {
-    "id": 213,
+    "id": 1213,
     "resource": "Media/mediaservices/liveEvents/liveOutputs",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4047,7 +4066,7 @@
     "staticValues": ""
   },
   {
-    "id": 214,
+    "id": 1214,
     "resource": "Media/mediaservices/streamingEndpoints",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4066,7 +4085,7 @@
     "staticValues": ""
   },
   {
-    "id": 215,
+    "id": 1215,
     "resource": "Migrate/assessmentProjects",
     "optional": "",
     "exclude": "",
@@ -4085,7 +4104,7 @@
     "staticValues": ""
   },
   {
-    "id": 216,
+    "id": 1216,
     "resource": "Network/applicationGateways",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4104,7 +4123,7 @@
     "staticValues": ""
   },
   {
-    "id": 217,
+    "id": 1217,
     "resource": "Network/applicationSecurityGroups",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4123,7 +4142,7 @@
     "staticValues": ""
   },
   {
-    "id": 218,
+    "id": 1218,
     "resource": "Network/azureFirewalls",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4142,7 +4161,7 @@
     "staticValues": ""
   },
   {
-    "id": 219,
+    "id": 1219,
     "resource": "Network/bastionHosts",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4161,7 +4180,7 @@
     "staticValues": ""
   },
   {
-    "id": 220,
+    "id": 1220,
     "resource": "Network/connections",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4180,7 +4199,7 @@
     "staticValues": ""
   },
   {
-    "id": 221,
+    "id": 1221,
     "resource": "Network/dnsZones",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4199,7 +4218,7 @@
     "staticValues": "us.contoso.net"
   },
   {
-    "id": 222,
+    "id": 1222,
     "resource": "Network/expressRouteCircuits",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4218,7 +4237,7 @@
     "staticValues": ""
   },
   {
-    "id": 223,
+    "id": 1223,
     "resource": "Network/firewallPolicies",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4237,7 +4256,7 @@
     "staticValues": ""
   },
   {
-    "id": 224,
+    "id": 1224,
     "resource": "Network/firewallPolicies/ruleGroups",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4256,7 +4275,7 @@
     "staticValues": ""
   },
   {
-    "id": 225,
+    "id": 1225,
     "resource": "Network/frontDoors",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4275,7 +4294,7 @@
     "staticValues": ""
   },
   {
-    "id": 226,
+    "id": 1226,
     "resource": "Network/frontdoorWebApplicationFirewallPolicies",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4294,7 +4313,7 @@
     "staticValues": ""
   },
   {
-    "id": 227,
+    "id": 1227,
     "resource": "Network/loadBalancers",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4313,7 +4332,7 @@
     "staticValues": ""
   },
   {
-    "id": 228,
+    "id": 1228,
     "resource": "Network/loadBalancers",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4332,7 +4351,7 @@
     "staticValues": ""
   },
   {
-    "id": 229,
+    "id": 1229,
     "resource": "Network/loadBalancers/inboundNatRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4351,7 +4370,7 @@
     "staticValues": ""
   },
   {
-    "id": 230,
+    "id": 1230,
     "resource": "Network/localNetworkGateways",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4370,7 +4389,7 @@
     "staticValues": ""
   },
   {
-    "id": 231,
+    "id": 1231,
     "resource": "Network/networkInterfaces",
     "optional": "UnitDept,Function",
     "exclude": "Org",
@@ -4389,7 +4408,7 @@
     "staticValues": ""
   },
   {
-    "id": 232,
+    "id": 1232,
     "resource": "Network/networkSecurityGroups",
     "optional": "UnitDept,Function",
     "exclude": "Org",
@@ -4408,7 +4427,7 @@
     "staticValues": ""
   },
   {
-    "id": 233,
+    "id": 1233,
     "resource": "Network/networkSecurityGroups/securityRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4427,7 +4446,7 @@
     "staticValues": "AllowDnsTcpInbound,DenyFtpAnyOutbound"
   },
   {
-    "id": 234,
+    "id": 1234,
     "resource": "Network/networkWatchers",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4446,7 +4465,7 @@
     "staticValues": ""
   },
   {
-    "id": 235,
+    "id": 1235,
     "resource": "Network/privateDnsZones",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4465,7 +4484,7 @@
     "staticValues": "privatelink.file.core.windows.net"
   },
   {
-    "id": 236,
+    "id": 1236,
     "resource": "Network/privateDnsZones/virtualNetworkLinks",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4484,7 +4503,7 @@
     "staticValues": ""
   },
   {
-    "id": 237,
+    "id": 1237,
     "resource": "Network/privateLinkServices",
     "optional": "",
     "exclude": "",
@@ -4503,7 +4522,7 @@
     "staticValues": ""
   },
   {
-    "id": 238,
+    "id": 1238,
     "resource": "Network/publicIPAddresses",
     "optional": "UnitDept,Function",
     "exclude": "Org",
@@ -4522,7 +4541,7 @@
     "staticValues": ""
   },
   {
-    "id": 239,
+    "id": 1239,
     "resource": "Network/publicIPPrefixes",
     "optional": "",
     "exclude": "",
@@ -4541,7 +4560,7 @@
     "staticValues": ""
   },
   {
-    "id": 240,
+    "id": 1240,
     "resource": "Network/routeFilters",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4560,7 +4579,7 @@
     "staticValues": ""
   },
   {
-    "id": 241,
+    "id": 1241,
     "resource": "Network/routeFilters/routeFilterRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4579,7 +4598,7 @@
     "staticValues": ""
   },
   {
-    "id": 242,
+    "id": 1242,
     "resource": "Network/routeTables",
     "optional": "",
     "exclude": "",
@@ -4598,7 +4617,7 @@
     "staticValues": ""
   },
   {
-    "id": 243,
+    "id": 1243,
     "resource": "Network/routeTables/routes",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4617,7 +4636,7 @@
     "staticValues": ""
   },
   {
-    "id": 244,
+    "id": 1244,
     "resource": "Network/serviceEndpointPolicies",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4636,7 +4655,7 @@
     "staticValues": ""
   },
   {
-    "id": 245,
+    "id": 1245,
     "resource": "Network/trafficManagerProfiles",
     "optional": "",
     "exclude": "",
@@ -4655,7 +4674,7 @@
     "staticValues": ""
   },
   {
-    "id": 246,
+    "id": 1246,
     "resource": "Network/virtualNetworkGateways",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4674,7 +4693,7 @@
     "staticValues": ""
   },
   {
-    "id": 247,
+    "id": 1247,
     "resource": "Network/virtualNetworks",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4693,7 +4712,7 @@
     "staticValues": ""
   },
   {
-    "id": 248,
+    "id": 1248,
     "resource": "Network/virtualnetworks/subnets",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4712,7 +4731,7 @@
     "staticValues": ""
   },
   {
-    "id": 249,
+    "id": 1249,
     "resource": "Network/virtualNetworks/virtualNetworkPeerings",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4731,7 +4750,7 @@
     "staticValues": ""
   },
   {
-    "id": 250,
+    "id": 1250,
     "resource": "Network/virtualWans",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4750,7 +4769,7 @@
     "staticValues": ""
   },
   {
-    "id": 251,
+    "id": 1251,
     "resource": "Network/vpnGateways",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4769,7 +4788,7 @@
     "staticValues": ""
   },
   {
-    "id": 252,
+    "id": 1252,
     "resource": "Network/vpnGateways/vpnConnections",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4788,7 +4807,7 @@
     "staticValues": ""
   },
   {
-    "id": 253,
+    "id": 1253,
     "resource": "Network/vpnSites",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4807,7 +4826,7 @@
     "staticValues": ""
   },
   {
-    "id": 254,
+    "id": 1254,
     "resource": "NotificationHubs/namespaces",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4826,7 +4845,7 @@
     "staticValues": ""
   },
   {
-    "id": 255,
+    "id": 1255,
     "resource": "NotificationHubs/namespaces/AuthorizationRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4845,7 +4864,7 @@
     "staticValues": ""
   },
   {
-    "id": 256,
+    "id": 1256,
     "resource": "NotificationHubs/namespaces/notificationHubs",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4864,7 +4883,7 @@
     "staticValues": ""
   },
   {
-    "id": 257,
+    "id": 1257,
     "resource": "NotificationHubs/namespaces/notificationHubs/AuthorizationRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4883,7 +4902,7 @@
     "staticValues": ""
   },
   {
-    "id": 258,
+    "id": 1258,
     "resource": "OperationalInsights/clusters",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4902,7 +4921,7 @@
     "staticValues": ""
   },
   {
-    "id": 259,
+    "id": 1259,
     "resource": "OperationalInsights/workspaces",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4921,7 +4940,7 @@
     "staticValues": ""
   },
   {
-    "id": 260,
+    "id": 1260,
     "resource": "OperationsManagement/solutions",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4940,7 +4959,7 @@
     "staticValues": "AntiMalware(contoso-IT)"
   },
   {
-    "id": 261,
+    "id": 1261,
     "resource": "Portal/dashboards",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4959,7 +4978,7 @@
     "staticValues": ""
   },
   {
-    "id": 262,
+    "id": 1262,
     "resource": "PowerBI/workspaceCollections",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4978,7 +4997,7 @@
     "staticValues": ""
   },
   {
-    "id": 263,
+    "id": 1263,
     "resource": "PowerBIDedicated/capacities",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -4997,7 +5016,7 @@
     "staticValues": ""
   },
   {
-    "id": 264,
+    "id": 1264,
     "resource": "Purview/accounts",
     "optional": "",
     "exclude": "",
@@ -5016,7 +5035,7 @@
     "staticValues": ""
   },
   {
-    "id": 265,
+    "id": 1265,
     "resource": "RecoveryServices/vaults",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5035,7 +5054,7 @@
     "staticValues": ""
   },
   {
-    "id": 266,
+    "id": 1266,
     "resource": "RecoveryServices/vaults/backupPolicies",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5054,7 +5073,7 @@
     "staticValues": ""
   },
   {
-    "id": 267,
+    "id": 1267,
     "resource": "Relay/namespaces",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5073,7 +5092,7 @@
     "staticValues": ""
   },
   {
-    "id": 268,
+    "id": 1268,
     "resource": "Relay/namespaces/AuthorizationRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5092,7 +5111,7 @@
     "staticValues": ""
   },
   {
-    "id": 269,
+    "id": 1269,
     "resource": "Relay/namespaces/HybridConnections",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5111,7 +5130,7 @@
     "staticValues": ""
   },
   {
-    "id": 270,
+    "id": 1270,
     "resource": "Relay/namespaces/HybridConnections/authorizationRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5130,7 +5149,7 @@
     "staticValues": ""
   },
   {
-    "id": 271,
+    "id": 1271,
     "resource": "Relay/namespaces/WcfRelays",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5149,7 +5168,7 @@
     "staticValues": ""
   },
   {
-    "id": 272,
+    "id": 1272,
     "resource": "Relay/namespaces/WcfRelays/authorizationRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5168,7 +5187,7 @@
     "staticValues": ""
   },
   {
-    "id": 273,
+    "id": 1273,
     "resource": "Resources/deployments",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5187,7 +5206,7 @@
     "staticValues": ""
   },
   {
-    "id": 274,
+    "id": 1274,
     "resource": "Resources/resourcegroups",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5206,7 +5225,7 @@
     "staticValues": ""
   },
   {
-    "id": 275,
+    "id": 1275,
     "resource": "Resources/tagNames",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5225,7 +5244,7 @@
     "staticValues": ""
   },
   {
-    "id": 276,
+    "id": 1276,
     "resource": "Resources/tagNames/tagValues",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5244,7 +5263,7 @@
     "staticValues": ""
   },
   {
-    "id": 277,
+    "id": 1277,
     "resource": "Resources/templateSpecs",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5263,7 +5282,7 @@
     "staticValues": ""
   },
   {
-    "id": 278,
+    "id": 1278,
     "resource": "Search/searchServices",
     "optional": "",
     "exclude": "",
@@ -5282,7 +5301,7 @@
     "staticValues": ""
   },
   {
-    "id": 279,
+    "id": 1279,
     "resource": "ServiceBus/namespaces",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5301,7 +5320,7 @@
     "staticValues": ""
   },
   {
-    "id": 280,
+    "id": 1280,
     "resource": "ServiceBus/namespaces/AuthorizationRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5320,7 +5339,7 @@
     "staticValues": ""
   },
   {
-    "id": 281,
+    "id": 1281,
     "resource": "ServiceBus/namespaces/disasterRecoveryConfigs",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5339,7 +5358,7 @@
     "staticValues": ""
   },
   {
-    "id": 282,
+    "id": 1282,
     "resource": "ServiceBus/namespaces/migrationConfigurations",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5358,7 +5377,7 @@
     "staticValues": "$default"
   },
   {
-    "id": 283,
+    "id": 1283,
     "resource": "ServiceBus/namespaces/queues",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5377,7 +5396,7 @@
     "staticValues": ""
   },
   {
-    "id": 284,
+    "id": 1284,
     "resource": "ServiceBus/namespaces/queues/authorizationRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5396,7 +5415,7 @@
     "staticValues": ""
   },
   {
-    "id": 285,
+    "id": 1285,
     "resource": "ServiceBus/namespaces/topics",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5415,7 +5434,7 @@
     "staticValues": ""
   },
   {
-    "id": 286,
+    "id": 1286,
     "resource": "ServiceBus/namespaces/topics/authorizationRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5434,7 +5453,7 @@
     "staticValues": ""
   },
   {
-    "id": 287,
+    "id": 1287,
     "resource": "ServiceBus/namespaces/topics/subscriptions",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5453,7 +5472,7 @@
     "staticValues": ""
   },
   {
-    "id": 288,
+    "id": 1288,
     "resource": "ServiceBus/namespaces/topics/subscriptions/rules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5472,7 +5491,7 @@
     "staticValues": ""
   },
   {
-    "id": 289,
+    "id": 1289,
     "resource": "ServiceFabric/clusters",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5491,7 +5510,7 @@
     "staticValues": ""
   },
   {
-    "id": 290,
+    "id": 1290,
     "resource": "SignalRService/signalR",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5510,7 +5529,7 @@
     "staticValues": ""
   },
   {
-    "id": 291,
+    "id": 1291,
     "resource": "Sql/managedInstances",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5529,7 +5548,7 @@
     "staticValues": ""
   },
   {
-    "id": 292,
+    "id": 1292,
     "resource": "Sql/servers",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5548,7 +5567,7 @@
     "staticValues": ""
   },
   {
-    "id": 293,
+    "id": 1293,
     "resource": "Sql/servers",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5567,7 +5586,7 @@
     "staticValues": ""
   },
   {
-    "id": 294,
+    "id": 1294,
     "resource": "Sql/servers/administrators",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5586,7 +5605,7 @@
     "staticValues": "ActiveDirectory"
   },
   {
-    "id": 295,
+    "id": 1295,
     "resource": "Sql/servers/databases",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5605,7 +5624,7 @@
     "staticValues": ""
   },
   {
-    "id": 296,
+    "id": 1296,
     "resource": "Sql/servers/databases/syncGroups",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5624,7 +5643,7 @@
     "staticValues": ""
   },
   {
-    "id": 297,
+    "id": 1297,
     "resource": "Sql/servers/elasticPools",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5643,7 +5662,7 @@
     "staticValues": ""
   },
   {
-    "id": 298,
+    "id": 1298,
     "resource": "Sql/servers/failoverGroups",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5662,7 +5681,7 @@
     "staticValues": ""
   },
   {
-    "id": 299,
+    "id": 1299,
     "resource": "Sql/servers/firewallRules",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5681,7 +5700,7 @@
     "staticValues": ""
   },
   {
-    "id": 300,
+    "id": 1300,
     "resource": "Storage/blob",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5700,7 +5719,7 @@
     "staticValues": ""
   },
   {
-    "id": 301,
+    "id": 1301,
     "resource": "Storage/queue",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5719,7 +5738,7 @@
     "staticValues": ""
   },
   {
-    "id": 302,
+    "id": 1302,
     "resource": "Storage/storageAccounts",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5738,7 +5757,7 @@
     "staticValues": ""
   },
   {
-    "id": 303,
+    "id": 1303,
     "resource": "Storage/storageAccounts",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5757,7 +5776,7 @@
     "staticValues": ""
   },
   {
-    "id": 304,
+    "id": 1304,
     "resource": "Storage/storageAccounts/blobServices",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5776,7 +5795,7 @@
     "staticValues": "default"
   },
   {
-    "id": 305,
+    "id": 1305,
     "resource": "Storage/storageAccounts/blobServices/containers",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5795,7 +5814,7 @@
     "staticValues": ""
   },
   {
-    "id": 306,
+    "id": 1306,
     "resource": "Storage/storageAccounts/fileServices",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5814,7 +5833,7 @@
     "staticValues": "default"
   },
   {
-    "id": 307,
+    "id": 1307,
     "resource": "Storage/storageAccounts/fileServices/shares",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5833,7 +5852,7 @@
     "staticValues": ""
   },
   {
-    "id": 308,
+    "id": 1308,
     "resource": "Storage/storageAccounts/managementPolicies",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5852,7 +5871,7 @@
     "staticValues": "default"
   },
   {
-    "id": 309,
+    "id": 1309,
     "resource": "Storage/table",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5871,7 +5890,7 @@
     "staticValues": ""
   },
   {
-    "id": 310,
+    "id": 1310,
     "resource": "StorageSync/storageSyncServices",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5890,7 +5909,7 @@
     "staticValues": ""
   },
   {
-    "id": 311,
+    "id": 1311,
     "resource": "StorageSync/storageSyncServices/syncGroups",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5909,7 +5928,7 @@
     "staticValues": ""
   },
   {
-    "id": 312,
+    "id": 1312,
     "resource": "StorSimple/managers",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5928,7 +5947,7 @@
     "staticValues": ""
   },
   {
-    "id": 313,
+    "id": 1313,
     "resource": "StreamAnalytics/cluster",
     "optional": "",
     "exclude": "",
@@ -5947,7 +5966,7 @@
     "staticValues": ""
   },
   {
-    "id": 314,
+    "id": 1314,
     "resource": "StreamAnalytics/streamingjobs",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5966,7 +5985,7 @@
     "staticValues": ""
   },
   {
-    "id": 315,
+    "id": 1315,
     "resource": "StreamAnalytics/streamingjobs/functions",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -5985,7 +6004,7 @@
     "staticValues": ""
   },
   {
-    "id": 316,
+    "id": 1316,
     "resource": "StreamAnalytics/streamingjobs/inputs",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -6004,7 +6023,7 @@
     "staticValues": ""
   },
   {
-    "id": 317,
+    "id": 1317,
     "resource": "StreamAnalytics/streamingjobs/outputs",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -6023,7 +6042,7 @@
     "staticValues": ""
   },
   {
-    "id": 318,
+    "id": 1318,
     "resource": "StreamAnalytics/streamingjobs/transformations",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -6042,7 +6061,7 @@
     "staticValues": ""
   },
   {
-    "id": 319,
+    "id": 1319,
     "resource": "Subscription/subscriptions",
     "optional": "Org,UnitDept,ProjAppSvc,Instance",
     "exclude": "ResourceType,Function,Location",
@@ -6061,7 +6080,7 @@
     "staticValues": ""
   },
   {
-    "id": 320,
+    "id": 1320,
     "resource": "Synapse/workspaces",
     "optional": "",
     "exclude": "",
@@ -6080,7 +6099,7 @@
     "staticValues": ""
   },
   {
-    "id": 321,
+    "id": 1321,
     "resource": "Synapse/workspaces/sqlPools",
     "optional": "",
     "exclude": "",
@@ -6099,7 +6118,7 @@
     "staticValues": ""
   },
   {
-    "id": 322,
+    "id": 1322,
     "resource": "Synapse/workspaces/sqlPools",
     "optional": "",
     "exclude": "",
@@ -6118,7 +6137,7 @@
     "staticValues": ""
   },
   {
-    "id": 323,
+    "id": 1323,
     "resource": "TimeSeriesInsights/environments",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -6137,7 +6156,7 @@
     "staticValues": ""
   },
   {
-    "id": 324,
+    "id": 1324,
     "resource": "TimeSeriesInsights/environments/accessPolicies",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -6156,7 +6175,7 @@
     "staticValues": ""
   },
   {
-    "id": 325,
+    "id": 1325,
     "resource": "TimeSeriesInsights/environments/eventSources",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -6175,7 +6194,7 @@
     "staticValues": ""
   },
   {
-    "id": 326,
+    "id": 1326,
     "resource": "TimeSeriesInsights/environments/referenceDataSets",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -6194,7 +6213,7 @@
     "staticValues": ""
   },
   {
-    "id": 327,
+    "id": 1327,
     "resource": "Web/certificates",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -6213,7 +6232,7 @@
     "staticValues": ""
   },
   {
-    "id": 328,
+    "id": 1328,
     "resource": "Web/serverfarms",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -6232,7 +6251,7 @@
     "staticValues": ""
   },
   {
-    "id": 329,
+    "id": 1329,
     "resource": "Web/sites",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -6251,7 +6270,7 @@
     "staticValues": ""
   },
   {
-    "id": 330,
+    "id": 1330,
     "resource": "Web/sites",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -6270,7 +6289,7 @@
     "staticValues": ""
   },
   {
-    "id": 331,
+    "id": 1331,
     "resource": "Web/sites",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -6289,7 +6308,7 @@
     "staticValues": ""
   },
   {
-    "id": 332,
+    "id": 1332,
     "resource": "Web/sites",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -6308,7 +6327,7 @@
     "staticValues": ""
   },
   {
-    "id": 333,
+    "id": 1333,
     "resource": "Web/sites",
     "optional": "UnitDept",
     "exclude": "Org,Function",
@@ -6327,7 +6346,7 @@
     "staticValues": ""
   },
   {
-    "id": 334,
+    "id": 1334,
     "resource": "Web/sites/slots",
     "optional": "UnitDept",
     "exclude": "Org,Function",
