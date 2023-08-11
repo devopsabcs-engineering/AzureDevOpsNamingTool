@@ -1,1 +1,16 @@
-[]
+{
+    "ParentComponents": [
+        {
+            "Id": 9,
+            "Name": "Prefix",
+            "DisplayName": "Prefix",
+            "Enabled": true,
+            "SortOrder": 9,
+            "IsCustom": true,
+            "IsFreeText": true,
+            "MinLength": "2",
+            "MaxLength": "5"
+        }
+    ],
+    "CustomComponents": []
+}
