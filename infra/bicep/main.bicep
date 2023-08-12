@@ -211,7 +211,7 @@ resource sites_devopsabcs_adonamingtool_name_web 'Microsoft.Web/sites/config@202
     logsDirectorySizeLimit: 35
     detailedErrorLoggingEnabled: false
     publishingUsername: '$${sites_devopsabcs_adonamingtool_name}'
-    scmType: 'GitHubAction'
+    //scmType: 'GitHubAction'
     use32BitWorkerProcess: true
     webSocketsEnabled: false
     alwaysOn: false
