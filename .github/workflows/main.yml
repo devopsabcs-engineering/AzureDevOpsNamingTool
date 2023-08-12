@@ -24,7 +24,7 @@ jobs:
       - name: Log in to container registry
         uses: docker/login-action@v2
         with:
-          registry: https://cradonamingtool3l3omk2gpdipc.azurecr.io/
+          registry: https://cradonamingtoolvo4hocgmzdmh4.azurecr.io/
           username: ${{ secrets.AzureAppService_ContainerUsername_75fd50420e1b4196a4e47d4a055fcda5 }}
           password: ${{ secrets.AzureAppService_ContainerPassword_4cf33966d3d34bbba3792002bf2c538d }}
 
@@ -32,7 +32,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: cradonamingtool3l3omk2gpdipc.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_75fd50420e1b4196a4e47d4a055fcda5 }}/devopsabcsadonamingtool/azuredevopsnamingtool:${{ github.sha }}
+          tags: cradonamingtoolvo4hocgmzdmh4.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_75fd50420e1b4196a4e47d4a055fcda5 }}/devopsabcsadonamingtool/azuredevopsnamingtool:${{ github.sha }}
           #file: ./Dockerfile
           context: ./src
 
@@ -48,7 +48,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'app-adonamingtool-3l3omk2gpdipc'
+          app-name: 'app-adonamingtool-vo4hocgmzdmh4'
           slot-name: 'production'
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_17081aaecf7d4fb49ab39a9a7e2e41d2 }}
-          images: 'cradonamingtool3l3omk2gpdipc.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_75fd50420e1b4196a4e47d4a055fcda5 }}/devopsabcsadonamingtool/azuredevopsnamingtool:${{ github.sha }}'
+          images: 'cradonamingtoolvo4hocgmzdmh4.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_75fd50420e1b4196a4e47d4a055fcda5 }}/devopsabcsadonamingtool/azuredevopsnamingtool:${{ github.sha }}'
