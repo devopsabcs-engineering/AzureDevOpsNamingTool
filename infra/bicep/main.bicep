@@ -7,7 +7,7 @@ param location string = resourceGroup().location
 
 var filesharename = 'adonamingtooldata'
 
-var imagereponame = 'devopsabcsadonamingtool/azuredevopsnamingtool'
+var imagereponame = 'azuredevopsnamingtool'
 var imagetag = 'latest'
 
 resource registries_devopsabcsadonamingtool_name_resource 'Microsoft.ContainerRegistry/registries@2023-06-01-preview' = {

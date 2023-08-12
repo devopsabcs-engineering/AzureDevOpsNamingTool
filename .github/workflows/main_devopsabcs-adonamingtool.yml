@@ -32,7 +32,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: devopsabcsadonamingtool.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_46a15f066d894a4f8a01e38638d1e0fb }}/azuredevopsnamingtool:latest,devopsabcsadonamingtool.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_46a15f066d894a4f8a01e38638d1e0fb }}/azuredevopsnamingtool:${{ github.sha }}
+        tags: devopsabcsadonamingtool.azurecr.io/azuredevopsnamingtool:latest,devopsabcsadonamingtool.azurecr.io/azuredevopsnamingtool:${{ github.sha }}
         #file: ./Dockerfile
         context: ./src
 
@@ -51,4 +51,4 @@ jobs:
         app-name: 'devopsabcs-adonamingtool'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_8e5a95604c9448629bba33315ff679d4 }}
-        images: 'devopsabcsadonamingtool.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_46a15f066d894a4f8a01e38638d1e0fb }}/azuredevopsnamingtool:${{ github.sha }}'
+        images: 'devopsabcsadonamingtool.azurecr.io/azuredevopsnamingtool:${{ github.sha }}'
