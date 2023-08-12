@@ -1,1 +1,29 @@
-[]
+[
+	{
+		"id": 2,
+		"parentComponent": "prefixpredefined",
+		"name": "Open AI",
+		"shortName": "oai",
+		"sortOrder": 2,
+		"minLength": "1",
+		"maxLength": "10"
+	},
+	{
+		"id": 1,
+		"parentComponent": "prefixpredefined",
+		"name": "APIM",
+		"shortName": "apim",
+		"sortOrder": 3,
+		"minLength": "1",
+		"maxLength": "10"
+	},
+	{
+		"id": 3,
+		"parentComponent": "prefixpredefined",
+		"name": "Artificial Intelligence",
+		"shortName": "ai",
+		"sortOrder": 1,
+		"minLength": "1",
+		"maxLength": "10"
+	}
+]
