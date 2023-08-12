@@ -32,7 +32,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: devopsabcsadonamingtool.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_46a15f066d894a4f8a01e38638d1e0fb }}/azuredevopsnamingtool:${{ github.sha }}
+        tags: devopsabcsadonamingtool.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_46a15f066d894a4f8a01e38638d1e0fb }}/azuredevopsnamingtool:latest,devopsabcsadonamingtool.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_46a15f066d894a4f8a01e38638d1e0fb }}/azuredevopsnamingtool:${{ github.sha }}
         #file: ./Dockerfile
         context: ./src
 

@@ -32,7 +32,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: cradonamingtoolvo4hocgmzdmh4.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_75fd50420e1b4196a4e47d4a055fcda5 }}/devopsabcsadonamingtool/azuredevopsnamingtool:${{ github.sha }}
+          tags: cradonamingtoolvo4hocgmzdmh4.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_75fd50420e1b4196a4e47d4a055fcda5 }}/azuredevopsnamingtool:latest,cradonamingtoolvo4hocgmzdmh4.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_75fd50420e1b4196a4e47d4a055fcda5 }}/azuredevopsnamingtool:${{ github.sha }}
           #file: ./Dockerfile
           context: ./src
 
@@ -51,4 +51,4 @@ jobs:
           app-name: 'app-adonamingtool-vo4hocgmzdmh4'
           slot-name: 'production'
           publish-profile: ${{ secrets.AzureAppService_PublishProfile_17081aaecf7d4fb49ab39a9a7e2e41d2 }}
-          images: 'cradonamingtoolvo4hocgmzdmh4.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_75fd50420e1b4196a4e47d4a055fcda5 }}/devopsabcsadonamingtool/azuredevopsnamingtool:${{ github.sha }}'
+          images: 'cradonamingtoolvo4hocgmzdmh4.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_75fd50420e1b4196a4e47d4a055fcda5 }}/azuredevopsnamingtool:${{ github.sha }}'
