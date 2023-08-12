@@ -4,9 +4,9 @@
 name: Build and deploy container app to Azure Web App - app-adonamingtool-3l3omk2gpdipc
 
 on:
-  push:
-    branches:
-      - main
+  #push:
+  #  branches:
+  #    - main
   workflow_dispatch:
 
 jobs:
