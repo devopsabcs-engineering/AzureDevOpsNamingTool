@@ -1,7 +1,7 @@
-param serverfarms_plan_adonamingtool_name string = 'plan-adonamingtool-${uniqueString(resourceGroup().id)}'
-param sites_devopsabcs_adonamingtool_name string = 'app-adonamingtool-${uniqueString(resourceGroup().id)}'
-param storageAccounts_stadonamingtool_name string = 'stadonaming${uniqueString(resourceGroup().id)}'
-param registries_devopsabcsadonamingtool_name string = 'cradonamingtool${uniqueString(resourceGroup().id)}'
+param planName string = 'plan-adonamingtool-${uniqueString(resourceGroup().id)}'
+param websiteName string = 'app-adonamingtool-${uniqueString(resourceGroup().id)}'
+param storageAccountName string = 'stadonaming${uniqueString(resourceGroup().id)}'
+param registryName string = 'cradonamingtool${uniqueString(resourceGroup().id)}'
 
 param location string = resourceGroup().location
 
@@ -10,8 +10,8 @@ var filesharename = 'adonamingtooldata'
 var imagereponame = 'azuredevopsnamingtool'
 var imagetag = 'latest'
 
-resource registries_devopsabcsadonamingtool_name_resource 'Microsoft.ContainerRegistry/registries@2023-06-01-preview' = {
-  name: registries_devopsabcsadonamingtool_name
+resource registry 'Microsoft.ContainerRegistry/registries@2023-06-01-preview' = {
+  name: registryName
   location: location
   sku: {
     name: 'Basic'
@@ -52,8 +52,8 @@ resource registries_devopsabcsadonamingtool_name_resource 'Microsoft.ContainerRe
   }
 }
 
-resource storageAccounts_stadonamingtool_name_resource 'Microsoft.Storage/storageAccounts@2023-01-01' = {
-  name: storageAccounts_stadonamingtool_name
+resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' = {
+  name: storageAccountName
   location: location
   sku: {
     name: 'Standard_LRS'
@@ -111,8 +111,8 @@ resource storageAccounts_stadonamingtool_name_resource 'Microsoft.Storage/storag
   }
 }
 
-resource serverfarms_plan_adonamingtool_name_resource 'Microsoft.Web/serverfarms@2022-09-01' = {
-  name: serverfarms_plan_adonamingtool_name
+resource plan 'Microsoft.Web/serverfarms@2022-09-01' = {
+  name: planName
   location: location
   sku: {
     name: 'B1'
@@ -136,25 +136,25 @@ resource serverfarms_plan_adonamingtool_name_resource 'Microsoft.Web/serverfarms
   }
 }
 
-resource sites_devopsabcs_adonamingtool_name_resource 'Microsoft.Web/sites@2022-09-01' = {
-  name: sites_devopsabcs_adonamingtool_name
+resource website 'Microsoft.Web/sites@2022-09-01' = {
+  name: websiteName
   location: location
   kind: 'app,linux,container'
   properties: {
     enabled: true
     hostNameSslStates: [
       {
-        name: '${sites_devopsabcs_adonamingtool_name}.azurewebsites.net'
+        name: '${websiteName}.azurewebsites.net'
         sslState: 'Disabled'
         hostType: 'Standard'
       }
       {
-        name: '${sites_devopsabcs_adonamingtool_name}.scm.azurewebsites.net'
+        name: '${websiteName}.scm.azurewebsites.net'
         sslState: 'Disabled'
         hostType: 'Repository'
       }
     ]
-    serverFarmId: serverfarms_plan_adonamingtool_name_resource.id
+    serverFarmId: plan.id
     reserved: true
     isXenon: false
     hyperV: false
@@ -163,7 +163,7 @@ resource sites_devopsabcs_adonamingtool_name_resource 'Microsoft.Web/sites@2022-
     vnetContentShareEnabled: false
     siteConfig: {
       numberOfWorkers: 1
-      linuxFxVersion: 'DOCKER|${registries_devopsabcsadonamingtool_name}.azurecr.io/${imagereponame}:${imagetag}'
+      linuxFxVersion: 'DOCKER|${registryName}.azurecr.io/${imagereponame}:${imagetag}'
       acrUseManagedIdentityCreds: false
       alwaysOn: false
       http20Enabled: false
@@ -183,89 +183,88 @@ resource sites_devopsabcs_adonamingtool_name_resource 'Microsoft.Web/sites@2022-
     storageAccountRequired: false
     keyVaultReferenceIdentity: 'SystemAssigned'
   }
-}
 
-resource sites_devopsabcs_adonamingtool_name_web 'Microsoft.Web/sites/config@2022-09-01' = {
-  parent: sites_devopsabcs_adonamingtool_name_resource
-  name: 'web'
-  properties: {
-    numberOfWorkers: 1
-    defaultDocuments: [
-      'Default.htm'
-      'Default.html'
-      'Default.asp'
-      'index.htm'
-      'index.html'
-      'iisstart.htm'
-      'default.aspx'
-      'index.php'
-      'hostingstart.html'
-    ]
-    netFrameworkVersion: 'v4.0'
-    linuxFxVersion: 'DOCKER|${registries_devopsabcsadonamingtool_name}.azurecr.io/${imagereponame}:${imagetag}'
-    requestTracingEnabled: false
-    remoteDebuggingEnabled: false
-    remoteDebuggingVersion: 'VS2019'
-    httpLoggingEnabled: false
-    acrUseManagedIdentityCreds: false
-    logsDirectorySizeLimit: 35
-    detailedErrorLoggingEnabled: false
-    publishingUsername: '$${sites_devopsabcs_adonamingtool_name}'
-    //scmType: 'GitHubAction'
-    use32BitWorkerProcess: true
-    webSocketsEnabled: false
-    alwaysOn: false
-    managedPipelineMode: 'Integrated'
-    virtualApplications: [
-      {
-        virtualPath: '/'
-        physicalPath: 'site\\wwwroot'
-        preloadEnabled: false
+  resource websiteConfig 'config@2022-09-01' = {
+    name: 'web'
+    properties: {
+      numberOfWorkers: 1
+      defaultDocuments: [
+        'Default.htm'
+        'Default.html'
+        'Default.asp'
+        'index.htm'
+        'index.html'
+        'iisstart.htm'
+        'default.aspx'
+        'index.php'
+        'hostingstart.html'
+      ]
+      netFrameworkVersion: 'v4.0'
+      linuxFxVersion: 'DOCKER|${registryName}.azurecr.io/${imagereponame}:${imagetag}'
+      requestTracingEnabled: false
+      remoteDebuggingEnabled: false
+      remoteDebuggingVersion: 'VS2019'
+      httpLoggingEnabled: false
+      acrUseManagedIdentityCreds: false
+      logsDirectorySizeLimit: 35
+      detailedErrorLoggingEnabled: false
+      publishingUsername: '$${websiteName}'
+      //scmType: 'GitHubAction'
+      use32BitWorkerProcess: true
+      webSocketsEnabled: false
+      alwaysOn: false
+      managedPipelineMode: 'Integrated'
+      virtualApplications: [
+        {
+          virtualPath: '/'
+          physicalPath: 'site\\wwwroot'
+          preloadEnabled: false
+        }
+      ]
+      loadBalancing: 'LeastRequests'
+      experiments: {
+        rampUpRules: []
       }
-    ]
-    loadBalancing: 'LeastRequests'
-    experiments: {
-      rampUpRules: []
-    }
-    autoHealEnabled: false
-    vnetRouteAllEnabled: false
-    vnetPrivatePortsCount: 0
-    publicNetworkAccess: 'Enabled'
-    localMySqlEnabled: false
-    ipSecurityRestrictions: [
-      {
-        ipAddress: 'Any'
-        action: 'Allow'
-        priority: 2147483647
-        name: 'Allow all'
-        description: 'Allow all access'
-      }
-    ]
-    scmIpSecurityRestrictions: [
-      {
-        ipAddress: 'Any'
-        action: 'Allow'
-        priority: 2147483647
-        name: 'Allow all'
-        description: 'Allow all access'
-      }
-    ]
-    scmIpSecurityRestrictionsUseMain: false
-    http20Enabled: false
-    minTlsVersion: '1.2'
-    scmMinTlsVersion: '1.2'
-    ftpsState: 'FtpsOnly'
-    preWarmedInstanceCount: 0
-    elasticWebAppScaleLimit: 0
-    functionsRuntimeScaleMonitoringEnabled: false
-    minimumElasticInstanceCount: 0
-    azureStorageAccounts: {
-      adonamingtooldata: {
-        type: 'AzureFiles'
-        accountName: storageAccounts_stadonamingtool_name
-        shareName: filesharename
-        mountPath: '/app/settings'
-        accessKey: storageAccounts_stadonamingtool_name_resource.listKeys().keys[0].value
+      autoHealEnabled: false
+      vnetRouteAllEnabled: false
+      vnetPrivatePortsCount: 0
+      publicNetworkAccess: 'Enabled'
+      localMySqlEnabled: false
+      ipSecurityRestrictions: [
+        {
+          ipAddress: 'Any'
+          action: 'Allow'
+          priority: 2147483647
+          name: 'Allow all'
+          description: 'Allow all access'
+        }
+      ]
+      scmIpSecurityRestrictions: [
+        {
+          ipAddress: 'Any'
+          action: 'Allow'
+          priority: 2147483647
+          name: 'Allow all'
+          description: 'Allow all access'
+        }
+      ]
+      scmIpSecurityRestrictionsUseMain: false
+      http20Enabled: false
+      minTlsVersion: '1.2'
+      scmMinTlsVersion: '1.2'
+      ftpsState: 'FtpsOnly'
+      preWarmedInstanceCount: 0
+      elasticWebAppScaleLimit: 0
+      functionsRuntimeScaleMonitoringEnabled: false
+      minimumElasticInstanceCount: 0
+      azureStorageAccounts: {
+        adonamingtooldata: {
+          type: 'AzureFiles'
+          accountName: storageAccountName
+          shareName: filesharename
+          mountPath: '/app/settings'
+          accessKey: storageAccount.listKeys().keys[0].value
+        }
       }
     }
   }

@@ -1,5 +1,5 @@
 $subscription = "Marketing"
-$resourceGroup = "rg-adonamingtool-tst-002"
+$resourceGroup = "rg-adonamingtool-tst-003"
 $location = "canadacentral"
 az login
 az account set -s $subscription
