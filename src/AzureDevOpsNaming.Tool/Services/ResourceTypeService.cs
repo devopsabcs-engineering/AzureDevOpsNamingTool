@@ -278,7 +278,7 @@ namespace AzureNaming.Tool.Services
                     List<ResourceType> types = (List<ResourceType>)serviceResponse.ResponseObject!;
                     if (GeneralHelper.IsNotNull(types))
                     {
-                        string url = "https://raw.githubusercontent.com/devopsabcs-engineering/AzureDevOpsNamingTool/main/src/repository/resourcetypes.json";
+                        string url = "https://raw.githubusercontent.com/devopsabcs-engineering/AzureDevOpsNamingTool/main/src/AzureDevOpsNaming.Tool/repository/resourcetypes.json";
                         string refreshdata = await GeneralHelper.DownloadString(url);
                         if (!String.IsNullOrEmpty(refreshdata))
                         {
