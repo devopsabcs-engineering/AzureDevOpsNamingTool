@@ -33,7 +33,8 @@ jobs:
       with:
         push: true
         tags: cradonamingtoolfysqsphyi4vus.azurecr.io/azuredevopsnamingtool:latest,cradonamingtoolfysqsphyi4vus.azurecr.io/azuredevopsnamingtool:${{ github.sha }}
-        file: ./Dockerfile
+        #file: ./Dockerfile
+        context: ./src
 
   deploy:
     runs-on: ubuntu-latest
