@@ -34,7 +34,7 @@ jobs:
         push: true
         tags: devopsabcsadonamingtool.azurecr.io/azuredevopsnamingtool:latest,devopsabcsadonamingtool.azurecr.io/azuredevopsnamingtool:${{ github.sha }}
         #file: ./Dockerfile
-        context: ./src
+        context: ./src/AzureDevOpsNaming.Tool
 
   deploy:
     runs-on: ubuntu-latest

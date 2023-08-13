@@ -34,7 +34,7 @@ jobs:
           push: true
           tags: cradonamingtoolvo4hocgmzdmh4.azurecr.io/azuredevopsnamingtool:latest,cradonamingtoolvo4hocgmzdmh4.azurecr.io/azuredevopsnamingtool:${{ github.sha }}
           #file: ./Dockerfile
-          context: ./src
+          context: ./src/AzureDevOpsNaming.Tool
 
   deploy:
     runs-on: ubuntu-latest
