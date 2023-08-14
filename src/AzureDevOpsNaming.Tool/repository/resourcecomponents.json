@@ -100,10 +100,21 @@
 	},
 	{
 		"Id": 10,
+		"Name": "UniqueString",
+		"DisplayName": "UniqueString",
+		"Enabled": true,
+		"SortOrder": 10,
+		"IsCustom": true,
+		"IsFreeText": true,
+		"MinLength": "13",
+		"MaxLength": "13"
+	},
+	{
+		"Id": 11,
 		"Name": "ResourceInstance",
 		"DisplayName": "Instance",
 		"Enabled": true,
-		"SortOrder": 10,
+		"SortOrder": 11,
 		"IsCustom": false,
 		"IsFreeText": false,
 		"MinLength": "1",
