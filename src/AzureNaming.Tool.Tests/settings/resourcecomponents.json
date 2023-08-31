@@ -1,0 +1,123 @@
+[
+	{
+		"Id": 1,
+		"Name": "ResourceType",
+		"DisplayName": "Resource Types",
+		"Enabled": true,
+		"SortOrder": 1,
+		"IsCustom": false,
+		"IsFreeText": false,
+		"MinLength": "1",
+		"MaxLength": "10"
+	},
+	{
+		"Id": 2,
+		"Name": "Prefix",
+		"DisplayName": "Prefix",
+		"Enabled": true,
+		"SortOrder": 2,
+		"IsCustom": true,
+		"IsFreeText": true,
+		"MinLength": "2",
+		"MaxLength": "5"
+	},
+	{
+		"Id": 3,
+		"Name": "PrefixPreDefined",
+		"DisplayName": "PrefixPreDefined",
+		"Enabled": true,
+		"SortOrder": 3,
+		"IsCustom": true,
+		"IsFreeText": false,
+		"MinLength": "2",
+		"MaxLength": "5"
+	},
+	{
+		"Id": 4,
+		"Name": "ResourceOrg",
+		"DisplayName": "Orgs",
+		"Enabled": true,
+		"SortOrder": 4,
+		"IsCustom": false,
+		"IsFreeText": false,
+		"MinLength": "1",
+		"MaxLength": "5"
+	},
+	{
+		"Id": 5,
+		"Name": "ResourceUnitDept",
+		"DisplayName": "Units/Depts",
+		"Enabled": true,
+		"SortOrder": 5,
+		"IsCustom": false,
+		"IsFreeText": false,
+		"MinLength": "1",
+		"MaxLength": "5"
+	},
+	{
+		"Id": 6,
+		"Name": "ResourceProjAppSvc",
+		"DisplayName": "Projects/Apps/Services",
+		"Enabled": true,
+		"SortOrder": 6,
+		"IsCustom": false,
+		"IsFreeText": false,
+		"MinLength": "1",
+		"MaxLength": "3"
+	},
+	{
+		"Id": 7,
+		"Name": "ResourceFunction",
+		"DisplayName": "Functions",
+		"Enabled": true,
+		"SortOrder": 7,
+		"IsCustom": false,
+		"IsFreeText": false,
+		"MinLength": "1",
+		"MaxLength": "10"
+	},
+	{
+		"Id": 8,
+		"Name": "ResourceEnvironment",
+		"DisplayName": "Environments",
+		"Enabled": true,
+		"SortOrder": 8,
+		"IsCustom": false,
+		"IsFreeText": false,
+		"MinLength": "1",
+		"MaxLength": "5"
+	},
+	{
+		"Id": 9,
+		"Name": "ResourceLocation",
+		"DisplayName": "Locations",
+		"Enabled": true,
+		"SortOrder": 9,
+		"IsCustom": false,
+		"IsFreeText": false,
+		"MinLength": "1",
+		"MaxLength": "10"
+	},
+	{
+		"Id": 10,
+		"Name": "UniqueString",
+		"DisplayName": "UniqueString",
+		"Enabled": true,
+		"SortOrder": 10,
+		"IsCustom": true,
+		"IsFreeText": true,
+		"MinLength": "13",
+		"MaxLength": "13"
+	},
+	{
+		"Id": 11,
+		"Name": "ResourceInstance",
+		"DisplayName": "Instance",
+		"Enabled": true,
+		"SortOrder": 11,
+		"IsCustom": false,
+		"IsFreeText": false,
+		"MinLength": "1",
+		"MaxLength": "5"
+	}
+]
