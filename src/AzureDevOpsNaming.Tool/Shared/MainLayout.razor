@@ -15,6 +15,8 @@
 @inject ProtectedLocalStorage storage
 @inject ProtectedSessionStorage session
 @inject IHttpContextAccessor httpContextAccessor
+@inject IAdminLogService _adminLogService
+
 
 <PageTitle>Azure DevOps Naming Tool</PageTitle>
 <BlazoredToasts Position="ToastPosition.BottomRight" ShowProgressBar="true" />
@@ -153,7 +155,7 @@
                                 await session.SetAsync("currentuser", currentuser);
 
                                 // Log the user access
-                                AdminLogService.PostItem(new AdminLogMessage() { Title = "INFORMATION", Message = "User accessed the site.", Source = currentuser });
+                                _adminLogService.PostItem(new AdminLogMessage() { Title = "INFORMATION", Message = "User accessed the site.", Source = currentuser });
 
                                 // CHeck if the user is an admin
                                 admin = await IdentityHelper.IsAdminUser(state, session, currentuser);

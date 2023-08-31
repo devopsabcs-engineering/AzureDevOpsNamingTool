@@ -8,6 +8,9 @@
 @inject NavigationManager NavigationManager
 @inject StateContainer state
 @inject IToastService toastService
+@inject ServicesHelper _servicesHelper
+@inject IResourceTypeService _resourceTypeService
+@inject IAdminLogService _adminLogService
 
 <PageTitle>Azure DevOps Naming Tool - Reference</PageTitle>
 
@@ -54,7 +57,7 @@
 
                     <select @onchange="OnTypeChanged" class="form-control @theme.ThemeStyle" aria-label="Select type">
                         <option value="">Select a resource type</option>
-                        @foreach (var type in @ResourceTypeService.GetFilteredResourceTypes(servicesData.ResourceTypes, selectedResourceTypeCategory))
+                        @foreach (var type in @_resourceTypeService.GetFilteredResourceTypes(servicesData.ResourceTypes, selectedResourceTypeCategory))
                         {
                             @if (!String.IsNullOrEmpty(type.Property))
                             {
@@ -389,7 +392,7 @@
                 resourceDelimiter = (ResourceDelimiter)servicesData.ResourceDelimiters![0];
 
                 // Get the list of categories
-                categories = ResourceTypeService.GetTypeCategories(servicesData.ResourceTypes!);
+                categories = _resourceTypeService.GetTypeCategories(servicesData.ResourceTypes!);
             }
             else
             {
@@ -398,7 +401,7 @@
         }
         catch (Exception ex)
         {
-            AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+            _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             toastService.ShowError("There was a problem loading the page. Please try again");
         }
     }

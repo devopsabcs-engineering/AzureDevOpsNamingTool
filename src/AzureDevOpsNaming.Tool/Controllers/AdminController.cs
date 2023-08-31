@@ -1,14 +1,8 @@
-﻿using AzureNaming.Tool.Models;
+﻿using AzureNaming.Tool.Attributes;
 using AzureNaming.Tool.Helpers;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
+using AzureNaming.Tool.Models;
 using AzureNaming.Tool.Services;
-using AzureNaming.Tool.Attributes;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,9 +12,23 @@ namespace AzureNaming.Tool.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ApiKey]
+    //[TypeFilter(typeof(ApiKeyAttribute))]
     public class AdminController : ControllerBase
     {
-        private readonly SiteConfiguration config = ConfigurationHelper.GetConfigurationData();
+        private readonly SiteConfiguration _config = ConfigurationHelper.GetConfigurationData();
+        private readonly IGeneratedNamesService _generatedNamesService;
+        private readonly IAdminService _adminService;
+        private readonly IAdminLogService _adminLogService;
+
+        public AdminController(
+            IGeneratedNamesService generatedNamesService,
+            IAdminService adminService,
+            IAdminLogService adminLogService)
+        {
+            _generatedNamesService = generatedNamesService;
+            _adminService = adminService;
+            _adminLogService = adminLogService;
+        }
 
         // POST api/<AdminController>
         /// <summary>
@@ -38,9 +46,9 @@ namespace AzureNaming.Tool.Controllers
             {
                 if (GeneralHelper.IsNotNull(adminpassword))
                 {
-                    if (adminpassword == GeneralHelper.DecryptString(config.AdminPassword!, config.SALTKey!))
+                    if (adminpassword == GeneralHelper.DecryptString(_config.AdminPassword!, _config.SALTKey!))
                     {
-                        serviceResponse = await AdminService.UpdatePassword(password);
+                        serviceResponse = await _adminService.UpdatePassword(password);
                         return (serviceResponse.Success ? Ok("SUCCESS") : Ok("FAILURE - There was a problem updating the password."));
                     }
                     else
@@ -56,7 +64,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -77,9 +85,9 @@ namespace AzureNaming.Tool.Controllers
             {
                 if (GeneralHelper.IsNotNull(adminpassword))
                 {
-                    if (adminpassword == GeneralHelper.DecryptString(config.AdminPassword!, config.SALTKey!))
+                    if (adminpassword == GeneralHelper.DecryptString(_config.AdminPassword!, _config.SALTKey!))
                     {
-                        serviceResponse = await AdminService.UpdateAPIKey(apikey);
+                        serviceResponse = await _adminService.UpdateAPIKey(apikey);
                         return (serviceResponse.Success ? Ok("SUCCESS") : Ok("FAILURE - There was a problem updating the API Key."));
                     }
                     else
@@ -95,7 +103,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -116,9 +124,9 @@ namespace AzureNaming.Tool.Controllers
             {
                 if (GeneralHelper.IsNotNull(adminpassword))
                 {
-                    if (adminpassword == GeneralHelper.DecryptString(config.AdminPassword!, config.SALTKey!))
+                    if (adminpassword == GeneralHelper.DecryptString(_config.AdminPassword!, _config.SALTKey!))
                     {
-                        serviceResponse = await AdminService.GenerateAPIKey();
+                        serviceResponse = await _adminService.GenerateAPIKey();
                         return (serviceResponse.Success ? Ok("SUCCESS") : Ok("FAILURE - There was a problem generating the API Key."));
                     }
                     else
@@ -134,7 +142,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -152,9 +160,9 @@ namespace AzureNaming.Tool.Controllers
             {
                 if (GeneralHelper.IsNotNull(adminpassword))
                 {
-                    if (adminpassword == GeneralHelper.DecryptString(config.AdminPassword!, config.SALTKey!))
+                    if (adminpassword == GeneralHelper.DecryptString(_config.AdminPassword!, _config.SALTKey!))
                     {
-                        serviceResponse = await AdminLogService.GetItems();
+                        serviceResponse = await _adminLogService.GetItems();
                         if (serviceResponse.Success)
                         {
                             return Ok(serviceResponse.ResponseObject);
@@ -177,7 +185,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -195,9 +203,9 @@ namespace AzureNaming.Tool.Controllers
             {
                 if (GeneralHelper.IsNotNull(adminpassword))
                 {
-                    if (adminpassword == GeneralHelper.DecryptString(config.AdminPassword!, config.SALTKey!))
+                    if (adminpassword == GeneralHelper.DecryptString(_config.AdminPassword!, _config.SALTKey!))
                     {
-                        serviceResponse = await AdminLogService.DeleteAllItems();
+                        serviceResponse = await _adminLogService.DeleteAllItems();
                         if (serviceResponse.Success)
                         {
                             return Ok(serviceResponse.ResponseObject);
@@ -220,7 +228,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -236,7 +244,7 @@ namespace AzureNaming.Tool.Controllers
             ServiceResponse serviceResponse = new();
             try
             {
-                serviceResponse = await GeneratedNamesService.GetItems();
+                serviceResponse = await _generatedNamesService.GetItems();
                 if (serviceResponse.Success)
                 {
                     return Ok(serviceResponse.ResponseObject);
@@ -248,7 +256,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -266,9 +274,9 @@ namespace AzureNaming.Tool.Controllers
             {
                 if (GeneralHelper.IsNotNull(adminpassword))
                 {
-                    if (adminpassword == GeneralHelper.DecryptString(config.AdminPassword!, config.SALTKey!))
+                    if (adminpassword == GeneralHelper.DecryptString(_config.AdminPassword!, _config.SALTKey!))
                     {
-                        serviceResponse = await GeneratedNamesService.DeleteAllItems();
+                        serviceResponse = await _generatedNamesService.DeleteAllItems();
                         if (serviceResponse.Success)
                         {
                             return Ok(serviceResponse.ResponseObject);
@@ -291,7 +299,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -309,7 +317,7 @@ namespace AzureNaming.Tool.Controllers
             {
                 if (GeneralHelper.IsNotNull(adminpassword))
                 {
-                    if (adminpassword == GeneralHelper.DecryptString(config.AdminPassword!, config.SALTKey!))
+                    if (adminpassword == GeneralHelper.DecryptString(_config.AdminPassword!, _config.SALTKey!))
                     {
                         if (ConfigurationHelper.ResetSiteConfiguration())
                         {
@@ -332,7 +340,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }

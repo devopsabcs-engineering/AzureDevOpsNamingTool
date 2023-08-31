@@ -1,11 +1,12 @@
 using AzureNaming.Tool.Attributes;
+using AzureNaming.Tool.Helpers;
+using AzureNaming.Tool.Models;
+using AzureNaming.Tool.Services;
 using BlazorDownloadFile;
+using Blazored.Modal;
 using Blazored.Toast;
 using Microsoft.OpenApi.Models;
-using Blazored.Modal;
-using Swashbuckle.AspNetCore.Swagger;
 using System.Reflection;
-using AzureNaming.Tool.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,36 @@ builder.Services.AddBlazoredModal();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSingleton<StateContainer>();
+
+// 9 helpers + 17 services + 1 factory -- came from static -- 27 total
+builder.Services.AddSingleton<IAdminLogService, AdminLogService>(); //services
+builder.Services.AddSingleton<IAdminService, AdminService>();
+builder.Services.AddSingleton<IAdminUserService, AdminUserService>();
+builder.Services.AddSingleton<ICustomComponentService, CustomComponentService>();
+builder.Services.AddSingleton<IGeneratedNamesService, GeneratedNamesService>();
+builder.Services.AddSingleton<IPolicyService, PolicyService>();
+builder.Services.AddSingleton<IResourceDelimiterService, ResourceDelimiterService>();
+builder.Services.AddSingleton<IResourceEnvironmentService, ResourceEnvironmentService>();
+builder.Services.AddSingleton<IResourceFunctionService, ResourceFunctionService>();
+builder.Services.AddSingleton<IResourceLocationService, ResourceLocationService>();
+builder.Services.AddSingleton<IResourceNamingRequestService, ResourceNamingRequestService>();
+builder.Services.AddSingleton<IResourceOrgService, ResourceOrgService>();
+builder.Services.AddSingleton<IResourceProjAppSvcService, ResourceProjAppSvcService>();
+builder.Services.AddSingleton<IResourceUnitDeptService, ResourceUnitDeptService>();
+builder.Services.AddSingleton<IResourceTypeService, ResourceTypeService>(); //circular dependency with resource component
+builder.Services.AddSingleton<IResourceComponentService, ResourceComponentService>(); //circular dependency with resource type
+builder.Services.AddSingleton<IImportExportService, ImportExportService>();
+builder.Services.AddSingleton<IPolicyRuleFactory, PolicyRuleFactory>(); // factory
+builder.Services.AddSingleton<CacheHelper>(); //helpers
+builder.Services.AddSingleton<ConfigurationHelper>();
+builder.Services.AddSingleton<FileSystemHelper>();
+builder.Services.AddSingleton<GeneralHelper>();
+builder.Services.AddSingleton<IdentityHelper>();
+builder.Services.AddSingleton<LogHelper>();
+builder.Services.AddSingleton<ModalHelper>();
+builder.Services.AddSingleton<ServicesHelper>();
+builder.Services.AddSingleton<ValidationHelper>();
+
 
 builder.Services.AddSwaggerGen(c =>
 {

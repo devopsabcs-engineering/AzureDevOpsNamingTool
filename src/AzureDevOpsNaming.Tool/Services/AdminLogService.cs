@@ -1,17 +1,17 @@
 ﻿using AzureNaming.Tool.Helpers;
 using AzureNaming.Tool.Models;
-using AzureNaming.Tool.Pages;
-using System.Text.Json;
 
 namespace AzureNaming.Tool.Services
 {
-    public class AdminLogService
+    public class AdminLogService : IAdminLogService
     {
+
+
         /// <summary>
         /// This function returns the Admin log. 
         /// </summary>
         /// <returns>List of AdminLogMessages - List of Adming Log messages.</returns>
-        public static async Task<ServiceResponse> GetItems()
+        public async Task<ServiceResponse> GetItems()
         {
             ServiceResponse serviceResponse = new();
             try
@@ -26,7 +26,7 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage { Title = "Error", Message = ex.Message });
+                this.PostItem(new AdminLogMessage { Title = "Error", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }
@@ -37,7 +37,7 @@ namespace AzureNaming.Tool.Services
         /// <summary>
         /// This function logs the Admin message.
         /// </summary>
-        public static async void PostItem(AdminLogMessage adminlogMessage)
+        public async void PostItem(AdminLogMessage adminlogMessage)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -65,7 +65,7 @@ namespace AzureNaming.Tool.Services
         /// This function clears the Admin log. 
         /// </summary>
         /// <returns>void</returns>
-        public static async Task<ServiceResponse> DeleteAllItems()
+        public async Task<ServiceResponse> DeleteAllItems()
         {
             ServiceResponse serviceResponse = new();
             try
@@ -76,13 +76,13 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage { Title = "ERROR", Message = ex.Message });
+                this.PostItem(new AdminLogMessage { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> PostConfig(List<AdminLogMessage> items)
+        public async Task<ServiceResponse> PostConfig(List<AdminLogMessage> items)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -105,7 +105,7 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                this.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.ResponseObject = ex;
                 serviceResponse.Success = false;
             }

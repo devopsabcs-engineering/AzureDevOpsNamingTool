@@ -7,6 +7,7 @@
 @inject NavigationManager NavigationManager
 @inject StateContainer state
 @inject ProtectedSessionStorage session
+@inject IAdminLogService _adminLogService
 
 <PageTitle>Azure DevOps Naming Tool - Home</PageTitle>
 
@@ -97,7 +98,7 @@
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             }
         }
     }

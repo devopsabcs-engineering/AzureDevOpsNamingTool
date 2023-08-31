@@ -1,17 +1,8 @@
-﻿using AzureNaming.Tool.Models;
+﻿using AzureNaming.Tool.Attributes;
 using AzureNaming.Tool.Helpers;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Text;
-using System.Collections;
-using System.Threading;
+using AzureNaming.Tool.Models;
 using AzureNaming.Tool.Services;
-using AzureNaming.Tool.Attributes;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,8 +11,22 @@ namespace AzureNaming.Tool.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ApiKey]
+    //[TypeFilter(typeof(ApiKeyAttribute))]
     public class ResourceNamingRequestsController : ControllerBase
     {
+        private readonly IResourceNamingRequestService _resourceNamingRequestService;
+        private readonly IAdminLogService _adminLogService;
+        private readonly IResourceTypeService _resourceTypeService;
+
+        public ResourceNamingRequestsController(IResourceNamingRequestService resourceNamingRequestService,
+            IAdminLogService adminLogService,
+            IResourceTypeService resourceTypeService)
+        {
+            _resourceNamingRequestService = resourceNamingRequestService;
+            _adminLogService = adminLogService;
+            _resourceTypeService = resourceTypeService;
+        }
+
         // POST api/<ResourceNamingRequestsController>
         /// <summary>
         /// This function will generate a resoure type name for specifed component values. This function requires full definition for all components. It is recommended to use the RequestName API function for name generation.   
@@ -34,7 +39,7 @@ namespace AzureNaming.Tool.Controllers
         {
             try
             {
-                ResourceNameResponse resourceNameRequestResponse = await ResourceNamingRequestService.RequestNameWithComponents(request);
+                ResourceNameResponse resourceNameRequestResponse = await _resourceNamingRequestService.RequestNameWithComponents(request);
                 if (resourceNameRequestResponse.Success)
                 {
                     return Ok(resourceNameRequestResponse);
@@ -46,7 +51,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex.Message);
             }
         }
@@ -64,7 +69,7 @@ namespace AzureNaming.Tool.Controllers
             try
             {
                 request.CreatedBy = "API";
-                ResourceNameResponse resourceNameRequestResponse = await ResourceNamingRequestService.RequestName(request);
+                ResourceNameResponse resourceNameRequestResponse = await _resourceNamingRequestService.RequestName(request);
                 if (resourceNameRequestResponse.Success)
                 {
                     return Ok(resourceNameRequestResponse);
@@ -76,7 +81,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex.Message);
             }
         }
@@ -95,7 +100,7 @@ namespace AzureNaming.Tool.Controllers
             try
             {
                 // Get the current delimiter
-                serviceResponse = await ResourceTypeService.ValidateResourceTypeName(validateNameRequest);
+                serviceResponse = await _resourceTypeService.ValidateResourceTypeName(validateNameRequest);
                 if (serviceResponse.Success)
                 {
                     if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -115,7 +120,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex.Message);
             }
         }

@@ -1,13 +1,22 @@
 ﻿using AzureNaming.Tool.Models;
 using AzureNaming.Tool.Services;
-using System.Text.RegularExpressions;
 using System.Text;
-using System.Configuration;
+using System.Text.RegularExpressions;
 
 namespace AzureNaming.Tool.Helpers
 {
     public class ValidationHelper
     {
+        private static IResourceComponentService _resourceComponentService;
+        private static IAdminLogService _adminLogService;
+
+        public ValidationHelper(IResourceComponentService resourceComponentService,
+            IAdminLogService adminLogService)
+        {
+            _resourceComponentService = resourceComponentService;
+            _adminLogService = adminLogService;
+        }
+
         public static bool ValidatePassword(string text)
         {
             var hasNumber = new Regex(@"[0-9]+");
@@ -29,7 +38,7 @@ namespace AzureNaming.Tool.Helpers
                 ServiceResponse serviceResponse;
 
                 // Get the current components
-                serviceResponse = await ResourceComponentService.GetItems(true);
+                serviceResponse = await _resourceComponentService.GetItems(true);
                 if (serviceResponse.Success)
                 {
                     if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -65,7 +74,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             }
             return valid;
         }
@@ -91,7 +100,7 @@ namespace AzureNaming.Tool.Helpers
                 if (!match.Success)
                 {
                     if (delimitervalid)
-                        {
+                    {
                         // Strip the delimiter in case that is causing the issue
                         name = name.Replace(delimiter, "");
 
@@ -229,7 +238,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 response.Valid = false;
                 response.Name = name;
                 response.Message = "There was a problem validating the name.";

@@ -1,23 +1,29 @@
 ﻿using AzureNaming.Tool.Helpers;
 using AzureNaming.Tool.Models;
-using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace AzureNaming.Tool.Services
 {
-    public class AdminService
+    public class AdminService : IAdminService
     {
-        private static readonly SiteConfiguration config = ConfigurationHelper.GetConfigurationData();
+        private SiteConfiguration _config = ConfigurationHelper.GetConfigurationData();
 
-        public static async Task<ServiceResponse> UpdatePassword(string password)
+        private IAdminLogService _adminLogService;
+
+
+        public AdminService(IAdminLogService adminLogService)
+        {
+            _adminLogService = adminLogService;
+        }
+
+        public async Task<ServiceResponse> UpdatePassword(string password)
         {
             ServiceResponse serviceResponse = new();
             try
             {
                 if (ValidationHelper.ValidatePassword(password))
                 {
-                    config.AdminPassword = GeneralHelper.EncryptString(password, config.SALTKey!);
-                    await ConfigurationHelper.UpdateSettings(config);
+                    _config.AdminPassword = GeneralHelper.EncryptString(password, _config.SALTKey!);
+                    await ConfigurationHelper.UpdateSettings(_config);
                     serviceResponse.Success = true;
                 }
                 else
@@ -28,66 +34,66 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> GenerateAPIKey()
+        public async Task<ServiceResponse> GenerateAPIKey()
         {
             ServiceResponse serviceResponse = new();
             try
             {
                 // Set the new api key
                 Guid guid = Guid.NewGuid();
-                config.APIKey = GeneralHelper.EncryptString(guid.ToString(), config.SALTKey!);
-                await ConfigurationHelper.UpdateSettings(config);
+                _config.APIKey = GeneralHelper.EncryptString(guid.ToString(), _config.SALTKey!);
+                await ConfigurationHelper.UpdateSettings(_config);
                 serviceResponse.ResponseObject = guid.ToString();
                 serviceResponse.Success = true;
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> UpdateAPIKey(string apikey)
+        public async Task<ServiceResponse> UpdateAPIKey(string apikey)
         {
             ServiceResponse serviceResponse = new();
             try
             {
-                config.APIKey = GeneralHelper.EncryptString(apikey, config.SALTKey!);
-                await ConfigurationHelper.UpdateSettings(config);
+                _config.APIKey = GeneralHelper.EncryptString(apikey, _config.SALTKey!);
+                await ConfigurationHelper.UpdateSettings(_config);
                 serviceResponse.ResponseObject = apikey;
                 serviceResponse.Success = true;
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> UpdateIdentityHeaderName(string identityheadername)
+        public async Task<ServiceResponse> UpdateIdentityHeaderName(string identityheadername)
         {
             ServiceResponse serviceResponse = new();
             try
             {
-                config.IdentityHeaderName = GeneralHelper.EncryptString(identityheadername, config.SALTKey!);
-                await ConfigurationHelper.UpdateSettings(config);
+                _config.IdentityHeaderName = GeneralHelper.EncryptString(identityheadername, _config.SALTKey!);
+                await ConfigurationHelper.UpdateSettings(_config);
                 serviceResponse.ResponseObject = identityheadername;
                 serviceResponse.Success = true;
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }

@@ -1,13 +1,8 @@
-﻿using AzureNaming.Tool.Models;
+﻿using AzureNaming.Tool.Attributes;
 using AzureNaming.Tool.Helpers;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
+using AzureNaming.Tool.Models;
 using AzureNaming.Tool.Services;
-using AzureNaming.Tool.Attributes;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,8 +11,19 @@ namespace AzureNaming.Tool.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ApiKey]
+    //[TypeFilter(typeof(ApiKeyAttribute))]
     public class ResourceLocationsController : ControllerBase
     {
+        private readonly IResourceLocationService _resourceLocationService;
+        private readonly IAdminLogService _adminLogService;
+
+        public ResourceLocationsController(IResourceLocationService resourceLocationService,
+            IAdminLogService adminLogService)
+        {
+            _resourceLocationService = resourceLocationService;
+            _adminLogService = adminLogService;
+        }
+
         // GET: api/<ResourceLocationsController>
         /// <summary>
         /// This function will return the locations data. 
@@ -29,7 +35,7 @@ namespace AzureNaming.Tool.Controllers
             ServiceResponse serviceResponse = new();
             try
             {
-                serviceResponse = await ResourceLocationService.GetItems(admin);
+                serviceResponse = await _resourceLocationService.GetItems(admin);
                 if (serviceResponse.Success)
                 {
                     return Ok(serviceResponse.ResponseObject);
@@ -41,7 +47,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -58,7 +64,7 @@ namespace AzureNaming.Tool.Controllers
             ServiceResponse serviceResponse = new();
             try
             {
-                serviceResponse = await ResourceLocationService.GetItem(id);
+                serviceResponse = await _resourceLocationService.GetItem(id);
                 if (serviceResponse.Success)
                 {
                     return Ok(serviceResponse.ResponseObject);
@@ -70,7 +76,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -88,10 +94,10 @@ namespace AzureNaming.Tool.Controllers
             ServiceResponse serviceResponse = new();
             try
             {
-                serviceResponse = await ResourceLocationService.PostConfig(items);
+                serviceResponse = await _resourceLocationService.PostConfig(items);
                 if (serviceResponse.Success)
                 {
-                    AdminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Locations added/updated." });
+                    _adminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Locations added/updated." });
                     CacheHelper.InvalidateCacheObject("ResourceLocation");
                     return Ok(serviceResponse.ResponseObject);
                 }
@@ -102,7 +108,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }

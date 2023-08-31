@@ -16,6 +16,7 @@
 @inject IToastService toastService
 @implements IDisposable
 @inject NavigationManager NavigationManager
+@inject IAdminLogService _adminLogService
 
 <PageTitle>Azure DevOps Naming Tool - Admin Log</PageTitle>
 <div class="card  @theme!.ThemeStyle">
@@ -161,7 +162,7 @@
                 NavigationManager.NavigateTo("/");
             }
             ServiceResponse serviceResponse = new();
-            serviceResponse = await AdminLogService.GetItems();
+            serviceResponse = await _adminLogService.GetItems();
             if (serviceResponse.Success)
             {
                 if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -195,9 +196,9 @@
         {
             await LogHelper.PurgeAdminLog();
             toastService.ShowSuccess("Admin Log purged!");
-            AdminLogService.PostItem(new AdminLogMessage() { Title = "INFORMATION", Message = "Admin Log purged." });
+            _adminLogService.PostItem(new AdminLogMessage() { Title = "INFORMATION", Message = "Admin Log purged." });
             CacheHelper.InvalidateCacheObject("AdminLogMessage");
-            serviceResponse = await AdminLogService.GetItems();
+            serviceResponse = await _adminLogService.GetItems();
             if (serviceResponse.Success)
             {
                 if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))

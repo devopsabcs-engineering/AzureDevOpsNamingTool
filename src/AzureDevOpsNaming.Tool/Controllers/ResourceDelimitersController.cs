@@ -3,11 +3,6 @@ using AzureNaming.Tool.Helpers;
 using AzureNaming.Tool.Models;
 using AzureNaming.Tool.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,8 +11,18 @@ namespace AzureNaming.Tool.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ApiKey]
+    //[TypeFilter(typeof(ApiKeyAttribute))]
     public class ResourceDelimitersController : ControllerBase
     {
+        private readonly IResourceDelimiterService _resourceDelimiterService;
+        private readonly IAdminLogService _adminLogService;
+
+        public ResourceDelimitersController(IResourceDelimiterService resourceDelimiterService,
+            IAdminLogService adminLogService)
+        {
+            _resourceDelimiterService = resourceDelimiterService;
+            _adminLogService = adminLogService;
+        }
         // GET api/<ResourceDelimitersController>
         /// <summary>
         /// This function will return the delimiters data.
@@ -30,7 +35,7 @@ namespace AzureNaming.Tool.Controllers
             ServiceResponse serviceResponse = new();
             try
             {
-                serviceResponse = await ResourceDelimiterService.GetItems(admin);
+                serviceResponse = await _resourceDelimiterService.GetItems(admin);
                 if (serviceResponse.Success)
                 {
                     return Ok(serviceResponse.ResponseObject);
@@ -42,7 +47,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -60,7 +65,7 @@ namespace AzureNaming.Tool.Controllers
             try
             {
                 // Get list of items
-                serviceResponse = await ResourceDelimiterService.GetItem(id);
+                serviceResponse = await _resourceDelimiterService.GetItem(id);
                 if (serviceResponse.Success)
                 {
                     return Ok(serviceResponse.ResponseObject);
@@ -72,7 +77,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -89,10 +94,10 @@ namespace AzureNaming.Tool.Controllers
             ServiceResponse serviceResponse = new();
             try
             {
-                serviceResponse = await ResourceDelimiterService.PostItem(item);
+                serviceResponse = await _resourceDelimiterService.PostItem(item);
                 if (serviceResponse.Success)
                 {
-                    AdminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Delimiter (" + item.Name + ") added/updated." });
+                    _adminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Delimiter (" + item.Name + ") added/updated." });
                     CacheHelper.InvalidateCacheObject("ResourceDelimiter");
                     return Ok(serviceResponse.ResponseObject);
                 }
@@ -104,7 +109,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -122,10 +127,10 @@ namespace AzureNaming.Tool.Controllers
             ServiceResponse serviceResponse = new();
             try
             {
-                serviceResponse = await ResourceDelimiterService.PostConfig(items);
+                serviceResponse = await _resourceDelimiterService.PostConfig(items);
                 if (serviceResponse.Success)
                 {
-                    AdminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Delimiters added/updated." });
+                    _adminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Delimiters added/updated." });
                     CacheHelper.InvalidateCacheObject("ResourceDelimiter");
                     return Ok(serviceResponse.ResponseObject);
                 }
@@ -134,9 +139,9 @@ namespace AzureNaming.Tool.Controllers
                     return BadRequest(serviceResponse.ResponseObject);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }

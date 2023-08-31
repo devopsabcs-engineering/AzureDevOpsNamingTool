@@ -1,19 +1,28 @@
 ﻿using AzureNaming.Tool.Models;
 using AzureNaming.Tool.Services;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using System;
 
 namespace AzureNaming.Tool.Helpers
 {
     public class IdentityHelper
     {
+        private static IAdminUserService _adminUserService;
+        private static IAdminLogService _adminLogService;
+
+        public IdentityHelper(IAdminUserService adminUserService,
+            IAdminLogService adminLogService)
+        {
+            _adminLogService = adminLogService;
+            _adminUserService = adminUserService;
+        }
+
         public static async Task<bool> IsAdminUser(StateContainer state, ProtectedSessionStorage session, string name)
         {
             bool result = false;
             try
             {
                 // Check if the username is in the list of Admin Users
-                ServiceResponse serviceResponse = await AdminUserService.GetItems();
+                ServiceResponse serviceResponse = await _adminUserService.GetItems();
                 if (serviceResponse.Success)
                 {
                     if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -30,7 +39,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             }
             return result;
         }
@@ -48,7 +57,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             }
             return currentuser;
         }

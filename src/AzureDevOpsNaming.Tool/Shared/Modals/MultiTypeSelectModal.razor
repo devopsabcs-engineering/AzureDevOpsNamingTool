@@ -5,6 +5,8 @@
 @inject IToastService toastService
 @inject StateContainer state
 @inject IJSRuntime JsRuntime
+@inject IAdminLogService _adminLogService
+@inject IResourceTypeService _resourceTypeService
 
 <div class="modal fade show d-block" tabindex="-1" role="dialog">
     <div class="modal-backdrop fade show" @onclick="Save"></div>
@@ -51,7 +53,7 @@
                                 </div>
                                 <div class="collapse show card card-body @theme.ThemeStyle" id="@("multitypesection_"+@category)">
                                     <ul style="list-style-type: none;word-break: break-word;">
-                                        @foreach (var resourceType in ResourceTypeService.GetFilteredResourceTypes(servicesData.ResourceTypes!, category))
+                                        @foreach (var resourceType in _resourceTypeService.GetFilteredResourceTypes(servicesData.ResourceTypes!, category))
                                         {
                                             if (!IsTypeVisible(resourceType))
                                                 continue;
@@ -134,7 +136,7 @@
                 servicesData.ResourceTypes = filteredtypes;
 
                 // Get the list of categories
-                categories = ResourceTypeService.GetTypeCategories(servicesData.ResourceTypes);
+                categories = _resourceTypeService.GetTypeCategories(servicesData.ResourceTypes);
             }
             else
             {
@@ -143,7 +145,7 @@
         }
         catch (Exception ex)
         {
-            AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+            _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             toastService.ShowError("There was a problem loading the page. Please try again");
         }
     }
@@ -192,7 +194,7 @@
         if (!string.IsNullOrEmpty(filterData))
         {
             // Gett all the types for the category
-            @foreach (var type in ResourceTypeService.GetFilteredResourceTypes(servicesData.ResourceTypes!, category))
+            @foreach (var type in _resourceTypeService.GetFilteredResourceTypes(servicesData.ResourceTypes!, category))
             {
                 if ((type.Resource.Contains(filterData, StringComparison.OrdinalIgnoreCase)) || (type.ShortName.Contains(filterData, StringComparison.OrdinalIgnoreCase)))
                 {

@@ -18,6 +18,20 @@
 @inject IToastService toastService
 @implements IDisposable
 @inject NavigationManager NavigationManager
+@inject IImportExportService _importExportService
+@inject IAdminLogService _adminLogService
+@inject IResourceTypeService _resourceTypeService
+@inject IResourceComponentService _resourceComponentService
+@inject IResourceDelimiterService _resourceDelimiterService
+@inject IResourceEnvironmentService _resourceEnvironmentService
+@inject IResourceFunctionService _resourceFunctionService
+@inject IResourceLocationService _resourceLocationService
+@inject IResourceOrgService _resourceOrgService
+@inject IResourceProjAppSvcService _resourceProjAppSvcService
+@inject IResourceUnitDeptService _resourceUnitDeptService
+@inject ICustomComponentService _customComponentService
+@inject IPolicyService _policyService
+
 
 <PageTitle>Azure DevOps Naming Tool - Configuration</PageTitle>
 <div class="card @theme!.ThemeStyle">
@@ -1402,7 +1416,7 @@
                                                     </select>
                                                     <select @onchange="OnTypeChanged" class="form-control @theme.ThemeStyle">
                                                         <option value="">Select a resource type</option>
-                                                        @foreach (var type in @ResourceTypeService.GetFilteredResourceTypes(servicesData.ResourceTypes, selectedResourceTypeCategory))
+                                                        @foreach (var type in @_resourceTypeService.GetFilteredResourceTypes(servicesData.ResourceTypes, selectedResourceTypeCategory))
                                                         {
                                                             @if (!String.IsNullOrEmpty(type.Property))
                                                             {
@@ -1941,7 +1955,7 @@
             servicesData = await ServicesHelper.LoadServicesData(servicesData, admin);
 
             // Get the list of categories
-            categories = ResourceTypeService.GetTypeCategories(servicesData.ResourceTypes!);
+            categories = _resourceTypeService.GetTypeCategories(servicesData.ResourceTypes!);
             dataLoaded = true;
 
             // Determine if the connectivity notification has been dismissed
@@ -2074,7 +2088,7 @@
                                         {
                                             resourceComponent.SortOrder += -1;
                                         }
-                                        serviceResponse = await ResourceComponentService.PostItem(resourceComponent);
+                                        serviceResponse = await _resourceComponentService.PostItem(resourceComponent);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -2100,7 +2114,7 @@
                                         {
                                             resourceComponent.SortOrder += 1;
                                         }
-                                        serviceResponse = await ResourceComponentService.PostItem(resourceComponent);
+                                        serviceResponse = await _resourceComponentService.PostItem(resourceComponent);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -2124,7 +2138,7 @@
                                     {
                                         resourceComponent.Enabled = true;
                                         resourceComponent.SortOrder = servicesData.ResourceComponents.Count + 1;
-                                        serviceResponse = await ResourceComponentService.PostItem(resourceComponent);
+                                        serviceResponse = await _resourceComponentService.PostItem(resourceComponent);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -2147,7 +2161,7 @@
                                     if (GeneralHelper.IsNotNull(resourceComponent))
                                     {
                                         resourceComponent.Enabled = false;
-                                        serviceResponse = await ResourceComponentService.PostItem(resourceComponent);
+                                        serviceResponse = await _resourceComponentService.PostItem(resourceComponent);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -2200,7 +2214,7 @@
                                         resourceComponent = servicesData.ResourceComponents!.Find(x => x.Id == id)!;
                                         if (GeneralHelper.IsNotNull(resourceComponent))
                                         {
-                                            serviceResponse = await ResourceComponentService.DeleteItem(Convert.ToInt32(resourceComponent.Id));
+                                            serviceResponse = await _resourceComponentService.DeleteItem(Convert.ToInt32(resourceComponent.Id));
                                             if (serviceResponse.Success)
                                             {
                                                 message.Type = MessageTypesEnum.SUCCESS;
@@ -2221,7 +2235,7 @@
                                     }
                                     break;
                                 case "download":
-                                    serviceResponse = await ResourceComponentService.GetItems(true);
+                                    serviceResponse = await _resourceComponentService.GetItems(true);
                                     if (serviceResponse.Success)
                                     {
                                         if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -2256,7 +2270,7 @@
                                         confirm = await ModalHelper.ShowConfirmationModal(Modal!, "ATTENTION", "<div class=\"my-4\">This will update the current Components Configuration and cannot be undone!</div><div class=\"my-4\">Are you sure?</div>", "bg-danger", theme);
                                         if (confirm)
                                         {
-                                            serviceResponse = await ResourceComponentService.PostConfig(JsonSerializer.Deserialize<List<ResourceComponent>>(newTypeConfig, options)!);
+                                            serviceResponse = await _resourceComponentService.PostConfig(JsonSerializer.Deserialize<List<ResourceComponent>>(newTypeConfig, options)!);
                                             if (serviceResponse.Success)
                                             {
                                                 message.Type = MessageTypesEnum.SUCCESS;
@@ -2273,7 +2287,7 @@
 
                                     break;
                             }
-                            serviceResponse = await ResourceComponentService.GetItems(admin);
+                            serviceResponse = await _resourceComponentService.GetItems(admin);
                             if (serviceResponse.Success)
                             {
                                 if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -2291,7 +2305,7 @@
                                     if (GeneralHelper.IsNotNull(resourceDelimiter))
                                     {
                                         resourceDelimiter.Enabled = true;
-                                        serviceResponse = await ResourceDelimiterService.PostItem(resourceDelimiter);
+                                        serviceResponse = await _resourceDelimiterService.PostItem(resourceDelimiter);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -2313,7 +2327,7 @@
                                     if (GeneralHelper.IsNotNull(resourceDelimiter))
                                     {
                                         resourceDelimiter.Enabled = false;
-                                        serviceResponse = await ResourceDelimiterService.PostItem(resourceDelimiter);
+                                        serviceResponse = await _resourceDelimiterService.PostItem(resourceDelimiter);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -2332,7 +2346,7 @@
                                     }
                                     break;
                                 case "download":
-                                    serviceResponse = await ResourceDelimiterService.GetItems(admin);
+                                    serviceResponse = await _resourceDelimiterService.GetItems(admin);
                                     if (serviceResponse.Success)
                                     {
                                         if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -2351,7 +2365,7 @@
                                         confirm = await ModalHelper.ShowConfirmationModal(Modal!, "ATTENTION", "<div class=\"my-4\">This will update the current Delimiters Configuration and cannot be undone!</div><div class=\"my-4\">Are you sure?</div>", "bg-danger", theme);
                                         if (confirm)
                                         {
-                                            serviceResponse = await ResourceDelimiterService.PostConfig(JsonSerializer.Deserialize<List<ResourceDelimiter>>(newDelimiterConfig, options)!);
+                                            serviceResponse = await _resourceDelimiterService.PostConfig(JsonSerializer.Deserialize<List<ResourceDelimiter>>(newDelimiterConfig, options)!);
                                             if (serviceResponse.Success)
                                             {
                                                 message.Type = MessageTypesEnum.SUCCESS;
@@ -2383,7 +2397,7 @@
                                     }
                                     break;
                             }
-                            serviceResponse = await ResourceDelimiterService.GetItems(admin);
+                            serviceResponse = await _resourceDelimiterService.GetItems(admin);
                             if (serviceResponse.Success)
                             {
                                 if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -2405,7 +2419,7 @@
                                         {
                                             resourceEnvironment.SortOrder += -1;
                                         }
-                                        serviceResponse = await ResourceEnvironmentService.PostItem(resourceEnvironment);
+                                        serviceResponse = await _resourceEnvironmentService.PostItem(resourceEnvironment);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -2431,7 +2445,7 @@
                                         {
                                             resourceEnvironment.SortOrder += 1;
                                         }
-                                        serviceResponse = await ResourceEnvironmentService.PostItem(resourceEnvironment);
+                                        serviceResponse = await _resourceEnvironmentService.PostItem(resourceEnvironment);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -2472,7 +2486,7 @@
                                         resourceEnvironment = servicesData.ResourceEnvironments!.Find(x => x.Id == id)!;
                                         if (GeneralHelper.IsNotNull(resourceEnvironment))
                                         {
-                                            serviceResponse = await ResourceEnvironmentService.DeleteItem(Convert.ToInt32(resourceEnvironment.Id));
+                                            serviceResponse = await _resourceEnvironmentService.DeleteItem(Convert.ToInt32(resourceEnvironment.Id));
                                             if (serviceResponse.Success)
                                             {
                                                 message.Type = MessageTypesEnum.SUCCESS;
@@ -2508,7 +2522,7 @@
                                     }
                                     break;
                                 case "download":
-                                    serviceResponse = await ResourceEnvironmentService.GetItems();
+                                    serviceResponse = await _resourceEnvironmentService.GetItems();
                                     if (serviceResponse.Success)
                                     {
                                         if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -2543,7 +2557,7 @@
                                         confirm = await ModalHelper.ShowConfirmationModal(Modal!, "ATTENTION", "<div class=\"my-4\">This will update the current Environments Configuration and cannot be undone!</div><div class=\"my-4\">Are you sure?</div>", "bg-danger", theme);
                                         if (confirm)
                                         {
-                                            serviceResponse = await ResourceEnvironmentService.PostConfig(JsonSerializer.Deserialize<List<ResourceEnvironment>>(newEnvironmentConfig, options)!);
+                                            serviceResponse = await _resourceEnvironmentService.PostConfig(JsonSerializer.Deserialize<List<ResourceEnvironment>>(newEnvironmentConfig, options)!);
                                             if (serviceResponse.Success)
                                             {
                                                 message.Type = MessageTypesEnum.SUCCESS;
@@ -2560,7 +2574,7 @@
                                     }
                                     break;
                             }
-                            serviceResponse = await ResourceEnvironmentService.GetItems();
+                            serviceResponse = await _resourceEnvironmentService.GetItems();
                             if (serviceResponse.Success)
                             {
                                 if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -2582,7 +2596,7 @@
                                         {
                                             resourceFunction.SortOrder += -1;
                                         }
-                                        serviceResponse = await ResourceFunctionService.PostItem(resourceFunction);
+                                        serviceResponse = await _resourceFunctionService.PostItem(resourceFunction);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -2608,7 +2622,7 @@
                                         {
                                             resourceFunction.SortOrder += 1;
                                         }
-                                        serviceResponse = await ResourceFunctionService.PostItem(resourceFunction);
+                                        serviceResponse = await _resourceFunctionService.PostItem(resourceFunction);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -2649,7 +2663,7 @@
                                         resourceFunction = servicesData.ResourceFunctions!.Find(x => x.Id == id)!;
                                         if (GeneralHelper.IsNotNull(resourceFunction))
                                         {
-                                            serviceResponse = await ResourceFunctionService.DeleteItem(Convert.ToInt32(resourceFunction.Id));
+                                            serviceResponse = await _resourceFunctionService.DeleteItem(Convert.ToInt32(resourceFunction.Id));
                                             if (serviceResponse.Success)
                                             {
                                                 message.Type = MessageTypesEnum.SUCCESS;
@@ -2685,7 +2699,7 @@
                                     }
                                     break;
                                 case "download":
-                                    serviceResponse = await ResourceFunctionService.GetItems();
+                                    serviceResponse = await _resourceFunctionService.GetItems();
                                     if (serviceResponse.Success)
                                     {
                                         if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -2720,7 +2734,7 @@
                                         confirm = await ModalHelper.ShowConfirmationModal(Modal!, "ATTENTION", "<div class=\"my-4\">This will update the current Functions Configuration and cannot be undone!</div><div class=\"my-4\">Are you sure?</div>", "bg-danger", theme);
                                         if (confirm)
                                         {
-                                            serviceResponse = await ResourceFunctionService.PostConfig(JsonSerializer.Deserialize<List<ResourceFunction>>(newFunctionConfig, options)!);
+                                            serviceResponse = await _resourceFunctionService.PostConfig(JsonSerializer.Deserialize<List<ResourceFunction>>(newFunctionConfig, options)!);
                                             if (serviceResponse.Success)
                                             {
                                                 message.Type = MessageTypesEnum.SUCCESS;
@@ -2737,7 +2751,7 @@
                                     }
                                     break;
                             }
-                            serviceResponse = await ResourceFunctionService.GetItems();
+                            serviceResponse = await _resourceFunctionService.GetItems();
                             if (serviceResponse.Success)
                             {
                                 if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -2755,7 +2769,7 @@
                                     if (GeneralHelper.IsNotNull(resourceLocation))
                                     {
                                         resourceLocation.Enabled = true;
-                                        serviceResponse = await ResourceLocationService.PostItem(resourceLocation);
+                                        serviceResponse = await _resourceLocationService.PostItem(resourceLocation);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -2778,7 +2792,7 @@
                                     if (GeneralHelper.IsNotNull(resourceLocation))
                                     {
                                         resourceLocation.Enabled = false;
-                                        serviceResponse = await ResourceLocationService.PostItem(resourceLocation);
+                                        serviceResponse = await _resourceLocationService.PostItem(resourceLocation);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -2819,7 +2833,7 @@
                                         resourceLocation = servicesData.ResourceLocations!.Find(x => x.Id == id)!;
                                         if (GeneralHelper.IsNotNull(resourceLocation))
                                         {
-                                            serviceResponse = await ResourceLocationService.DeleteItem(Convert.ToInt32(resourceLocation.Id));
+                                            serviceResponse = await _resourceLocationService.DeleteItem(Convert.ToInt32(resourceLocation.Id));
                                             if (serviceResponse.Success)
                                             {
                                                 message.Type = MessageTypesEnum.SUCCESS;
@@ -2839,7 +2853,7 @@
                                     }
                                     break;
                                 case "download":
-                                    serviceResponse = await ResourceLocationService.GetItems();
+                                    serviceResponse = await _resourceLocationService.GetItems();
                                     var locationjson = serviceResponse.ResponseObject;
                                     if (GeneralHelper.IsNotNull(BlazorDownloadFileService))
                                     {
@@ -2850,7 +2864,7 @@
                                     confirm = await ModalHelper.ShowConfirmationModal(Modal!, "ATTENTION", "<div class=\"my-4\">This will refresh the current Locations Configuration with the latest configuration and cannot be undone!</div><div class=\"my-4\">Are you sure?</div>", "bg-danger", theme);
                                     if (confirm)
                                     {
-                                        serviceResponse = await ResourceLocationService.RefreshResourceLocations(refreshlocationshortnames);
+                                        serviceResponse = await _resourceLocationService.RefreshResourceLocations(refreshlocationshortnames);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -2886,7 +2900,7 @@
                                         confirm = await ModalHelper.ShowConfirmationModal(Modal!, "ATTENTION", "<div class=\"my-4\">This will update the current Locations Configuration and cannot be undone!</div><div class=\"my-4\">Are you sure?</div>", "bg-danger", theme);
                                         if (confirm)
                                         {
-                                            serviceResponse = await ResourceLocationService.PostConfig(JsonSerializer.Deserialize<List<AzureNaming.Tool.Models.ResourceLocation>>(newLocationConfig, options)!);
+                                            serviceResponse = await _resourceLocationService.PostConfig(JsonSerializer.Deserialize<List<AzureNaming.Tool.Models.ResourceLocation>>(newLocationConfig, options)!);
                                             if (serviceResponse.Success)
                                             {
                                                 message.Type = MessageTypesEnum.SUCCESS;
@@ -2903,7 +2917,7 @@
                                     }
                                     break;
                             }
-                            serviceResponse = await ResourceLocationService.GetItems();
+                            serviceResponse = await _resourceLocationService.GetItems();
                             if (serviceResponse.Success)
                             {
                                 if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -2925,7 +2939,7 @@
                                         {
                                             resourceOrg.SortOrder += -1;
                                         }
-                                        serviceResponse = await ResourceOrgService.PostItem(resourceOrg);
+                                        serviceResponse = await _resourceOrgService.PostItem(resourceOrg);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -2951,7 +2965,7 @@
                                         {
                                             resourceOrg.SortOrder += 1;
                                         }
-                                        serviceResponse = await ResourceOrgService.PostItem(resourceOrg);
+                                        serviceResponse = await _resourceOrgService.PostItem(resourceOrg);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -2992,7 +3006,7 @@
                                         resourceOrg = servicesData.ResourceOrgs!.Find(x => x.Id == id)!;
                                         if (GeneralHelper.IsNotNull(resourceOrg))
                                         {
-                                            serviceResponse = await ResourceOrgService.DeleteItem(Convert.ToInt32(resourceOrg.Id));
+                                            serviceResponse = await _resourceOrgService.DeleteItem(Convert.ToInt32(resourceOrg.Id));
                                             if (serviceResponse.Success)
                                             {
                                                 message.Type = MessageTypesEnum.SUCCESS;
@@ -3028,7 +3042,7 @@
                                     }
                                     break;
                                 case "download":
-                                    serviceResponse = await ResourceOrgService.GetItems();
+                                    serviceResponse = await _resourceOrgService.GetItems();
                                     if (serviceResponse.Success)
                                     {
                                         if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -3063,7 +3077,7 @@
                                         confirm = await ModalHelper.ShowConfirmationModal(Modal!, "ATTENTION", "<div class=\"my-4\">This will update the current Orgs Configuration and cannot be undone!</div><div class=\"my-4\">Are you sure?</div>", "bg-danger", theme);
                                         if (confirm)
                                         {
-                                            serviceResponse = await ResourceOrgService.PostConfig(JsonSerializer.Deserialize<List<ResourceOrg>>(newOrgConfig, options)!);
+                                            serviceResponse = await _resourceOrgService.PostConfig(JsonSerializer.Deserialize<List<ResourceOrg>>(newOrgConfig, options)!);
                                             if (serviceResponse.Success)
                                             {
                                                 message.Type = MessageTypesEnum.SUCCESS;
@@ -3080,7 +3094,7 @@
                                     }
                                     break;
                             }
-                            serviceResponse = await ResourceOrgService.GetItems();
+                            serviceResponse = await _resourceOrgService.GetItems();
                             if (serviceResponse.Success)
                             {
                                 if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -3102,7 +3116,7 @@
                                         {
                                             resourceProjAppSvc.SortOrder += -1;
                                         }
-                                        serviceResponse = await ResourceProjAppSvcService.PostItem(resourceProjAppSvc);
+                                        serviceResponse = await _resourceProjAppSvcService.PostItem(resourceProjAppSvc);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -3128,7 +3142,7 @@
                                         {
                                             resourceProjAppSvc.SortOrder += 1;
                                         }
-                                        serviceResponse = await ResourceProjAppSvcService.PostItem(resourceProjAppSvc);
+                                        serviceResponse = await _resourceProjAppSvcService.PostItem(resourceProjAppSvc);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -3169,7 +3183,7 @@
                                         resourceProjAppSvc = servicesData.ResourceProjAppSvcs!.Find(x => x.Id == id)!;
                                         if (GeneralHelper.IsNotNull(resourceProjAppSvc))
                                         {
-                                            serviceResponse = await ResourceProjAppSvcService.DeleteItem(Convert.ToInt32(resourceProjAppSvc.Id));
+                                            serviceResponse = await _resourceProjAppSvcService.DeleteItem(Convert.ToInt32(resourceProjAppSvc.Id));
                                             if (serviceResponse.Success)
                                             {
                                                 message.Type = MessageTypesEnum.SUCCESS;
@@ -3205,7 +3219,7 @@
                                     }
                                     break;
                                 case "download":
-                                    serviceResponse = await ResourceProjAppSvcService.GetItems();
+                                    serviceResponse = await _resourceProjAppSvcService.GetItems();
                                     if (serviceResponse.Success)
                                     {
                                         if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -3240,7 +3254,7 @@
                                         confirm = await ModalHelper.ShowConfirmationModal(Modal!, "ATTENTION", "<div class=\"my-4\">This will update the current Projects/Apps/Services Configuration and cannot be undone!</div><div class=\"my-4\">Are you sure?</div>", "bg-danger", theme);
                                         if (confirm)
                                         {
-                                            serviceResponse = await ResourceProjAppSvcService.PostConfig(JsonSerializer.Deserialize<List<ResourceProjAppSvc>>(newProjAppSvcConfig, options)!);
+                                            serviceResponse = await _resourceProjAppSvcService.PostConfig(JsonSerializer.Deserialize<List<ResourceProjAppSvc>>(newProjAppSvcConfig, options)!);
                                             if (serviceResponse.Success)
                                             {
                                                 message.Type = MessageTypesEnum.SUCCESS;
@@ -3257,7 +3271,7 @@
                                     }
                                     break;
                             }
-                            serviceResponse = await ResourceProjAppSvcService.GetItems();
+                            serviceResponse = await _resourceProjAppSvcService.GetItems();
                             if (serviceResponse.Success)
                             {
                                 if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -3275,7 +3289,7 @@
                                     if (GeneralHelper.IsNotNull(resourceType))
                                     {
                                         resourceType.Enabled = true;
-                                        serviceResponse = await ResourceTypeService.PostItem(resourceType);
+                                        serviceResponse = await _resourceTypeService.PostItem(resourceType);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -3298,7 +3312,7 @@
                                     if (GeneralHelper.IsNotNull(resourceType))
                                     {
                                         resourceType.Enabled = false;
-                                        serviceResponse = await ResourceTypeService.PostItem(resourceType);
+                                        serviceResponse = await _resourceTypeService.PostItem(resourceType);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -3334,7 +3348,7 @@
                                     }
                                     break;
                                 case "download":
-                                    serviceResponse = await ResourceTypeService.GetItems();
+                                    serviceResponse = await _resourceTypeService.GetItems();
                                     if (serviceResponse.Success)
                                     {
                                         if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -3351,7 +3365,7 @@
                                     confirm = await ModalHelper.ShowConfirmationModal(Modal!, "ATTENTION", "<div class=\"my-4\">This will refresh the current Types Configuration with the latest configuration and cannot be undone!</div><div class=\"my-4\">Are you sure?</div>", "bg-danger", theme);
                                     if (confirm)
                                     {
-                                        serviceResponse = await ResourceTypeService.RefreshResourceTypes(refreshtypeshortnames);
+                                        serviceResponse = await _resourceTypeService.RefreshResourceTypes(refreshtypeshortnames);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -3387,7 +3401,7 @@
                                         confirm = await ModalHelper.ShowConfirmationModal(Modal!, "ATTENTION", "<div class=\"my-4\">This will update the current Types Configuration and cannot be undone!</div><div class=\"my-4\">Are you sure?</div>", "bg-danger", theme);
                                         if (confirm)
                                         {
-                                            serviceResponse = await ResourceTypeService.PostConfig(JsonSerializer.Deserialize<List<ResourceType>>(newTypeConfig, options)!);
+                                            serviceResponse = await _resourceTypeService.PostConfig(JsonSerializer.Deserialize<List<ResourceType>>(newTypeConfig, options)!);
                                             if (serviceResponse.Success)
                                             {
                                                 message.Type = MessageTypesEnum.SUCCESS;
@@ -3404,7 +3418,7 @@
                                     }
                                     break;
                             }
-                            serviceResponse = await ResourceTypeService.GetItems();
+                            serviceResponse = await _resourceTypeService.GetItems();
                             if (serviceResponse.Success)
                             {
                                 if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -3426,7 +3440,7 @@
                                         {
                                             resourceUnitDept.SortOrder += -1;
                                         }
-                                        serviceResponse = await ResourceUnitDeptService.PostItem(resourceUnitDept);
+                                        serviceResponse = await _resourceUnitDeptService.PostItem(resourceUnitDept);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -3452,7 +3466,7 @@
                                         {
                                             resourceUnitDept.SortOrder += 1;
                                         }
-                                        serviceResponse = await ResourceUnitDeptService.PostItem(resourceUnitDept);
+                                        serviceResponse = await _resourceUnitDeptService.PostItem(resourceUnitDept);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -3494,7 +3508,7 @@
                                         resourceUnitDept = servicesData.ResourceUnitDepts!.Find(x => x.Id == id)!;
                                         if (GeneralHelper.IsNotNull(resourceUnitDept))
                                         {
-                                            serviceResponse = await ResourceUnitDeptService.DeleteItem(Convert.ToInt32(resourceUnitDept.Id));
+                                            serviceResponse = await _resourceUnitDeptService.DeleteItem(Convert.ToInt32(resourceUnitDept.Id));
                                             if (serviceResponse.Success)
                                             {
                                                 message.Type = MessageTypesEnum.SUCCESS;
@@ -3530,7 +3544,7 @@
                                     }
                                     break;
                                 case "download":
-                                    serviceResponse = await ResourceUnitDeptService.GetItems();
+                                    serviceResponse = await _resourceUnitDeptService.GetItems();
                                     if (serviceResponse.Success)
                                     {
                                         if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -3565,7 +3579,7 @@
                                         confirm = await ModalHelper.ShowConfirmationModal(Modal!, "ATTENTION", "<div class=\"my-4\">This will update the current Units/Depts Configuration and cannot be undone!</div><div class=\"my-4\">Are you sure?</div>", "bg-danger", theme);
                                         if (confirm)
                                         {
-                                            serviceResponse = await ResourceUnitDeptService.PostConfig(JsonSerializer.Deserialize<List<ResourceUnitDept>>(newUnitDeptConfig, options)!);
+                                            serviceResponse = await _resourceUnitDeptService.PostConfig(JsonSerializer.Deserialize<List<ResourceUnitDept>>(newUnitDeptConfig, options)!);
                                             if (serviceResponse.Success)
                                             {
                                                 message.Type = MessageTypesEnum.SUCCESS;
@@ -3582,7 +3596,7 @@
                                     }
                                     break;
                             }
-                            serviceResponse = await ResourceUnitDeptService.GetItems();
+                            serviceResponse = await _resourceUnitDeptService.GetItems();
                             if (serviceResponse.Success)
                             {
                                 if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -3604,7 +3618,7 @@
                                         {
                                             customComponent.SortOrder += -1;
                                         }
-                                        serviceResponse = await CustomComponentService.PostItem(customComponent);
+                                        serviceResponse = await _customComponentService.PostItem(customComponent);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -3630,7 +3644,7 @@
                                         {
                                             customComponent.SortOrder += 1;
                                         }
-                                        serviceResponse = await CustomComponentService.PostItem(customComponent);
+                                        serviceResponse = await _customComponentService.PostItem(customComponent);
                                         if (serviceResponse.Success)
                                         {
                                             message.Type = MessageTypesEnum.SUCCESS;
@@ -3690,7 +3704,7 @@
                                         customComponent = servicesData.CustomComponents!.Find(x => x.Id == id)!;
                                         if (GeneralHelper.IsNotNull(customComponent))
                                         {
-                                            serviceResponse = await CustomComponentService.DeleteItem(Convert.ToInt32(customComponent.Id));
+                                            serviceResponse = await _customComponentService.DeleteItem(Convert.ToInt32(customComponent.Id));
                                             if (serviceResponse.Success)
                                             {
                                                 message.Type = MessageTypesEnum.SUCCESS;
@@ -3713,7 +3727,7 @@
                                     bool valid = false;
                                     CustomComponmentConfig customcomponentconfigexport = new();
                                     // Get the custom components
-                                    serviceResponse = await ResourceComponentService.GetItems(true);
+                                    serviceResponse = await _resourceComponentService.GetItems(true);
                                     if (serviceResponse.Success)
                                     {
                                         if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -3724,7 +3738,7 @@
                                                 customcomponentconfigexport.ParentComponents = components.Where(x => x.IsCustom == true).ToList();
 
                                                 // Get the custom component options
-                                                serviceResponse = await CustomComponentService.GetItems();
+                                                serviceResponse = await _customComponentService.GetItems();
                                                 if (serviceResponse.Success)
                                                 {
                                                     if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -3775,7 +3789,7 @@
                                             List<ResourceComponent> currentresourcecomponents = new();
                                             List<CustomComponent> newcustomcomponents = new();
                                             // Get the current resource components
-                                            serviceResponse = await ResourceComponentService.GetItems(true);
+                                            serviceResponse = await _resourceComponentService.GetItems(true);
                                             if (serviceResponse.Success)
                                             {
                                                 if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -3804,7 +3818,7 @@
                                                                                 IsCustom = true,
                                                                                 IsFreeText = thisparentcomponent.IsFreeText
                                                                             };
-                                                                        serviceResponse = await ResourceComponentService.PostItem(newcustomcomponent);
+                                                                        serviceResponse = await _resourceComponentService.PostItem(newcustomcomponent);
                                                                         // Add the new custom component to the list
                                                                         currentresourcecomponents.Add(newcustomcomponent);
                                                                     }
@@ -3822,7 +3836,7 @@
                                                                 }
 
                                                                 // Update the custom component options
-                                                                serviceResponse = await CustomComponentService.PostConfig(newcustomcomponents);
+                                                                serviceResponse = await _customComponentService.PostConfig(newcustomcomponents);
                                                             }
                                                         }
                                                     }
@@ -3844,7 +3858,7 @@
                                                                 }
                                                             }
                                                             // Update the custom component options
-                                                            serviceResponse = await CustomComponentService.PostConfig(newcustomcomponents);
+                                                            serviceResponse = await _customComponentService.PostConfig(newcustomcomponents);
                                                         }
                                                     }
                                                 }
@@ -3866,7 +3880,7 @@
                                     }
                                     break;
                             }
-                            serviceResponse = await CustomComponentService.GetItems();
+                            serviceResponse = await _customComponentService.GetItems();
                             if (serviceResponse.Success)
                             {
                                 if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -3879,7 +3893,7 @@
                             switch (action)
                             {
                                 case "download":
-                                    serviceResponse = await ImportExportService.ExportConfig(includeAdmin);
+                                    serviceResponse = await _importExportService.ExportConfig(includeAdmin);
                                     if (serviceResponse.Success)
                                     {
                                         if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -3921,7 +3935,7 @@
                                             bool confirmglobalupdate = await ModalHelper.ShowConfirmationModal(Modal!, "ATTENTION", "<div class=\"my-4\"><strong>Every setting of the site will be updated if you continue!</strong></div><div class=\"my-4\">It is recommended you take a backup of the configuration before proceeding!</div><div class=\"my-4\">Continue?</div>", "bg-danger", theme);
                                             if (confirmglobalupdate)
                                             {
-                                                serviceResponse = await ImportExportService.PostConfig(JsonSerializer.Deserialize<ConfigurationData>(newGlobalConfig, options)!);
+                                                serviceResponse = await _importExportService.PostConfig(JsonSerializer.Deserialize<ConfigurationData>(newGlobalConfig, options)!);
                                                 if (serviceResponse.Success)
                                                 {
                                                     message.Type = MessageTypesEnum.SUCCESS;
@@ -3944,7 +3958,7 @@
                             switch (action)
                             {
                                 case "download":
-                                    serviceResponse = await PolicyService.GetPolicy();
+                                    serviceResponse = await _policyService.GetPolicy();
                                     var policyjson = serviceResponse.ResponseObject;
 
                                     var stream = new MemoryStream();
@@ -3969,7 +3983,7 @@
                 }
                 catch (Exception ex)
                 {
-                    AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                    _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                     message.Type = MessageTypesEnum.ERROR;
                     message.Message = "There was a problem with the request.";
                 }
@@ -4002,7 +4016,7 @@
 
                     // Get the current user, if any
                     string currentuser = await IdentityHelper.GetCurrentUser(session);
-                    AdminLogService.PostItem(new AdminLogMessage() { Title = message.Type.ToString(), Message = message.Message, Source = currentuser });
+                    _adminLogService.PostItem(new AdminLogMessage() { Title = message.Type.ToString(), Message = message.Message, Source = currentuser });
                 }
             }
             else

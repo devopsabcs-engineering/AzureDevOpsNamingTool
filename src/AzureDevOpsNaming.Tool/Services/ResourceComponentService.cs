@@ -1,14 +1,20 @@
 ﻿using AzureNaming.Tool.Helpers;
 using AzureNaming.Tool.Models;
-using System.Net.WebSockets;
-using System.Security.AccessControl;
 
 namespace AzureNaming.Tool.Services
 {
-    public class ResourceComponentService
+    public class ResourceComponentService : IResourceComponentService
     {
+        private IAdminLogService _adminLogService;
 
-        public static async Task<ServiceResponse> GetItems(bool admin)
+        public ResourceComponentService(
+            IAdminLogService adminLogService)
+        {
+            _adminLogService = adminLogService;
+            //_resourceTypeService = resourceTypeService;
+        }
+
+        public async Task<ServiceResponse> GetItems(bool admin)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -33,14 +39,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> GetItem(int id)
+        public async Task<ServiceResponse> GetItem(int id)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -67,14 +73,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> PostItem(ResourceComponent item)
+        public async Task<ServiceResponse> PostItem(ResourceComponent item)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -156,14 +162,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> DeleteItem(int id)
+        public async Task<ServiceResponse> DeleteItem(int id)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -178,7 +184,9 @@ namespace AzureNaming.Tool.Services
                     {
                         // Delete any resource type settings for the component
                         List<string> currentvalues = new();
-                        serviceResponse = await ResourceTypeService.GetItems();
+                        //serviceResponse = await _resourceTypeService.GetItems();
+                        //TODO: cascade delete
+                        throw new NotImplementedException("cascade delete");
                         if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
                         {
                             List<Models.ResourceType> resourceTypes = (List<Models.ResourceType>)serviceResponse.ResponseObject!;
@@ -199,7 +207,9 @@ namespace AzureNaming.Tool.Services
                                         currentvalues.Remove(GeneralHelper.NormalizeName(item.Name, false));
                                         currenttype.Exclude = String.Join(",", currentvalues.ToArray());
                                     }
-                                    await ResourceTypeService.PostItem(currenttype);
+                                    //await _resourceTypeService.PostItem(currenttype);
+                                    //TODO
+                                    throw new NotImplementedException("cascade delete 2");
                                 }
 
                                 // Delete any custom components for this resource component
@@ -248,14 +258,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.ResponseObject = ex;
                 serviceResponse.Success = false;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> PostConfig(List<ResourceComponent> items)
+        public async Task<ServiceResponse> PostConfig(List<ResourceComponent> items)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -306,7 +316,7 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }

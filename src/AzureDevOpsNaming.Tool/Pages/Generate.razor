@@ -11,6 +11,9 @@
 @inject ProtectedSessionStorage session
 @inject IJSRuntime JsRuntime
 @inject IToastService toastService
+@inject IResourceNamingRequestService _resourceNamingRequestService
+@inject IAdminLogService _adminLogService
+@inject IResourceTypeService _resourceTypeService
 
 <PageTitle>Azure DevOps Naming Tool - Generate</PageTitle>
 <div class="card @theme.ThemeStyle">
@@ -109,7 +112,7 @@
                                     </span>
                                     <input @bind-value="@selectedResourceType" @oninput="(EventArgs) => { OnTypeChanged(EventArgs.Value!.ToString()!);}" class="@GetControlStyle()" list="typeslist" id="generatetypes" placeholder="Type to search resource types..." autocomplete="off">
                                     <datalist id="typeslist">
-                                        @foreach (var type in @ResourceTypeService.GetFilteredResourceTypes(servicesData.ResourceTypes, selectedResourceTypeCategory))
+                                        @foreach (var type in @_resourceTypeService.GetFilteredResourceTypes(servicesData.ResourceTypes, selectedResourceTypeCategory))
                                         {
                                             @if (!String.IsNullOrEmpty(type.Property))
                                             {
@@ -546,13 +549,13 @@
             servicesData.ResourceTypes = filteredtypes;
 
             // Get the list of categories
-            categories = ResourceTypeService.GetTypeCategories(servicesData.ResourceTypes);
+            categories = _resourceTypeService.GetTypeCategories(servicesData.ResourceTypes);
             resourceDelimiter = (ResourceDelimiter)servicesData.ResourceDelimiters![0];
             componentsVisible = "collapse show";
         }
         catch (Exception ex)
         {
-            AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+            _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             toastService.ShowError("There was a problem loading the page. Please try again.");
         }
     }
@@ -613,7 +616,7 @@
                     {
                         resourceNameRequest.ResourceType = resourceType.ShortName;
                         resourceNameRequest.ResourceId = resourceType.Id;
-                        resourceNameRequestResponse = await ResourceNamingRequestService.RequestName(resourceNameRequest);
+                        resourceNameRequestResponse = await _resourceNamingRequestService.RequestName(resourceNameRequest);
 
                         // Prepare the response
                         sbNames.Append("<tr>");
@@ -660,7 +663,7 @@
                         {
                             resourceNameRequest.ResourceType = resourceType.ShortName;
                             resourceNameRequest.ResourceId = resourceType.Id;
-                            resourceNameRequestResponse = await ResourceNamingRequestService.RequestName(resourceNameRequest);
+                            resourceNameRequestResponse = await _resourceNamingRequestService.RequestName(resourceNameRequest);
 
                             sbNames.Append("<tr>");
                             if (!String.IsNullOrEmpty(resourceType.Property))
@@ -700,7 +703,7 @@
 
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 toastService.ShowError("There was a problem generting the name(s). Please try again");
             }
             finally
@@ -853,7 +856,7 @@
         catch (Exception ex)
         {
             toastService.ShowError("There was an error setting the resource type! Please try again.");
-            AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+            _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
         }
 
         //return Task.CompletedTask;

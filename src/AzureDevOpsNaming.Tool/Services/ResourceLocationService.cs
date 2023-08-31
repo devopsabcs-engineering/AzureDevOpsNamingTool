@@ -4,9 +4,16 @@ using System.Text.Json;
 
 namespace AzureNaming.Tool.Services
 {
-    public class ResourceLocationService
+    public class ResourceLocationService : IResourceLocationService
     {
-        public static async Task<ServiceResponse> GetItems(bool admin = true)
+        private IAdminLogService _adminLogService;
+
+        public ResourceLocationService(
+            IAdminLogService adminLogService)
+        {
+            _adminLogService = adminLogService;
+        }
+        public async Task<ServiceResponse> GetItems(bool admin = true)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -32,14 +39,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> GetItem(int id)
+        public async Task<ServiceResponse> GetItem(int id)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -66,14 +73,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> PostItem(ResourceLocation item)
+        public async Task<ServiceResponse> PostItem(ResourceLocation item)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -141,14 +148,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.ResponseObject = ex;
                 serviceResponse.Success = false;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> DeleteItem(int id)
+        public async Task<ServiceResponse> DeleteItem(int id)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -180,14 +187,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.ResponseObject = ex;
                 serviceResponse.Success = false;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> PostConfig(List<ResourceLocation> items)
+        public async Task<ServiceResponse> PostConfig(List<ResourceLocation> items)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -221,20 +228,20 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.ResponseObject = ex;
                 serviceResponse.Success = false;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> RefreshResourceLocations(bool shortNameReset = false)
+        public async Task<ServiceResponse> RefreshResourceLocations(bool shortNameReset = false)
         {
             ServiceResponse serviceResponse = new();
             try
             {
                 // Get the existing Resource location items
-                serviceResponse = await ResourceLocationService.GetItems();
+                serviceResponse = await this.GetItems();
                 if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
                 {
                     List<ResourceLocation> locations = (List<ResourceLocation>)serviceResponse.ResponseObject!;
@@ -313,12 +320,12 @@ namespace AzureNaming.Tool.Services
                 else
                 {
                     serviceResponse.ResponseObject = "Resource Locations not found!";
-                    AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = "There was a problem refreshing the resource locations configuration." });
+                    _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = "There was a problem refreshing the resource locations configuration." });
                 }
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }

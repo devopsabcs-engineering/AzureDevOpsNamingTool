@@ -1,13 +1,8 @@
-﻿using AzureNaming.Tool.Models;
+﻿using AzureNaming.Tool.Attributes;
 using AzureNaming.Tool.Helpers;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
+using AzureNaming.Tool.Models;
 using AzureNaming.Tool.Services;
-using AzureNaming.Tool.Attributes;
+using Microsoft.AspNetCore.Mvc;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,8 +12,19 @@ namespace AzureNaming.Tool.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ApiKey]
+    //[TypeFilter(typeof(ApiKeyAttribute))]
     public class ResourceOrgsController : ControllerBase
     {
+        private readonly IResourceOrgService _resourceOrgService;
+        private readonly IAdminLogService _adminLogService;
+
+        public ResourceOrgsController(IResourceOrgService resourceOrgService,
+            IAdminLogService adminLogService)
+        {
+            _resourceOrgService = resourceOrgService;
+            _adminLogService = adminLogService;
+        }
+
         // GET: api/<ResourceOrgsController>
         /// <summary>
         /// This function will return the orgs data. 
@@ -31,7 +37,7 @@ namespace AzureNaming.Tool.Controllers
             try
             {
                 // Get list of items
-                serviceResponse = await ResourceOrgService.GetItems();
+                serviceResponse = await _resourceOrgService.GetItems();
                 if (serviceResponse.Success)
                 {
                     return Ok(serviceResponse.ResponseObject);
@@ -43,7 +49,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -61,7 +67,7 @@ namespace AzureNaming.Tool.Controllers
             try
             {
                 // Get list of items
-                serviceResponse = await ResourceOrgService.GetItem(id);
+                serviceResponse = await _resourceOrgService.GetItem(id);
                 if (serviceResponse.Success)
                 {
                     return Ok(serviceResponse.ResponseObject);
@@ -73,7 +79,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -90,10 +96,10 @@ namespace AzureNaming.Tool.Controllers
             ServiceResponse serviceResponse = new();
             try
             {
-                serviceResponse = await ResourceOrgService.PostItem(item);
+                serviceResponse = await _resourceOrgService.PostItem(item);
                 if (serviceResponse.Success)
                 {
-                    AdminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Org (" + item.Name + ") added/updated." });
+                    _adminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Org (" + item.Name + ") added/updated." });
                     CacheHelper.InvalidateCacheObject("ResourceOrg");
                     return Ok(serviceResponse.ResponseObject);
                 }
@@ -104,7 +110,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -122,10 +128,10 @@ namespace AzureNaming.Tool.Controllers
             ServiceResponse serviceResponse = new();
             try
             {
-                serviceResponse = await ResourceOrgService.PostConfig(items);
+                serviceResponse = await _resourceOrgService.PostConfig(items);
                 if (serviceResponse.Success)
                 {
-                    AdminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Orgs added/updated." });
+                    _adminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Orgs added/updated." });
                     CacheHelper.InvalidateCacheObject("ResourceOrg");
                     return Ok(serviceResponse.ResponseObject);
                 }
@@ -136,7 +142,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -154,14 +160,14 @@ namespace AzureNaming.Tool.Controllers
             try
             {
                 // Get the item details
-                serviceResponse = await ResourceOrgService.GetItem(id);
+                serviceResponse = await _resourceOrgService.GetItem(id);
                 if (serviceResponse.Success)
                 {
                     ResourceOrg item = (ResourceOrg)serviceResponse.ResponseObject!;
-                    serviceResponse = await ResourceOrgService.DeleteItem(id);
+                    serviceResponse = await _resourceOrgService.DeleteItem(id);
                     if (serviceResponse.Success)
                     {
-                        AdminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Org (" + item.Name + ") deleted." });
+                        _adminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Org (" + item.Name + ") deleted." });
                         CacheHelper.InvalidateCacheObject("ResourceOrg");
                         return Ok("Resource Org (" + item.Name + ") deleted.");
                     }
@@ -177,7 +183,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }

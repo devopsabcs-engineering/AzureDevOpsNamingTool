@@ -7,6 +7,12 @@ namespace AzureNaming.Tool.Helpers
 {
     public class CacheHelper
     {
+        private static IAdminLogService _adminLogService;
+        public CacheHelper(IAdminLogService adminLogService)
+        {
+            _adminLogService = adminLogService;
+        }
+
         public static object? GetCacheObject(string cachekey)
         {
             try
@@ -24,7 +30,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return null;
             }
         }
@@ -43,7 +49,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             }
         }
 
@@ -56,7 +62,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             }
         }
 
@@ -75,7 +81,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 data.Append("<p><strong>No data currently cached.</strong></p>");
             }
             return data.ToString();
@@ -94,7 +100,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             }
         }
     }

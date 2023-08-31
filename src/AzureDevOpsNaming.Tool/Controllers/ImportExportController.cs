@@ -1,13 +1,7 @@
-﻿using AzureNaming.Tool.Models;
-using AzureNaming.Tool.Helpers;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using AzureNaming.Tool.Attributes;
+using AzureNaming.Tool.Models;
 using AzureNaming.Tool.Services;
-using AzureNaming.Tool.Attributes;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,8 +10,18 @@ namespace AzureNaming.Tool.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ApiKey]
+    //[TypeFilter(typeof(ApiKeyAttribute))]
     public class ImportExportController : ControllerBase
     {
+        private readonly IImportExportService _importExportService;
+        private readonly IAdminLogService _adminLogService;
+
+        public ImportExportController(IImportExportService importExportService, IAdminLogService adminLogService)
+        {
+            _importExportService = importExportService;
+            _adminLogService = adminLogService;
+        }
+
         // GET: api/<ImportExportController>
         /// <summary>
         /// This function will export the current configuration data (all components) as a single JSON file. 
@@ -30,7 +34,7 @@ namespace AzureNaming.Tool.Controllers
             ServiceResponse serviceResponse = new();
             try
             {
-                serviceResponse = await ImportExportService.ExportConfig(includeAdmin);
+                serviceResponse = await _importExportService.ExportConfig(includeAdmin);
                 if (serviceResponse.Success)
                 {
                     return Ok(serviceResponse.ResponseObject);
@@ -42,7 +46,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -60,7 +64,7 @@ namespace AzureNaming.Tool.Controllers
             ServiceResponse serviceResponse = new();
             try
             {
-                serviceResponse = await ImportExportService.PostConfig(configdata);
+                serviceResponse = await _importExportService.PostConfig(configdata);
                 if (serviceResponse.Success)
                 {
                     return Ok(serviceResponse.ResponseObject);
@@ -72,7 +76,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }

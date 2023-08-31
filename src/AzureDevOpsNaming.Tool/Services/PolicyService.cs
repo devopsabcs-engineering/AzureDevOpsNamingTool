@@ -1,25 +1,35 @@
 ﻿using AzureNaming.Tool.Helpers;
 using AzureNaming.Tool.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace AzureNaming.Tool.Services
 {
-    public class PolicyService
+    public class PolicyService : IPolicyService
     {
-        public static async Task<ServiceResponse> GetPolicy()
+        private IAdminLogService _adminLogService;
+        private IPolicyRuleFactory _policyRuleFactory;
+
+        public PolicyService(
+            IAdminLogService adminLogService,
+            IPolicyRuleFactory policyRuleFactory)
+        {
+            _adminLogService = adminLogService;
+            _policyRuleFactory = policyRuleFactory;
+        }
+
+        public async Task<ServiceResponse> GetPolicy()
         {
             ServiceResponse serviceResponse = new();
             try
             {
                 var delimiter = '-';
-                var nameComponents = await Helpers.ConfigurationHelper.GetList<ResourceComponent>();
-                var resourceTypes = await Helpers.ConfigurationHelper.GetList<ResourceType>();
-                var unitDepts = await Helpers.ConfigurationHelper.GetList<ResourceUnitDept>();
-                var environments = await Helpers.ConfigurationHelper.GetList<ResourceEnvironment>();
-                var locations = await Helpers.ConfigurationHelper.GetList<ResourceLocation>();
-                var orgs = await Helpers.ConfigurationHelper.GetList<ResourceOrg>();
-                var Functions = await Helpers.ConfigurationHelper.GetList<ResourceFunction>();
-                var projectAppSvcs = await Helpers.ConfigurationHelper.GetList<ResourceProjAppSvc>();
+                var nameComponents = await ConfigurationHelper.GetList<ResourceComponent>();
+                var resourceTypes = await ConfigurationHelper.GetList<ResourceType>();
+                var unitDepts = await ConfigurationHelper.GetList<ResourceUnitDept>();
+                var environments = await ConfigurationHelper.GetList<ResourceEnvironment>();
+                var locations = await ConfigurationHelper.GetList<ResourceLocation>();
+                var orgs = await ConfigurationHelper.GetList<ResourceOrg>();
+                var Functions = await ConfigurationHelper.GetList<ResourceFunction>();
+                var projectAppSvcs = await ConfigurationHelper.GetList<ResourceProjAppSvc>();
 
                 List<String> validations = new();
                 var maxSortOrder = 0;
@@ -85,7 +95,7 @@ namespace AzureNaming.Tool.Services
                 }
 
                 var property = new PolicyProperty("Name Validation", "This policy enables you to restrict the name can be specified when deploying a Azure Resource.");
-                property.PolicyRule = PolicyRuleFactory.GetNameValidationRules(validations.Select(x => new PolicyRule(x, delimiter)).ToList(), delimiter);
+                property.PolicyRule = _policyRuleFactory.GetNameValidationRules(validations.Select(x => new PolicyRule(x, delimiter)).ToList(), delimiter);
                 PolicyDefinition definition = new(property);
 
                 //serviceResponse.ResponseObject = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(definition.ToString())).ToArray();
@@ -94,20 +104,20 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }
             return serviceResponse;
         }
 
-        private static void AddValidations(dynamic list, List<string> validations, Char delimiter, int level)
+        private void AddValidations(dynamic list, List<string> validations, Char delimiter, int level)
         {
             if (validations.Count == 0)
             {
                 foreach (var item in list)
                 {
-                    if (item.ShortName.Trim() !=  String.Empty)
+                    if (item.ShortName.Trim() != String.Empty)
                     {
                         var key = $"{item.ShortName}{delimiter}*";
                         if (!validations.Contains(key))
@@ -119,7 +129,7 @@ namespace AzureNaming.Tool.Services
             {
                 foreach (var item in list)
                 {
-                    if (item.ShortName.Trim() !=  String.Empty)
+                    if (item.ShortName.Trim() != String.Empty)
                     {
                         foreach (var validation in validations.Where(x => x.Count(p => p.ToString().Contains(delimiter)) == level - 1).ToList())
                         {

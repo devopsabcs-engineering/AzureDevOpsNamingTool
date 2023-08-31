@@ -1,20 +1,18 @@
 ﻿using AzureNaming.Tool.Models;
 using AzureNaming.Tool.Services;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.NetworkInformation;
-using System.Reflection.Metadata;
-using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace AzureNaming.Tool.Helpers
 {
     public class FileSystemHelper
     {
+        private static IAdminLogService _adminLogService;
+
+        public FileSystemHelper(IAdminLogService adminLogService)
+        {
+            _adminLogService = adminLogService;
+        }
+
         public static async Task<string> ReadFile(string fileName, string folderName = "settings/")
         {
             await CheckFile(folderName + fileName);
@@ -82,7 +80,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return ex;
             }
         }
@@ -109,7 +107,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             }
             return result;
         }

@@ -3,6 +3,14 @@
 @using AzureNaming.Tool.Helpers;
 @using AzureNaming.Tool.Models;
 @inject StateContainer state
+@inject ConfigurationHelper configurationHelper //inject to ensure created
+@inject GeneralHelper generalHelper //inject to ensure created
+@inject ServicesHelper servicesHelper //inject to ensure created
+@inject CacheHelper cacheHelper //inject to ensure created
+@inject FileSystemHelper fileSystemHelper //inject to ensure created
+@inject IdentityHelper identityHelper //inject to ensure created
+@inject ModalHelper modalHelper //inject to ensure created
+@inject ValidationHelper validationHelper //inject to ensure created
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     Layout = "_Layout";

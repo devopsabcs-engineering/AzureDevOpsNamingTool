@@ -1,13 +1,8 @@
-﻿using AzureNaming.Tool.Models;
+﻿using AzureNaming.Tool.Attributes;
 using AzureNaming.Tool.Helpers;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
+using AzureNaming.Tool.Models;
 using AzureNaming.Tool.Services;
-using AzureNaming.Tool.Attributes;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,8 +11,19 @@ namespace AzureNaming.Tool.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ApiKey]
+    //[TypeFilter(typeof(ApiKeyAttribute))]
     public class ResourceFunctionsController : ControllerBase
     {
+        private readonly IResourceFunctionService _resourceFunctionService;
+        private readonly IAdminLogService _adminLogService;
+
+        public ResourceFunctionsController(IResourceFunctionService resourceFunctionService,
+            IAdminLogService adminLogService)
+        {
+            _resourceFunctionService = resourceFunctionService;
+            _adminLogService = adminLogService;
+        }
+
         // GET: api/<ResourceFunctionsController>
         /// <summary>
         /// This function will return the functions data. 
@@ -30,7 +36,7 @@ namespace AzureNaming.Tool.Controllers
             try
             {
                 // Get list of items
-                serviceResponse = await ResourceFunctionService.GetItems();
+                serviceResponse = await _resourceFunctionService.GetItems();
                 if (serviceResponse.Success)
                 {
                     return Ok(serviceResponse.ResponseObject);
@@ -44,7 +50,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -61,7 +67,7 @@ namespace AzureNaming.Tool.Controllers
             ServiceResponse serviceResponse = new();
             try
             {
-                serviceResponse = await ResourceFunctionService.GetItem(id);
+                serviceResponse = await _resourceFunctionService.GetItem(id);
                 if (serviceResponse.Success)
                 {
                     return Ok(serviceResponse.ResponseObject);
@@ -73,7 +79,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -90,10 +96,10 @@ namespace AzureNaming.Tool.Controllers
             ServiceResponse serviceResponse = new();
             try
             {
-                serviceResponse = await ResourceFunctionService.PostItem(item);
+                serviceResponse = await _resourceFunctionService.PostItem(item);
                 if (serviceResponse.Success)
                 {
-                    AdminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Function (" + item.Name + ") added/updated." });
+                    _adminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Function (" + item.Name + ") added/updated." });
                     CacheHelper.InvalidateCacheObject("ResourceFunction");
                     return Ok(serviceResponse.ResponseObject);
                 }
@@ -104,7 +110,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -122,10 +128,10 @@ namespace AzureNaming.Tool.Controllers
             ServiceResponse serviceResponse = new();
             try
             {
-                serviceResponse = await ResourceFunctionService.PostConfig(items);
+                serviceResponse = await _resourceFunctionService.PostConfig(items);
                 if (serviceResponse.Success)
                 {
-                    AdminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Functions added/updated." });
+                    _adminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Functions added/updated." });
                     CacheHelper.InvalidateCacheObject("ResourceFunction");
                     return Ok(serviceResponse.ResponseObject);
                 }
@@ -136,7 +142,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }
@@ -154,14 +160,14 @@ namespace AzureNaming.Tool.Controllers
             try
             {
                 // Get the item details
-                serviceResponse = await ResourceFunctionService.GetItem(id);
+                serviceResponse = await _resourceFunctionService.GetItem(id);
                 if (serviceResponse.Success)
                 {
                     ResourceFunction item = (ResourceFunction)serviceResponse.ResponseObject!;
-                    serviceResponse = await ResourceFunctionService.DeleteItem(id);
+                    serviceResponse = await _resourceFunctionService.DeleteItem(id);
                     if (serviceResponse.Success)
                     {
-                        AdminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Function (" + item.Name + ") deleted." });
+                        _adminLogService.PostItem(new AdminLogMessage() { Source = "API", Title = "INFORMATION", Message = "Resource Function (" + item.Name + ") deleted." });
                         CacheHelper.InvalidateCacheObject("ResourceFunction");
                         return Ok("Resource Function (" + item.Name + ") deleted.");
                     }
@@ -177,7 +183,7 @@ namespace AzureNaming.Tool.Controllers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return BadRequest(ex);
             }
         }

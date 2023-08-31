@@ -3,9 +3,18 @@ using AzureNaming.Tool.Models;
 
 namespace AzureNaming.Tool.Services
 {
-    public class AdminUserService
+    public class AdminUserService : IAdminUserService
     {
-        public static async Task<ServiceResponse> GetItems()
+        private IAdminLogService _adminLogService;
+
+        public AdminUserService(
+            IAdminLogService adminLogService
+            )
+        {
+            _adminLogService = adminLogService;
+        }
+
+        public async Task<ServiceResponse> GetItems()
         {
             ServiceResponse serviceResponse = new();
             try
@@ -20,14 +29,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> GetItem(string name)
+        public async Task<ServiceResponse> GetItem(string name)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -43,14 +52,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> PostItem(AdminUser item)
+        public async Task<ServiceResponse> PostItem(AdminUser item)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -115,14 +124,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.ResponseObject = ex;
                 serviceResponse.Success = false;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> DeleteItem(int id)
+        public async Task<ServiceResponse> DeleteItem(int id)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -146,14 +155,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.ResponseObject = ex;
                 serviceResponse.Success = false;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> PostConfig(List<AdminUser> items)
+        public async Task<ServiceResponse> PostConfig(List<AdminUser> items)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -176,7 +185,7 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.ResponseObject = ex;
                 serviceResponse.Success = false;
             }

@@ -1,14 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Server.Kestrel.Core.Features;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
+﻿using AzureNaming.Tool.Helpers;
 using AzureNaming.Tool.Models;
 using AzureNaming.Tool.Services;
-using AzureNaming.Tool.Helpers;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.AspNetCore.Server.Kestrel.Core.Features;
 
 namespace AzureNaming.Tool.Attributes
 {
     public class RateFilter : Attribute, IResourceFilter
     {
+        private readonly IAdminLogService _adminLogService;
+
+        public RateFilter(
+            IAdminLogService adminLogService)
+        {
+            _adminLogService = adminLogService;
+        }
+
         public void OnResourceExecuting(ResourceExecutingContext context)
         {
             try
@@ -30,7 +38,7 @@ namespace AzureNaming.Tool.Attributes
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             }
         }
 

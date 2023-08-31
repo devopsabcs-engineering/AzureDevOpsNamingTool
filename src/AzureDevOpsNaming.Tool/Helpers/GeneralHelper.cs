@@ -1,11 +1,6 @@
 using AzureNaming.Tool.Models;
-using AzureNaming.Tool.Pages;
 using AzureNaming.Tool.Services;
-using AzureNaming.Tool.Shared;
-using Blazored.Modal;
-using Blazored.Modal.Services;
 using System.Diagnostics.CodeAnalysis;
-using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -13,6 +8,13 @@ namespace AzureNaming.Tool.Helpers
 {
     public class GeneralHelper
     {
+        private static IAdminLogService _adminLogService;
+
+        public GeneralHelper(IAdminLogService adminLogService)
+        {
+            _adminLogService = adminLogService;
+        }
+
         //Function to get the Property Value
         public static object? GetPropertyValue(object SourceData, string propName)
         {
@@ -22,7 +24,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 return null;
             }
         }
@@ -91,7 +93,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 data = "";
             }
             return data;
@@ -139,7 +141,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             }
             return type;
         }

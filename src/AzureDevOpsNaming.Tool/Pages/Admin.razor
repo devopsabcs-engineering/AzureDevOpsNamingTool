@@ -13,6 +13,9 @@
 @inject IToastService toastService
 @inject NavigationManager NavigationManager
 @inject ProtectedLocalStorage storage
+@inject IAdminService _adminService
+@inject IAdminLogService _adminLogService 
+@inject IAdminUserService _adminUserService
 
 <PageTitle>Azure DevOps Naming Tool - Admin</PageTitle>
 <div class="card  @theme.ThemeStyle">
@@ -544,7 +547,7 @@
                 if (confirm)
                 {
                     // Set the new Global admin password
-                    serviceResponse = await AdminService.UpdatePassword(newpassword);
+                    serviceResponse = await _adminService.UpdatePassword(newpassword);
                     if (serviceResponse.Success)
                     {
                         message.Type = MessageTypesEnum.SUCCESS;
@@ -567,7 +570,7 @@
                 confirm = await ModalHelper.ShowConfirmationModal(Modal!, "ATTENTION", "<div class=\"my-4\">This will update the Identity Header Name.</div><div class=\"my-4\">Are you sure?</div>", "bg-danger", theme);
                 if (confirm)
                 {
-                    serviceResponse = await AdminService.UpdateIdentityHeaderName(currentidentityheadername);
+                    serviceResponse = await _adminService.UpdateIdentityHeaderName(currentidentityheadername);
                     if (serviceResponse.Success)
                     {
                         message.Type = MessageTypesEnum.SUCCESS;
@@ -590,7 +593,7 @@
                 confirm = await ModalHelper.ShowConfirmationModal(Modal!, "ATTENTION", "<div class=\"my-4\">This will update the API Key.</div><div class=\"my-4\">Are you sure?</div>", "bg-danger", theme);
                 if (confirm)
                 {
-                    serviceResponse = await AdminService.UpdateAPIKey(currentapikey);
+                    serviceResponse = await _adminService.UpdateAPIKey(currentapikey);
                     if (serviceResponse.Success)
                     {
                         message.Type = MessageTypesEnum.SUCCESS;
@@ -613,7 +616,7 @@
                 confirm = await ModalHelper.ShowConfirmationModal(Modal!, "ATTENTION", "<div class=\"my-4\">This will generate a new API Key.</div><div class=\"my-4\">Are you sure?</div>", "bg-danger", theme);
                 if (confirm)
                 {
-                    serviceResponse = await AdminService.GenerateAPIKey();
+                    serviceResponse = await _adminService.GenerateAPIKey();
                     if (serviceResponse.Success)
                     {
                         if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -699,7 +702,7 @@
                 confirm = await ModalHelper.ShowConfirmationModal(Modal!, "ATTENTION", "<div class=\"my-4\">This will delete the Admin User.</div><div class=\"my-4\">Are you sure?</div>", "bg-danger", theme);
                 if (confirm)
                 {
-                    serviceResponse = await AdminUserService.DeleteItem(Convert.ToInt32(id));
+                    serviceResponse = await _adminUserService.DeleteItem(Convert.ToInt32(id));
                     if (serviceResponse.Success)
                     {
                         message.Type = MessageTypesEnum.SUCCESS;
@@ -740,7 +743,7 @@
                         toastService.ShowError(message.Message);
                         break;
                 }
-                AdminLogService.PostItem(new AdminLogMessage() { Title = message.Type.ToString(), Message = message.Message, Source = currentuser });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = message.Type.ToString(), Message = message.Message, Source = currentuser });
             }
         }
 
@@ -850,7 +853,7 @@
         }
         catch (Exception ex)
         {
-            AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+            _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             message.Message = "There was a problem updating the setting!";
             message.Header = "ERROR";
         }
@@ -872,7 +875,7 @@
                     toastService.ShowError(message.Message);
                     break;
             }
-            AdminLogService.PostItem(new AdminLogMessage() { Title = message.Type.ToString(), Message = message.Message, Source = currentuser });
+            _adminLogService.PostItem(new AdminLogMessage() { Title = message.Type.ToString(), Message = message.Message, Source = currentuser });
         }
 
         servicesData = await ServicesHelper.LoadServicesData(servicesData, admin);

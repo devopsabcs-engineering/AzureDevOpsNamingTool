@@ -1,31 +1,30 @@
 ﻿using AzureNaming.Tool.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace AzureNaming.Tool.Models
 {
-    public class PolicyRuleFactory
+    public class PolicyRuleFactory : IPolicyRuleFactory
     {
-        internal static string GetNameValidationRules(List<PolicyRule> policies, Char delimeter, PolicyEffects effect = PolicyEffects.Deny)
+
+
+        public string GetNameValidationRules(List<PolicyRule> policies, Char delimeter, PolicyEffects effect = PolicyEffects.Deny)
         {
             var ifHeader = "\"if\": {\"allOf\": [";
             var policyGroups = policies.GroupBy(x => String.Join(',', x.Group));
-            var ifContent = GenerateConditions(policyGroups);
+            var ifContent = this.GenerateConditions(policyGroups);
             var ifFooter = "]}";
             var thenContent = ", \"then\": {\"effect\":\"" + effect.ToString().ToLower() + "\"}";
 
             return "\"policyRule\": {" + ifHeader + ifContent + ifFooter + thenContent + "}";
         }
 
-        static string GetMainCondition(List<PolicyRule> conditions)
+        string GetMainCondition(List<PolicyRule> conditions)
         {
             return "{\"not\": { \"value\": \"[substring(field('name'), " + conditions.First().StartIndex + ", " + conditions.First().Length + ")]\",\"in\": [" + String.Join(',', conditions.Select(x => "\"" + x.Name + "\"").Distinct()) + "]}}";
         }
 
-        private static string GenerateConditions(IEnumerable<IGrouping<string, PolicyRule>> policyGroups, int level = 1, int startIndex = 0)
+        private string GenerateConditions(IEnumerable<IGrouping<string, PolicyRule>> policyGroups, int level = 1, int startIndex = 0)
         {
-            String result =  String.Empty;
+            String result = String.Empty;
             var list = policyGroups.Where(x => x.Key.StartsWith($"{level},{startIndex}")).ToList();
             foreach (var levelConditions in list)
             {

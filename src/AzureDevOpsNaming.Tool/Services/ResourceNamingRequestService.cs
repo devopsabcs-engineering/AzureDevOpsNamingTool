@@ -1,24 +1,39 @@
 ﻿using AzureNaming.Tool.Helpers;
 using AzureNaming.Tool.Models;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Mvc.ViewComponents;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Text.RegularExpressions;
 
 namespace AzureNaming.Tool.Services
 {
-    public class ResourceNamingRequestService
+    public class ResourceNamingRequestService : IResourceNamingRequestService
     {
+        private IGeneratedNamesService _generatedNamesService;
+        private IAdminLogService _adminLogService;
+        private IResourceComponentService _resourceComponentService;
+        private IResourceTypeService _resourceTypeService;
+        private IResourceDelimiterService _resourceDelimiterService;
+        private ICustomComponentService _customComponentService;
+
+        public ResourceNamingRequestService(IGeneratedNamesService generatedNamesService,
+            IAdminLogService adminLogService,
+            IResourceComponentService resourceComponentService,
+            IResourceTypeService resourceTypeService,
+            IResourceDelimiterService resourceDelimiterService,
+            ICustomComponentService customComponentService)
+        {
+            _generatedNamesService = generatedNamesService;
+            _adminLogService = adminLogService;
+            _resourceComponentService = resourceComponentService;
+            _resourceTypeService = resourceTypeService;
+            _resourceDelimiterService = resourceDelimiterService;
+            _customComponentService = customComponentService;
+        }
+
         /// <summary>
         /// This function will generate a resoure type name for specifed component values. This function requires full definition for all components. It is recommended to use the ResourceNameRequest API function for name generation.   
         /// </summary>
         /// <param name="request"></param>
         /// <returns>ResourceNameResponse - Response of name generation</returns>
-        public static async Task<ResourceNameResponse> RequestNameWithComponents(ResourceNameRequestWithComponents request)
+        public async Task<ResourceNameResponse> RequestNameWithComponents(ResourceNameRequestWithComponents request)
         {
             ServiceResponse serviceResponse = new();
             ResourceNameResponse response = new()
@@ -49,7 +64,7 @@ namespace AzureNaming.Tool.Services
 
                 // Get the components
                 ServiceResponse serviceresponse = new();
-                serviceresponse = await ResourceComponentService.GetItems(false);
+                serviceresponse = await _resourceComponentService.GetItems(false);
                 var currentResourceComponents = serviceresponse.ResponseObject;
                 dynamic d = request;
 
@@ -173,7 +188,7 @@ namespace AzureNaming.Tool.Services
                     ResourceType = resourceType.ShortName,
                     Name = name
                 };
-                serviceResponse = await ResourceTypeService.ValidateResourceTypeName(validateNameRequest);
+                serviceResponse = await _resourceTypeService.ValidateResourceTypeName(validateNameRequest);
                 if (serviceResponse.Success)
                 {
                     if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -199,7 +214,7 @@ namespace AzureNaming.Tool.Services
                         ResourceName = name.ToLower(),
                         Components = lstComponents
                     };
-                    await GeneratedNamesService.PostItem(generatedName);
+                    await _generatedNamesService.PostItem(generatedName);
                     response.Success = true;
                     response.ResourceName = name.ToLower();
                     response.Message = sbMessage.ToString();
@@ -214,7 +229,7 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 response.Message = ex.Message;
                 return response;
             }
@@ -225,7 +240,7 @@ namespace AzureNaming.Tool.Services
         /// </summary>
         /// <param name="request"></param>
         /// <returns>ResourceNameResponse - Response of name generation</returns>
-        public static async Task<ResourceNameResponse> RequestName(ResourceNameRequest request)
+        public async Task<ResourceNameResponse> RequestName(ResourceNameRequest request)
         {
             ResourceNameResponse resourceNameResponse = new()
             {
@@ -244,7 +259,7 @@ namespace AzureNaming.Tool.Services
                 StringBuilder sbMessage = new();
 
                 // Get the current delimiter
-                serviceResponse = await ResourceDelimiterService.GetCurrentItem();
+                serviceResponse = await _resourceDelimiterService.GetCurrentItem();
                 if (serviceResponse.Success)
                 {
                     resourceDelimiter = (ResourceDelimiter)serviceResponse.ResponseObject!;
@@ -332,7 +347,7 @@ namespace AzureNaming.Tool.Services
                     }
 
                     // Get the current components
-                    serviceResponse = await ResourceComponentService.GetItems(false);
+                    serviceResponse = await _resourceComponentService.GetItems(false);
                     if (serviceResponse.Success)
                     {
                         if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -511,7 +526,7 @@ namespace AzureNaming.Tool.Services
                                         if (!component.IsFreeText)
                                         {
                                             // Get the custom components data
-                                            serviceResponse = await CustomComponentService.GetItems();
+                                            serviceResponse = await _customComponentService.GetItems();
                                             if (serviceResponse.Success)
                                             {
                                                 if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -696,7 +711,7 @@ namespace AzureNaming.Tool.Services
                     ResourceType = resourceType.ShortName,
                     Name = name
                 };
-                serviceResponse = await ResourceTypeService.ValidateResourceTypeName(validateNameRequest);
+                serviceResponse = await _resourceTypeService.ValidateResourceTypeName(validateNameRequest);
                 if (serviceResponse.Success)
                 {
                     if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -721,7 +736,7 @@ namespace AzureNaming.Tool.Services
                     if (!ConfigurationHelper.VerifyDuplicateNamesAllowed())
                     {
                         // Check if the name already exists
-                        serviceResponse = await GeneratedNamesService.GetItems();
+                        serviceResponse = await _generatedNamesService.GetItems();
                         if (serviceResponse.Success)
                         {
                             if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -747,7 +762,7 @@ namespace AzureNaming.Tool.Services
                             ResourceTypeName = resourceType.Resource,
                             User = request.CreatedBy
                         };
-                        ServiceResponse responseGenerateName = await GeneratedNamesService.PostItem(generatedName);
+                        ServiceResponse responseGenerateName = await _generatedNamesService.PostItem(generatedName);
                         if (responseGenerateName.Success)
                         {
                             resourceNameResponse.Success = true;
@@ -787,7 +802,7 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 resourceNameResponse.Message = ex.Message;
                 return resourceNameResponse;
             }

@@ -8,6 +8,13 @@ namespace AzureNaming.Tool.Helpers
 {
     public class ModalHelper
     {
+        private static IAdminLogService _adminLogService;
+
+        public ModalHelper(IAdminLogService adminLogService)
+        {
+            _adminLogService = adminLogService;
+        }
+
         public static async Task<bool> ShowConfirmationModal(IModalService modal, string title, string message, string headerstyle, ThemeInfo theme)
         {
             bool response = false;
@@ -39,7 +46,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             }
             return response;
         }
@@ -72,7 +79,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             }
         }
 
@@ -116,7 +123,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             }
             return response;
         }
@@ -152,7 +159,7 @@ namespace AzureNaming.Tool.Helpers
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
             }
             return response;
         }

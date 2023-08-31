@@ -1,19 +1,26 @@
 ﻿using AzureNaming.Tool.Helpers;
 using AzureNaming.Tool.Models;
-using Microsoft.AspNetCore.Components;
-using System;
-using System.ComponentModel.Design;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
 using System.Text.Json;
 using ResourceType = AzureNaming.Tool.Models.ResourceType;
 
 namespace AzureNaming.Tool.Services
 {
-    public class ResourceTypeService
+    public class ResourceTypeService : IResourceTypeService
     {
-        public static async Task<ServiceResponse> GetItems(bool admin = true)
+        private IAdminLogService _adminLogService;
+        //private  IResourceComponentService _resourceComponentService;
+        private IResourceDelimiterService _resourceDelimiterService;
+
+        public ResourceTypeService(
+            IAdminLogService adminLogService,
+            IResourceDelimiterService resourceDelimiterService
+            )
+        {
+            _adminLogService = adminLogService;
+            //_resourceComponentService = resourceComponentService;
+            _resourceDelimiterService = resourceDelimiterService;
+        }
+        public async Task<ServiceResponse> GetItems(bool admin = true)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -39,14 +46,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> GetItem(int id)
+        public async Task<ServiceResponse> GetItem(int id)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -73,14 +80,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> PostItem(ResourceType item)
+        public async Task<ServiceResponse> PostItem(ResourceType item)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -142,14 +149,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.ResponseObject = ex;
                 serviceResponse.Success = false;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> DeleteItem(int id)
+        public async Task<ServiceResponse> DeleteItem(int id)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -181,14 +188,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.ResponseObject = ex;
                 serviceResponse.Success = false;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> PostConfig(List<ResourceType> items)
+        public async Task<ServiceResponse> PostConfig(List<ResourceType> items)
         {
             ServiceResponse serviceResponse = new();
             try
@@ -213,14 +220,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }
             return serviceResponse;
         }
 
-        public static List<string> GetTypeCategories(List<ResourceType> types)
+        public List<string> GetTypeCategories(List<ResourceType> types)
         {
             ServiceResponse serviceResponse = new();
             List<string> categories = new();
@@ -250,7 +257,7 @@ namespace AzureNaming.Tool.Services
             return categories;
         }
 
-        public static List<ResourceType> GetFilteredResourceTypes(List<ResourceType> types, string filter)
+        public List<ResourceType> GetFilteredResourceTypes(List<ResourceType> types, string filter)
         {
             ServiceResponse serviceResponse = new();
             List<ResourceType> currenttypes = new();
@@ -266,13 +273,13 @@ namespace AzureNaming.Tool.Services
             return currenttypes;
         }
 
-        public static async Task<ServiceResponse> RefreshResourceTypes(bool shortNameReset = false)
+        public async Task<ServiceResponse> RefreshResourceTypes(bool shortNameReset = false)
         {
             ServiceResponse serviceResponse = new();
             try
             {
                 // Get the existing Resource Type items
-                serviceResponse = await ResourceTypeService.GetItems();
+                serviceResponse = await this.GetItems();
                 if (serviceResponse.Success)
                 {
                     List<ResourceType> types = (List<ResourceType>)serviceResponse.ResponseObject!;
@@ -341,7 +348,7 @@ namespace AzureNaming.Tool.Services
                         else
                         {
                             serviceResponse.ResponseObject = "Refresh Resource Types not found!";
-                            AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = "There was a problem refreshing the resource types configuration." });
+                            _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = "There was a problem refreshing the resource types configuration." });
                         }
                     }
                     else
@@ -356,26 +363,28 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> UpdateTypeComponents(string operation, int componentid)
+        public async Task<ServiceResponse> UpdateTypeComponents(string operation, int componentid)
         {
             ServiceResponse serviceResponse = new();
             try
             {
-                serviceResponse = await ResourceComponentService.GetItem(componentid);
+                //TODO: cascade updates
+                throw new NotImplementedException("cascade updates");
+                //serviceResponse = await _resourceComponentService.GetItem(componentid);
                 if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
                 {
                     ResourceComponent resourceComponent = (ResourceComponent)serviceResponse.ResponseObject!;
                     if (GeneralHelper.IsNotNull(resourceComponent))
                     {
                         string component = GeneralHelper.NormalizeName(resourceComponent.Name, false);
-                        serviceResponse = await ResourceTypeService.GetItems();
+                        serviceResponse = await this.GetItems();
                         if (serviceResponse.Success)
                         {
                             if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -395,7 +404,7 @@ namespace AzureNaming.Tool.Services
                                                 {
                                                     currentvalues.Add(component);
                                                     currenttype.Optional = String.Join(",", currentvalues.ToArray());
-                                                    await ResourceTypeService.PostItem(currenttype);
+                                                    await this.PostItem(currenttype);
                                                 }
                                                 break;
                                             case "optional-remove":
@@ -404,7 +413,7 @@ namespace AzureNaming.Tool.Services
                                                 {
                                                     currentvalues.Remove(component);
                                                     currenttype.Optional = String.Join(",", currentvalues.ToArray());
-                                                    await ResourceTypeService.PostItem(currenttype);
+                                                    await this.PostItem(currenttype);
                                                 }
                                                 break;
                                             case "exclude-add":
@@ -413,7 +422,7 @@ namespace AzureNaming.Tool.Services
                                                 {
                                                     currentvalues.Add(component);
                                                     currenttype.Exclude = String.Join(",", currentvalues.ToArray());
-                                                    await ResourceTypeService.PostItem(currenttype);
+                                                    await this.PostItem(currenttype);
                                                 }
                                                 break;
                                             case "exclude-remove":
@@ -422,7 +431,7 @@ namespace AzureNaming.Tool.Services
                                                 {
                                                     currentvalues.Remove(component);
                                                     currenttype.Exclude = String.Join(",", currentvalues.ToArray());
-                                                    await ResourceTypeService.PostItem(currenttype);
+                                                    await this.PostItem(currenttype);
                                                 }
                                                 break;
                                         }
@@ -445,14 +454,14 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }
             return serviceResponse;
         }
 
-        public static async Task<ServiceResponse> ValidateResourceTypeName(ValidateNameRequest validateNameRequest)
+        public async Task<ServiceResponse> ValidateResourceTypeName(ValidateNameRequest validateNameRequest)
         {
             ServiceResponse serviceResponse = new();
             ValidateNameResponse validateNameResponse = new();
@@ -460,7 +469,7 @@ namespace AzureNaming.Tool.Services
             {
                 ResourceDelimiter? resourceDelimiter = new();
                 // Get the current delimiter
-                serviceResponse = await ResourceDelimiterService.GetCurrentItem();
+                serviceResponse = await _resourceDelimiterService.GetCurrentItem();
                 if (serviceResponse.Success)
                 {
                     if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -476,7 +485,7 @@ namespace AzureNaming.Tool.Services
                 }
 
                 // Get the specifed resource type
-                serviceResponse = await ResourceTypeService.GetItems(true);
+                serviceResponse = await this.GetItems(true);
                 if (serviceResponse.Success)
                 {
                     if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
@@ -515,7 +524,7 @@ namespace AzureNaming.Tool.Services
             }
             catch (Exception ex)
             {
-                AdminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
+                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
                 serviceResponse.Success = false;
                 serviceResponse.ResponseObject = ex;
             }

@@ -15,6 +15,7 @@ namespace AzureNaming.Tool.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ApiKey]
+    //[TypeFilter(typeof(ApiKeyAttribute))]
     public class PolicyController : ControllerBase
     {
         //private ServiceResponse serviceResponse = new();
