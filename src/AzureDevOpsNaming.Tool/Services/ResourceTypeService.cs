@@ -8,16 +8,17 @@ namespace AzureNaming.Tool.Services
     public class ResourceTypeService : IResourceTypeService
     {
         private IAdminLogService _adminLogService;
-        //private  IResourceComponentService _resourceComponentService;
+        private IResourceComponentByIdService _resourceComponentByIdService;
         private IResourceDelimiterService _resourceDelimiterService;
 
         public ResourceTypeService(
             IAdminLogService adminLogService,
+            IResourceComponentByIdService resourceComponentByIdService,
             IResourceDelimiterService resourceDelimiterService
             )
         {
             _adminLogService = adminLogService;
-            //_resourceComponentService = resourceComponentService;
+            _resourceComponentByIdService = resourceComponentByIdService;
             _resourceDelimiterService = resourceDelimiterService;
         }
         public async Task<ServiceResponse> GetItems(bool admin = true)
@@ -375,9 +376,7 @@ namespace AzureNaming.Tool.Services
             ServiceResponse serviceResponse = new();
             try
             {
-                //TODO: cascade updates
-                throw new NotImplementedException("cascade updates");
-                //serviceResponse = await _resourceComponentService.GetItem(componentid);
+                serviceResponse = await _resourceComponentByIdService.GetItem(componentid);
                 if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
                 {
                     ResourceComponent resourceComponent = (ResourceComponent)serviceResponse.ResponseObject!;

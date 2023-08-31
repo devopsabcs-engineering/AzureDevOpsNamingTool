@@ -28,7 +28,7 @@ builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSingleton<StateContainer>();
 
-// 9 helpers + 17 services + 1 factory -- came from static -- 27 total
+// 9 helpers + 18 services + 1 factory -- came from static -- 28 total
 builder.Services.AddSingleton<IAdminLogService, AdminLogService>(); //services
 builder.Services.AddSingleton<IAdminService, AdminService>();
 builder.Services.AddSingleton<IAdminUserService, AdminUserService>();
@@ -43,6 +43,7 @@ builder.Services.AddSingleton<IResourceNamingRequestService, ResourceNamingReque
 builder.Services.AddSingleton<IResourceOrgService, ResourceOrgService>();
 builder.Services.AddSingleton<IResourceProjAppSvcService, ResourceProjAppSvcService>();
 builder.Services.AddSingleton<IResourceUnitDeptService, ResourceUnitDeptService>();
+builder.Services.AddSingleton<IResourceComponentByIdService, ResourceComponentByIdService>(); //SHOULD FIX Circular Dependency within ResourceTypeService <--> ResourceComponentService
 builder.Services.AddSingleton<IResourceTypeService, ResourceTypeService>(); //circular dependency with resource component
 builder.Services.AddSingleton<IResourceComponentService, ResourceComponentService>(); //circular dependency with resource type
 builder.Services.AddSingleton<IImportExportService, ImportExportService>();

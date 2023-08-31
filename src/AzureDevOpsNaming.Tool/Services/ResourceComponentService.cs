@@ -6,12 +6,14 @@ namespace AzureNaming.Tool.Services
     public class ResourceComponentService : IResourceComponentService
     {
         private IAdminLogService _adminLogService;
+        private IResourceTypeService _resourceTypeService;
 
         public ResourceComponentService(
-            IAdminLogService adminLogService)
+            IAdminLogService adminLogService,
+            IResourceTypeService resourceTypeService)
         {
             _adminLogService = adminLogService;
-            //_resourceTypeService = resourceTypeService;
+            _resourceTypeService = resourceTypeService;
         }
 
         public async Task<ServiceResponse> GetItems(bool admin)
@@ -46,39 +48,7 @@ namespace AzureNaming.Tool.Services
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse> GetItem(int id)
-        {
-            ServiceResponse serviceResponse = new();
-            try
-            {
-                // Get list of items
-                var items = await ConfigurationHelper.GetList<ResourceComponent>();
-                if (GeneralHelper.IsNotNull(items))
-                {
-                    var item = items.Find(x => x.Id == id);
-                    if (GeneralHelper.IsNotNull(item))
-                    {
-                        serviceResponse.ResponseObject = item;
-                        serviceResponse.Success = true;
-                    }
-                    else
-                    {
-                        serviceResponse.ResponseObject = "Resource Component not found!";
-                    }
-                }
-                else
-                {
-                    serviceResponse.ResponseObject = "Resource Component not found!";
-                }
-            }
-            catch (Exception ex)
-            {
-                _adminLogService.PostItem(new AdminLogMessage() { Title = "ERROR", Message = ex.Message });
-                serviceResponse.Success = false;
-                serviceResponse.ResponseObject = ex;
-            }
-            return serviceResponse;
-        }
+
 
         public async Task<ServiceResponse> PostItem(ResourceComponent item)
         {
@@ -184,9 +154,7 @@ namespace AzureNaming.Tool.Services
                     {
                         // Delete any resource type settings for the component
                         List<string> currentvalues = new();
-                        //serviceResponse = await _resourceTypeService.GetItems();
-                        //TODO: cascade delete
-                        throw new NotImplementedException("cascade delete");
+                        serviceResponse = await _resourceTypeService.GetItems();
                         if (GeneralHelper.IsNotNull(serviceResponse.ResponseObject))
                         {
                             List<Models.ResourceType> resourceTypes = (List<Models.ResourceType>)serviceResponse.ResponseObject!;
@@ -207,9 +175,7 @@ namespace AzureNaming.Tool.Services
                                         currentvalues.Remove(GeneralHelper.NormalizeName(item.Name, false));
                                         currenttype.Exclude = String.Join(",", currentvalues.ToArray());
                                     }
-                                    //await _resourceTypeService.PostItem(currenttype);
-                                    //TODO
-                                    throw new NotImplementedException("cascade delete 2");
+                                    await _resourceTypeService.PostItem(currenttype);
                                 }
 
                                 // Delete any custom components for this resource component

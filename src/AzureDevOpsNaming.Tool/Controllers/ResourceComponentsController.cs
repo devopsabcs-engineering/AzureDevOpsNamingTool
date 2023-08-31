@@ -16,13 +16,16 @@ namespace AzureNaming.Tool.Controllers
     {
         private readonly IResourceComponentService _resourceComponentService;
         private readonly IAdminLogService _adminLogService;
+        private readonly IResourceComponentByIdService _resourceComponentByIdService;
 
         public ResourceComponentsController(
             IResourceComponentService resourceComponentService,
-            IAdminLogService adminLogService)
+            IAdminLogService adminLogService,
+            IResourceComponentByIdService resourceComponentByIdService)
         {
             _resourceComponentService = resourceComponentService;
             _adminLogService = adminLogService;
+            _resourceComponentByIdService = resourceComponentByIdService;
         }
         // GET: api/<resourcecomponentsController>
         /// <summary>
@@ -66,7 +69,7 @@ namespace AzureNaming.Tool.Controllers
             try
             {
                 // Get list of items
-                serviceResponse = await _resourceComponentService.GetItem(id);
+                serviceResponse = await _resourceComponentByIdService.GetItem(id);
                 if (serviceResponse.Success)
                 {
                     return Ok(serviceResponse.ResponseObject);
