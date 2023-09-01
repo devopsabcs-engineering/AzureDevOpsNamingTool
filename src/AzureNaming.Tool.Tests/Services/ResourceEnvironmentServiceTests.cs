@@ -13,10 +13,12 @@ namespace AzureNaming.Tool.Services
         private readonly ResourceEnvironmentService _resourceEnvironmentService;
         //private ServiceResponse _expectedTestResourceEnvironmentServiceResponse;
 
-        private readonly ITestOutputHelper output;       
+        private readonly ITestOutputHelper output;
+        private readonly List<ResourceEnvironment> _originalItems;
 
         public ResourceEnvironmentServiceTests(ITestOutputHelper output)
-        {                       
+        {
+            _originalItems = Helpers.GeneralTestHelper.DeserializeJsonFromFile<List<ResourceEnvironment>>("settings/resourceenvironments.json");
 
             _adminLogServiceMock = new Mock<IAdminLogService>();
             //_adminLogServiceMock.Setup(x => x.GetItems())
@@ -148,7 +150,7 @@ namespace AzureNaming.Tool.Services
             // NOT done in constructor -- all local due to flakyness
 
             var adminLogServiceMock = new Mock<IAdminLogService>();
-            
+
             var resourceEnvironmentService = new ResourceEnvironmentService(adminLogServiceMock.Object);
 
             ServiceResponse expectedTestResourceEnvironmentServiceResponse = new ServiceResponse()
@@ -172,19 +174,10 @@ namespace AzureNaming.Tool.Services
 
                 Trace.WriteLine("need to re-post config...");
 
-                //re-post config
-                var originalItems = new List<ResourceEnvironment>
-                {
-                    new ResourceEnvironment() { Id = 1, Name = "Development", ShortName = "dev", SortOrder = 1 },
-                    new ResourceEnvironment() { Id = 2, Name = "Production", ShortName = "prd", SortOrder = 2 },
-                    new ResourceEnvironment() { Id = 3, Name = "Sandbox", ShortName = "sbx", SortOrder = 3 },
-                    new ResourceEnvironment() { Id = 4, Name = "Shared", ShortName = "shd", SortOrder = 4 },
-                    new ResourceEnvironment() { Id = 5, Name = "Staging", ShortName = "stg", SortOrder = 5 },
-                    new ResourceEnvironment() { Id = 6, Name = "Test", ShortName = "tst", SortOrder = 6 },
-                    new ResourceEnvironment() { Id = 7, Name = "UAT", ShortName = "uat", SortOrder = 7 }
-                };
-                await resourceEnvironmentService.PostConfig(originalItems);
-            } else
+                //re-post config                
+                await resourceEnvironmentService.PostConfig(_originalItems);
+            }
+            else
             {
                 Trace.WriteLine("no need to repost");
             }
@@ -208,16 +201,7 @@ namespace AzureNaming.Tool.Services
             {
                 ResponseMessage = "",
                 Success = true,
-                ResponseObject = new List<ResourceEnvironment>
-                {
-                    new ResourceEnvironment() { Id = 1, Name = "Development", ShortName = "dev", SortOrder = 1 },
-                    new ResourceEnvironment() { Id = 2, Name = "Production", ShortName = "prd", SortOrder = 2 },
-                    new ResourceEnvironment() { Id = 3, Name = "Sandbox", ShortName = "sbx", SortOrder = 3 },
-                    new ResourceEnvironment() { Id = 4, Name = "Shared", ShortName = "shd", SortOrder = 4 },
-                    new ResourceEnvironment() { Id = 5, Name = "Staging", ShortName = "stg", SortOrder = 5 },
-                    new ResourceEnvironment() { Id = 6, Name = "Test", ShortName = "tst", SortOrder = 6 },
-                    new ResourceEnvironment() { Id = 7, Name = "UAT", ShortName = "uat", SortOrder = 7 }
-                }
+                ResponseObject = _originalItems
             };
 
             // Act

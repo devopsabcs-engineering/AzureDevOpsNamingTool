@@ -1,44 +1,44 @@
 [
   {
-    "id": 1,
-    "name": "Development",
-    "shortName": "dev",
-    "sortOrder": 1
+    "Id": 1,
+    "Name": "Development",
+    "ShortName": "dev",
+    "SortOrder": 1
   },
   {
-    "id": 2,
-    "name": "Production",
-    "shortName": "prd",
-    "sortOrder": 2
+    "Id": 2,
+    "Name": "Production",
+    "ShortName": "prd",
+    "SortOrder": 2
   },
   {
-    "id": 3,
-    "name": "Sandbox",
-    "shortName": "sbx",
-    "sortOrder": 3
+    "Id": 3,
+    "Name": "Sandbox",
+    "ShortName": "sbx",
+    "SortOrder": 3
   },
   {
-    "id": 4,
-    "name": "Shared",
-    "shortName": "shd",
-    "sortOrder": 4
+    "Id": 4,
+    "Name": "Shared",
+    "ShortName": "shd",
+    "SortOrder": 4
   },
   {
-    "id": 5,
-    "name": "Staging",
-    "shortName": "stg",
-    "sortOrder": 5
+    "Id": 5,
+    "Name": "Staging",
+    "ShortName": "stg",
+    "SortOrder": 5
   },
   {
-    "id": 6,
-    "name": "Test",
-    "shortName": "tst",
-    "sortOrder": 6
+    "Id": 6,
+    "Name": "Test",
+    "ShortName": "tst",
+    "SortOrder": 6
   },
   {
-    "id": 7,
-    "name": "UAT",
-    "shortName": "uat",
-    "sortOrder": 7
+    "Id": 7,
+    "Name": "UAT",
+    "ShortName": "uat",
+    "SortOrder": 7
   }
 ]
