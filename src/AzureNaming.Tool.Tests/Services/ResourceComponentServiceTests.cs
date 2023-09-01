@@ -183,6 +183,7 @@ namespace AzureNaming.Tool.Services
             //_resourceTypeServiceMock.Setup(x => x.GetItems(It.IsAny<bool>()))
             //    .Returns(_resourceTypeServiceResponse);
 
+            //TODO: compose mock objects
             _resourceComponentService = new ResourceComponentService(_adminLogServiceMock.Object, _resourceTypeService); // _resourceTypeServiceMock.Object);
         }
 

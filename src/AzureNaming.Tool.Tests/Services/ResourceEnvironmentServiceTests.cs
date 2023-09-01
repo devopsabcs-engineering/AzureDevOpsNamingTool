@@ -162,7 +162,7 @@ namespace AzureNaming.Tool.Services
             var allResourceEnvironments = resourceEnvironmentService.GetItems().Result;
             foreach (var item in allResourceEnvironments.ResponseObject)
             {
-                output.WriteLine($"{item.Id}: {item.Name}");
+                Trace.WriteLine($"{item.Id}: {item.Name}");
             }
             if (allResourceEnvironments.ResponseObject.Count < 7)
             {
@@ -170,7 +170,7 @@ namespace AzureNaming.Tool.Services
                 //due to add multiple is 3 instead of 7
                 //PostConfig re-writes the environments
 
-                output.WriteLine("need to re-post config...");
+                Trace.WriteLine("need to re-post config...");
 
                 //re-post config
                 var originalItems = new List<ResourceEnvironment>
@@ -184,6 +184,9 @@ namespace AzureNaming.Tool.Services
                     new ResourceEnvironment() { Id = 7, Name = "UAT", ShortName = "uat", SortOrder = 7 }
                 };
                 await resourceEnvironmentService.PostConfig(originalItems);
+            } else
+            {
+                Trace.WriteLine("no need to repost");
             }
 
             ServiceResponse actualTestResourceEnvironmentServiceResponse = resourceEnvironmentService.DeleteItem(6).Result;
