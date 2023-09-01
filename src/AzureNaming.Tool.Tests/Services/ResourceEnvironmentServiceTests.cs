@@ -18,7 +18,7 @@ namespace AzureNaming.Tool.Services
 
         public ResourceEnvironmentServiceTests(ITestOutputHelper output)
         {
-            _originalItems = Helpers.GeneralTestHelper.DeserializeJsonFromFile<List<ResourceEnvironment>>("settings/resourceenvironments.json");
+            _originalItems = Helpers.GeneralTestHelper.DefaultResourceEnvironments;
 
             _adminLogServiceMock = new Mock<IAdminLogService>();
             //_adminLogServiceMock.Setup(x => x.GetItems())

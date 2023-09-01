@@ -1,6 +1,5 @@
 ﻿using AzureNaming.Tool.Models;
 using Moq;
-using System.Text.Json;
 
 namespace AzureNaming.Tool.Services
 {
@@ -18,7 +17,7 @@ namespace AzureNaming.Tool.Services
         private readonly IResourceTypeService _resourceTypeService; //really from Mock
 
         public ResourceComponentServiceTests()
-        {                       
+        {
 
             _adminLogServiceMock = new Mock<IAdminLogService>();
             _resourceTypeServiceMock = new Mock<IResourceTypeService>();
@@ -38,7 +37,7 @@ namespace AzureNaming.Tool.Services
 
             //TODO: compose mock objects
             _resourceComponentService = new ResourceComponentService(_adminLogServiceMock.Object, _resourceTypeService); // _resourceTypeServiceMock.Object);
-        }        
+        }
 
         [Fact]
         public void ShouldReturnAllDefaultResourceComponents()
@@ -49,7 +48,7 @@ namespace AzureNaming.Tool.Services
             {
                 ResponseMessage = "",
                 Success = true,
-                ResponseObject = Helpers.GeneralTestHelper.DeserializeJsonFromFile<List<ResourceComponent>>("settings/resourcecomponents.json")
+                ResponseObject = Helpers.GeneralTestHelper.DefaultResourceComponents
             };
 
             bool admin = false;
@@ -91,7 +90,7 @@ namespace AzureNaming.Tool.Services
             {
                 Success = true,
                 ResponseMessage = "",
-                ResponseObject = Helpers.GeneralTestHelper.DeserializeJsonFromFile<List<ResourceType>>("settings/resourcetypes.json")
+                ResponseObject = Helpers.GeneralTestHelper.DefaultResourceTypes
             };
 
             // Act
@@ -136,6 +135,6 @@ namespace AzureNaming.Tool.Services
 
         }
 
-       
+
     }
 }

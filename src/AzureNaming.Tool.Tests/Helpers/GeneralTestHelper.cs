@@ -5,7 +5,18 @@ namespace AzureNaming.Tool.Helpers
 {
     public static class GeneralTestHelper
 
+
     {
+        internal static readonly List<ResourceType> DefaultResourceTypes;
+        internal static readonly List<ResourceComponent> DefaultResourceComponents;
+        internal static readonly List<ResourceEnvironment> DefaultResourceEnvironments;
+
+        static GeneralTestHelper()
+        {
+            DefaultResourceTypes = DeserializeJsonFromFile<List<ResourceType>>("settings/resourcetypes.json");
+            DefaultResourceComponents = DeserializeJsonFromFile<List<ResourceComponent>>("settings/resourcecomponents.json");
+            DefaultResourceEnvironments = DeserializeJsonFromFile<List<ResourceEnvironment>>("settings/resourceenvironments.json");
+        }
 
         #region Helpers
 
@@ -22,7 +33,7 @@ namespace AzureNaming.Tool.Helpers
             return newOptionalCsv;
         }
 
-        public static T DeserializeJsonFromFile<T>(string fileName)
+        private static T DeserializeJsonFromFile<T>(string fileName)
         {
             string jsonString = File.ReadAllText(fileName);
             var obj = JsonSerializer.Deserialize<T>(jsonString)!;

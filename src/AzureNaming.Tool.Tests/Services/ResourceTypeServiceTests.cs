@@ -1,6 +1,5 @@
 ﻿using AzureNaming.Tool.Models;
 using Moq;
-using System.Text.Json;
 
 namespace AzureNaming.Tool.Services
 {
@@ -14,15 +13,15 @@ namespace AzureNaming.Tool.Services
 
         public ResourceTypeServiceTests()
         {
-            string fileName = "settings/resourcetypes.json";
-            string jsonString = File.ReadAllText(fileName);
-            List<ResourceType> allResourceTypes = JsonSerializer.Deserialize<List<ResourceType>>(jsonString)!;
+            //string fileName = "settings/resourcetypes.json";
+            //string jsonString = File.ReadAllText(fileName);
+            //List<ResourceType> allResourceTypes = JsonSerializer.Deserialize<List<ResourceType>>(jsonString)!;
 
             _expectedResourceTypeServiceResponse = new ServiceResponse
             {
                 ResponseMessage = "",
                 Success = true,
-                ResponseObject = allResourceTypes
+                ResponseObject = Helpers.GeneralTestHelper.DefaultResourceTypes
             };
 
             _adminLogServiceMock = new Mock<IAdminLogService>();

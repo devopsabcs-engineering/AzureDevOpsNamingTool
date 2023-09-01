@@ -59,7 +59,7 @@ namespace AzureNaming.Tool.Controllers
             // in constructor
 
             var expectedResourceComponentServiceResponse =
-                Helpers.GeneralTestHelper.DeserializeJsonFromFile<List<ResourceComponent>>("settings/resourcecomponents.json");
+                Helpers.GeneralTestHelper.DefaultResourceComponents;
 
             bool admin = false;
             // Act
