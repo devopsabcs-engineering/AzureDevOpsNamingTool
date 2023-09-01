@@ -1,46 +1,29 @@
 ﻿using AzureNaming.Tool.Models;
 using Moq;
+using System.Diagnostics;
+using Xunit.Abstractions;
 
 namespace AzureNaming.Tool.Services
 {
     public class ResourceEnvironmentServiceTests
     {
-        private readonly ServiceResponse _expectedResourceEnvironmentServiceResponse;
+        //private readonly ServiceResponse _expectedResourceEnvironmentServiceResponse;
         // readonly ServiceResponse _serviceResponse;
         private readonly Mock<IAdminLogService> _adminLogServiceMock;
         private readonly ResourceEnvironmentService _resourceEnvironmentService;
-        private ServiceResponse _expectedTestResourceEnvironmentServiceResponse;
+        //private ServiceResponse _expectedTestResourceEnvironmentServiceResponse;
 
-        public ResourceEnvironmentServiceTests()
-        {
-            _expectedResourceEnvironmentServiceResponse = new ServiceResponse
-            {
-                ResponseMessage = "",
-                Success = true,
-                ResponseObject = new List<ResourceEnvironment>
-                {
-                    new ResourceEnvironment() { Id = 1, Name = "Development", ShortName = "dev", SortOrder = 1 },
-                    new ResourceEnvironment() { Id = 2, Name = "Production", ShortName = "prd", SortOrder = 2 },
-                    new ResourceEnvironment() { Id = 3, Name = "Sandbox", ShortName = "sbx", SortOrder = 3 },
-                    new ResourceEnvironment() { Id = 4, Name = "Shared", ShortName = "shd", SortOrder = 4 },
-                    new ResourceEnvironment() { Id = 5, Name = "Staging", ShortName = "stg", SortOrder = 5 },
-                    new ResourceEnvironment() { Id = 6, Name = "Test", ShortName = "tst", SortOrder = 6 },
-                    new ResourceEnvironment() { Id = 7, Name = "UAT", ShortName = "uat", SortOrder = 7 }
-                }
-            };
+        private readonly ITestOutputHelper output;       
 
-            _expectedTestResourceEnvironmentServiceResponse = new ServiceResponse()
-            {
-                Success = true,
-                ResponseMessage = "",
-                ResponseObject = new ResourceEnvironment() { Id = 6, Name = "Test", ShortName = "tst", SortOrder = 6 }
-            };
+        public ResourceEnvironmentServiceTests(ITestOutputHelper output)
+        {                       
 
             _adminLogServiceMock = new Mock<IAdminLogService>();
             //_adminLogServiceMock.Setup(x => x.GetItems())
             //    .Returns(_serviceResponse);
 
             _resourceEnvironmentService = new ResourceEnvironmentService(_adminLogServiceMock.Object);
+            this.output = output;
         }
 
         [Fact]
@@ -48,21 +31,26 @@ namespace AzureNaming.Tool.Services
         {
             // Arrange
             // done in constructor
-
+            ServiceResponse expectedTestResourceEnvironmentServiceResponse = new ServiceResponse()
+            {
+                Success = true,
+                ResponseMessage = "",
+                ResponseObject = new ResourceEnvironment() { Id = 6, Name = "Test", ShortName = "tst", SortOrder = 6 }
+            };
 
             // Act
             ServiceResponse actualTestResourceEnvironmentServiceResponse = _resourceEnvironmentService.GetItem(6).Result;
 
             // Assert
             Assert.NotNull(actualTestResourceEnvironmentServiceResponse);
-            Assert.Equal(_expectedTestResourceEnvironmentServiceResponse.ResponseMessage, actualTestResourceEnvironmentServiceResponse.ResponseMessage);
-            Assert.Equal(_expectedTestResourceEnvironmentServiceResponse.Success, actualTestResourceEnvironmentServiceResponse.Success);
+            Assert.Equal(expectedTestResourceEnvironmentServiceResponse.ResponseMessage, actualTestResourceEnvironmentServiceResponse.ResponseMessage);
+            Assert.Equal(expectedTestResourceEnvironmentServiceResponse.Success, actualTestResourceEnvironmentServiceResponse.Success);
             Assert.IsType<ResourceEnvironment>(actualTestResourceEnvironmentServiceResponse.ResponseObject);
             //check all fields
-            Assert.Equal(_expectedTestResourceEnvironmentServiceResponse.ResponseObject.Id, actualTestResourceEnvironmentServiceResponse.ResponseObject.Id);
-            Assert.Equal(_expectedTestResourceEnvironmentServiceResponse.ResponseObject.Name, actualTestResourceEnvironmentServiceResponse.ResponseObject.Name);
-            Assert.Equal(_expectedTestResourceEnvironmentServiceResponse.ResponseObject.ShortName, actualTestResourceEnvironmentServiceResponse.ResponseObject.ShortName);
-            Assert.Equal(_expectedTestResourceEnvironmentServiceResponse.ResponseObject.SortOrder, actualTestResourceEnvironmentServiceResponse.ResponseObject.SortOrder);
+            Assert.Equal(expectedTestResourceEnvironmentServiceResponse.ResponseObject.Id, actualTestResourceEnvironmentServiceResponse.ResponseObject.Id);
+            Assert.Equal(expectedTestResourceEnvironmentServiceResponse.ResponseObject.Name, actualTestResourceEnvironmentServiceResponse.ResponseObject.Name);
+            Assert.Equal(expectedTestResourceEnvironmentServiceResponse.ResponseObject.ShortName, actualTestResourceEnvironmentServiceResponse.ResponseObject.ShortName);
+            Assert.Equal(expectedTestResourceEnvironmentServiceResponse.ResponseObject.SortOrder, actualTestResourceEnvironmentServiceResponse.ResponseObject.SortOrder);
 
         }
 
@@ -71,7 +59,7 @@ namespace AzureNaming.Tool.Services
         {
             // Arrange
             // done in constructor
-            _expectedTestResourceEnvironmentServiceResponse = new ServiceResponse()
+            ServiceResponse expectedTestResourceEnvironmentServiceResponse = new ServiceResponse()
             {
                 Success = false,
                 ResponseMessage = "",
@@ -83,11 +71,11 @@ namespace AzureNaming.Tool.Services
 
             // Assert
             Assert.NotNull(actualTestResourceEnvironmentServiceResponse);
-            Assert.Equal(_expectedTestResourceEnvironmentServiceResponse.ResponseMessage, actualTestResourceEnvironmentServiceResponse.ResponseMessage);
-            Assert.Equal(_expectedTestResourceEnvironmentServiceResponse.Success, actualTestResourceEnvironmentServiceResponse.Success);
+            Assert.Equal(expectedTestResourceEnvironmentServiceResponse.ResponseMessage, actualTestResourceEnvironmentServiceResponse.ResponseMessage);
+            Assert.Equal(expectedTestResourceEnvironmentServiceResponse.Success, actualTestResourceEnvironmentServiceResponse.Success);
             Assert.IsType<string>(actualTestResourceEnvironmentServiceResponse.ResponseObject);
             //check all fields
-            Assert.Equal(_expectedTestResourceEnvironmentServiceResponse.ResponseObject, actualTestResourceEnvironmentServiceResponse.ResponseObject);
+            Assert.Equal(expectedTestResourceEnvironmentServiceResponse.ResponseObject, actualTestResourceEnvironmentServiceResponse.ResponseObject);
 
         }
 
@@ -96,7 +84,7 @@ namespace AzureNaming.Tool.Services
         {
             // Arrange
             // done in constructor
-            _expectedTestResourceEnvironmentServiceResponse = new ServiceResponse()
+            ServiceResponse expectedTestResourceEnvironmentServiceResponse = new ServiceResponse()
             {
                 Success = true,
                 ResponseMessage = "",
@@ -116,11 +104,11 @@ namespace AzureNaming.Tool.Services
 
             // Assert
             Assert.NotNull(actualTestResourceEnvironmentServiceResponse);
-            Assert.Equal(_expectedTestResourceEnvironmentServiceResponse.ResponseMessage, actualTestResourceEnvironmentServiceResponse.ResponseMessage);
-            Assert.Equal(_expectedTestResourceEnvironmentServiceResponse.Success, actualTestResourceEnvironmentServiceResponse.Success);
+            Assert.Equal(expectedTestResourceEnvironmentServiceResponse.ResponseMessage, actualTestResourceEnvironmentServiceResponse.ResponseMessage);
+            Assert.Equal(expectedTestResourceEnvironmentServiceResponse.Success, actualTestResourceEnvironmentServiceResponse.Success);
             Assert.IsType<string>(actualTestResourceEnvironmentServiceResponse.ResponseObject);
             //check all fields
-            Assert.Equal(_expectedTestResourceEnvironmentServiceResponse.ResponseObject, actualTestResourceEnvironmentServiceResponse.ResponseObject);
+            Assert.Equal(expectedTestResourceEnvironmentServiceResponse.ResponseObject, actualTestResourceEnvironmentServiceResponse.ResponseObject);
 
         }
 
@@ -129,7 +117,7 @@ namespace AzureNaming.Tool.Services
         {
             // Arrange
             // done in constructor
-            _expectedTestResourceEnvironmentServiceResponse = new ServiceResponse()
+            ServiceResponse expectedTestResourceEnvironmentServiceResponse = new ServiceResponse()
             {
                 Success = true,
                 ResponseMessage = "",
@@ -147,18 +135,23 @@ namespace AzureNaming.Tool.Services
 
             // Assert
             Assert.NotNull(actualTestResourceEnvironmentServiceResponse);
-            Assert.Equal(_expectedTestResourceEnvironmentServiceResponse.ResponseMessage, actualTestResourceEnvironmentServiceResponse.ResponseMessage);
-            Assert.Equal(_expectedTestResourceEnvironmentServiceResponse.Success, actualTestResourceEnvironmentServiceResponse.Success);
+            Assert.Equal(expectedTestResourceEnvironmentServiceResponse.ResponseMessage, actualTestResourceEnvironmentServiceResponse.ResponseMessage);
+            Assert.Equal(expectedTestResourceEnvironmentServiceResponse.Success, actualTestResourceEnvironmentServiceResponse.Success);
             Assert.Null(actualTestResourceEnvironmentServiceResponse.ResponseObject);
 
         }
 
         [Fact]
-        public void ShouldDeleteAResourceEnvironment()
+        public async Task ShouldDeleteAResourceEnvironmentAsync()
         {
             // Arrange
-            // done in constructor
-            _expectedTestResourceEnvironmentServiceResponse = new ServiceResponse()
+            // NOT done in constructor -- all local due to flakyness
+
+            var adminLogServiceMock = new Mock<IAdminLogService>();
+            
+            var resourceEnvironmentService = new ResourceEnvironmentService(adminLogServiceMock.Object);
+
+            ServiceResponse expectedTestResourceEnvironmentServiceResponse = new ServiceResponse()
             {
                 Success = true,
                 ResponseMessage = "",
@@ -166,12 +159,39 @@ namespace AzureNaming.Tool.Services
             };
 
             // Act
-            ServiceResponse actualTestResourceEnvironmentServiceResponse = _resourceEnvironmentService.DeleteItem(6).Result;
+            var allResourceEnvironments = resourceEnvironmentService.GetItems().Result;
+            foreach (var item in allResourceEnvironments.ResponseObject)
+            {
+                output.WriteLine($"{item.Id}: {item.Name}");
+            }
+            if (allResourceEnvironments.ResponseObject.Count < 7)
+            {
+                //flakiness explained:
+                //due to add multiple is 3 instead of 7
+                //PostConfig re-writes the environments
+
+                output.WriteLine("need to re-post config...");
+
+                //re-post config
+                var originalItems = new List<ResourceEnvironment>
+                {
+                    new ResourceEnvironment() { Id = 1, Name = "Development", ShortName = "dev", SortOrder = 1 },
+                    new ResourceEnvironment() { Id = 2, Name = "Production", ShortName = "prd", SortOrder = 2 },
+                    new ResourceEnvironment() { Id = 3, Name = "Sandbox", ShortName = "sbx", SortOrder = 3 },
+                    new ResourceEnvironment() { Id = 4, Name = "Shared", ShortName = "shd", SortOrder = 4 },
+                    new ResourceEnvironment() { Id = 5, Name = "Staging", ShortName = "stg", SortOrder = 5 },
+                    new ResourceEnvironment() { Id = 6, Name = "Test", ShortName = "tst", SortOrder = 6 },
+                    new ResourceEnvironment() { Id = 7, Name = "UAT", ShortName = "uat", SortOrder = 7 }
+                };
+                await resourceEnvironmentService.PostConfig(originalItems);
+            }
+
+            ServiceResponse actualTestResourceEnvironmentServiceResponse = resourceEnvironmentService.DeleteItem(6).Result;
 
             // Assert
             Assert.NotNull(actualTestResourceEnvironmentServiceResponse);
-            Assert.Equal(_expectedTestResourceEnvironmentServiceResponse.ResponseMessage, actualTestResourceEnvironmentServiceResponse.ResponseMessage);
-            Assert.Equal(_expectedTestResourceEnvironmentServiceResponse.Success, actualTestResourceEnvironmentServiceResponse.Success);
+            Assert.Equal(expectedTestResourceEnvironmentServiceResponse.ResponseMessage, actualTestResourceEnvironmentServiceResponse.ResponseMessage);
+            Assert.Equal(expectedTestResourceEnvironmentServiceResponse.Success, actualTestResourceEnvironmentServiceResponse.Success);
             Assert.Null(actualTestResourceEnvironmentServiceResponse.ResponseObject);
 
         }
@@ -181,22 +201,37 @@ namespace AzureNaming.Tool.Services
         {
             // Arrange
             // done in constructor
+            var expectedResourceEnvironmentServiceResponse = new ServiceResponse
+            {
+                ResponseMessage = "",
+                Success = true,
+                ResponseObject = new List<ResourceEnvironment>
+                {
+                    new ResourceEnvironment() { Id = 1, Name = "Development", ShortName = "dev", SortOrder = 1 },
+                    new ResourceEnvironment() { Id = 2, Name = "Production", ShortName = "prd", SortOrder = 2 },
+                    new ResourceEnvironment() { Id = 3, Name = "Sandbox", ShortName = "sbx", SortOrder = 3 },
+                    new ResourceEnvironment() { Id = 4, Name = "Shared", ShortName = "shd", SortOrder = 4 },
+                    new ResourceEnvironment() { Id = 5, Name = "Staging", ShortName = "stg", SortOrder = 5 },
+                    new ResourceEnvironment() { Id = 6, Name = "Test", ShortName = "tst", SortOrder = 6 },
+                    new ResourceEnvironment() { Id = 7, Name = "UAT", ShortName = "uat", SortOrder = 7 }
+                }
+            };
 
             // Act
             ServiceResponse actualResourceEnvironmentServiceResponse = _resourceEnvironmentService.GetItems().Result;
 
             // Assert
             Assert.NotNull(actualResourceEnvironmentServiceResponse);
-            Assert.Equal(_expectedResourceEnvironmentServiceResponse.ResponseMessage, actualResourceEnvironmentServiceResponse.ResponseMessage);
-            Assert.Equal(_expectedResourceEnvironmentServiceResponse.Success, actualResourceEnvironmentServiceResponse.Success);
+            Assert.Equal(expectedResourceEnvironmentServiceResponse.ResponseMessage, actualResourceEnvironmentServiceResponse.ResponseMessage);
+            Assert.Equal(expectedResourceEnvironmentServiceResponse.Success, actualResourceEnvironmentServiceResponse.Success);
             Assert.IsType<List<ResourceEnvironment>>(actualResourceEnvironmentServiceResponse.ResponseObject);
-            Assert.Equal(_expectedResourceEnvironmentServiceResponse.ResponseObject.Count, actualResourceEnvironmentServiceResponse.ResponseObject.Count);
-            for (int i = 0; i < _expectedResourceEnvironmentServiceResponse.ResponseObject.Count; i++)
+            Assert.Equal(expectedResourceEnvironmentServiceResponse.ResponseObject.Count, actualResourceEnvironmentServiceResponse.ResponseObject.Count);
+            for (int i = 0; i < expectedResourceEnvironmentServiceResponse.ResponseObject.Count; i++)
             {
-                Assert.Equal(_expectedResourceEnvironmentServiceResponse.ResponseObject[i].Id, actualResourceEnvironmentServiceResponse.ResponseObject[i].Id);
-                Assert.Equal(_expectedResourceEnvironmentServiceResponse.ResponseObject[i].Name, actualResourceEnvironmentServiceResponse.ResponseObject[i].Name);
-                Assert.Equal(_expectedResourceEnvironmentServiceResponse.ResponseObject[i].ShortName, actualResourceEnvironmentServiceResponse.ResponseObject[i].ShortName);
-                Assert.Equal(_expectedResourceEnvironmentServiceResponse.ResponseObject[i].SortOrder, actualResourceEnvironmentServiceResponse.ResponseObject[i].SortOrder);
+                Assert.Equal(expectedResourceEnvironmentServiceResponse.ResponseObject[i].Id, actualResourceEnvironmentServiceResponse.ResponseObject[i].Id);
+                Assert.Equal(expectedResourceEnvironmentServiceResponse.ResponseObject[i].Name, actualResourceEnvironmentServiceResponse.ResponseObject[i].Name);
+                Assert.Equal(expectedResourceEnvironmentServiceResponse.ResponseObject[i].ShortName, actualResourceEnvironmentServiceResponse.ResponseObject[i].ShortName);
+                Assert.Equal(expectedResourceEnvironmentServiceResponse.ResponseObject[i].SortOrder, actualResourceEnvironmentServiceResponse.ResponseObject[i].SortOrder);
             };
 
         }
