@@ -10,7 +10,7 @@ namespace AzureNaming.Tool.Services
         private readonly Mock<IAdminLogService> _adminLogServiceMock;
         private readonly Mock<IResourceComponentByIdService> _resourceComponentByIdServiceMock;
         private readonly Mock<IResourceDelimiterService> _resourceDelimiterServiceMock;
-        private readonly ResourceTypeService _resourceTypeService;
+        private readonly IResourceTypeService _resourceTypeService;
 
         public ResourceTypeServiceTests()
         {

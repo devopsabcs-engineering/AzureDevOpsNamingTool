@@ -9,13 +9,13 @@ namespace AzureNaming.Tool.Services
         //private readonly ServiceResponse _expectedResourceComponentServiceResponse;
         //private readonly Task<ServiceResponse> _resourceTypeServiceResponse;
         private readonly Mock<IAdminLogService> _adminLogServiceMock;
-        private readonly ResourceComponentService _resourceComponentService;
+        private readonly IResourceComponentService _resourceComponentService;
         //private ServiceResponse _expectedTestResourceComponentServiceResponse;
         private readonly Mock<IResourceTypeService> _resourceTypeServiceMock;
 
         private readonly Mock<IResourceComponentByIdService> _resourceComponentByIdServiceMock;
         private readonly Mock<IResourceDelimiterService> _resourceDelimiterServiceMock;
-        private readonly ResourceTypeService _resourceTypeService; //really from Mock
+        private readonly IResourceTypeService _resourceTypeService; //really from Mock
 
         public ResourceComponentServiceTests()
         {                       

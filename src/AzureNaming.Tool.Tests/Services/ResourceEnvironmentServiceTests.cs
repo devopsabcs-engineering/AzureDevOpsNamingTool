@@ -10,7 +10,7 @@ namespace AzureNaming.Tool.Services
         //private readonly ServiceResponse _expectedResourceEnvironmentServiceResponse;
         // readonly ServiceResponse _serviceResponse;
         private readonly Mock<IAdminLogService> _adminLogServiceMock;
-        private readonly ResourceEnvironmentService _resourceEnvironmentService;
+        private readonly IResourceEnvironmentService _resourceEnvironmentService;
         //private ServiceResponse _expectedTestResourceEnvironmentServiceResponse;
 
         private readonly ITestOutputHelper output;
