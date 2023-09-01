@@ -76,10 +76,6 @@ namespace AzureNaming.Tool.Services
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].Enabled, actualResourceTypeServiceResponse.ResponseObject[i].Enabled);
             };
 
-
-
-
-
         }
     }
 }

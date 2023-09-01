@@ -13,6 +13,7 @@ namespace AzureNaming.Tool.Helpers
 
         static GeneralTestHelper()
         {
+            //these lists need to be immutable across tests to avoid flakiness due to writing to files to save settings due to tests
             DefaultResourceTypes = DeserializeJsonFromFile<List<ResourceType>>("settings/resourcetypes.json");
             DefaultResourceComponents = DeserializeJsonFromFile<List<ResourceComponent>>("settings/resourcecomponents.json");
             DefaultResourceEnvironments = DeserializeJsonFromFile<List<ResourceEnvironment>>("settings/resourceenvironments.json");

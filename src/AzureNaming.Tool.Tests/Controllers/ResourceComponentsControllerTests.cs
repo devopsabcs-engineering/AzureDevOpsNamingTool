@@ -8,7 +8,7 @@ namespace AzureNaming.Tool.Controllers
     public class ResourceComponentsControllerTests
     {
 
-        private readonly Mock<IResourceComponentService> _resourceComponentServiceMock;
+        //private readonly Mock<IResourceComponentService> _resourceComponentServiceMock;
         private readonly Mock<IAdminLogService> _adminLogServiceMock;
         private readonly Mock<IResourceComponentByIdService> _resourceComponentByIdServiceMock;
         private readonly Mock<IResourceDelimiterService> _resourceDelimiterServiceMock;
@@ -81,14 +81,11 @@ namespace AzureNaming.Tool.Controllers
                 Assert.Equal(expectedResourceComponentServiceResponse[i].Id, actualResourceComponents[i].Id);
                 Assert.Equal(expectedResourceComponentServiceResponse[i].Name, actualResourceComponents[i].Name);
                 Assert.Equal(expectedResourceComponentServiceResponse[i].DisplayName, actualResourceComponents[i].DisplayName);
-
                 Assert.Equal(expectedResourceComponentServiceResponse[i].Enabled, actualResourceComponents[i].Enabled);
                 Assert.Equal(expectedResourceComponentServiceResponse[i].IsCustom, actualResourceComponents[i].IsCustom);
                 Assert.Equal(expectedResourceComponentServiceResponse[i].IsFreeText, actualResourceComponents[i].IsFreeText);
                 Assert.Equal(expectedResourceComponentServiceResponse[i].MinLength, actualResourceComponents[i].MinLength);
                 Assert.Equal(expectedResourceComponentServiceResponse[i].MaxLength, actualResourceComponents[i].MaxLength);
-                //Assert.Equal(expectedResourceComponentServiceResponse[i].Id, actualResourceComponents[i].Id);
-
                 Assert.Equal(expectedResourceComponentServiceResponse[i].SortOrder, actualResourceComponents[i].SortOrder);
             };
 

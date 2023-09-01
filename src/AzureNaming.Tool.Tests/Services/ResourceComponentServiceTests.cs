@@ -67,14 +67,11 @@ namespace AzureNaming.Tool.Services
                 Assert.Equal(expectedResourceComponentServiceResponse.ResponseObject[i].Id, actualResourceComponentServiceResponse.ResponseObject[i].Id);
                 Assert.Equal(expectedResourceComponentServiceResponse.ResponseObject[i].Name, actualResourceComponentServiceResponse.ResponseObject[i].Name);
                 Assert.Equal(expectedResourceComponentServiceResponse.ResponseObject[i].DisplayName, actualResourceComponentServiceResponse.ResponseObject[i].DisplayName);
-
                 Assert.Equal(expectedResourceComponentServiceResponse.ResponseObject[i].Enabled, actualResourceComponentServiceResponse.ResponseObject[i].Enabled);
                 Assert.Equal(expectedResourceComponentServiceResponse.ResponseObject[i].IsCustom, actualResourceComponentServiceResponse.ResponseObject[i].IsCustom);
                 Assert.Equal(expectedResourceComponentServiceResponse.ResponseObject[i].IsFreeText, actualResourceComponentServiceResponse.ResponseObject[i].IsFreeText);
                 Assert.Equal(expectedResourceComponentServiceResponse.ResponseObject[i].MinLength, actualResourceComponentServiceResponse.ResponseObject[i].MinLength);
                 Assert.Equal(expectedResourceComponentServiceResponse.ResponseObject[i].MaxLength, actualResourceComponentServiceResponse.ResponseObject[i].MaxLength);
-                Assert.Equal(expectedResourceComponentServiceResponse.ResponseObject[i].Id, actualResourceComponentServiceResponse.ResponseObject[i].Id);
-
                 Assert.Equal(expectedResourceComponentServiceResponse.ResponseObject[i].SortOrder, actualResourceComponentServiceResponse.ResponseObject[i].SortOrder);
             };
 
