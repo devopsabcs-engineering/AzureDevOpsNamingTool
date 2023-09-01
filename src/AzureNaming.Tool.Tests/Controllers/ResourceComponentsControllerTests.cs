@@ -18,7 +18,7 @@ namespace AzureNaming.Tool.Controllers
 
         public ResourceComponentsControllerTests()
         {
-            _resourceComponentServiceMock = new Mock<IResourceComponentService>();
+            //_resourceComponentServiceMock = new Mock<IResourceComponentService>();
             _adminLogServiceMock = new Mock<IAdminLogService>();
             _resourceComponentByIdServiceMock = new Mock<IResourceComponentByIdService>();
             _resourceDelimiterServiceMock = new Mock<IResourceDelimiterService>();

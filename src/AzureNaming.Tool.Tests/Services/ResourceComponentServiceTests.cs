@@ -112,21 +112,16 @@ namespace AzureNaming.Tool.Services
                 Assert.Equal(expectedTestResourceComponentServiceResponse.ResponseObject[i].Property, actualTestResourceComponentServiceResponse.ResponseObject[i].Property);
                 Assert.Equal(expectedTestResourceComponentServiceResponse.ResponseObject[i].ShortName, actualTestResourceComponentServiceResponse.ResponseObject[i].ShortName);
                 Assert.Equal(expectedTestResourceComponentServiceResponse.ResponseObject[i].Scope, actualTestResourceComponentServiceResponse.ResponseObject[i].Scope);
-
                 Assert.Equal(expectedTestResourceComponentServiceResponse.ResponseObject[i].LengthMin, actualTestResourceComponentServiceResponse.ResponseObject[i].LengthMin);
                 Assert.Equal(expectedTestResourceComponentServiceResponse.ResponseObject[i].LengthMax, actualTestResourceComponentServiceResponse.ResponseObject[i].LengthMax);
-
                 Assert.Equal(expectedTestResourceComponentServiceResponse.ResponseObject[i].ValidText, actualTestResourceComponentServiceResponse.ResponseObject[i].ValidText);
                 Assert.Equal(expectedTestResourceComponentServiceResponse.ResponseObject[i].InvalidText, actualTestResourceComponentServiceResponse.ResponseObject[i].InvalidText);
-
                 Assert.Equal(expectedTestResourceComponentServiceResponse.ResponseObject[i].InvalidCharacters, actualTestResourceComponentServiceResponse.ResponseObject[i].InvalidCharacters);
                 Assert.Equal(expectedTestResourceComponentServiceResponse.ResponseObject[i].InvalidCharactersStart, actualTestResourceComponentServiceResponse.ResponseObject[i].InvalidCharactersStart);
                 Assert.Equal(expectedTestResourceComponentServiceResponse.ResponseObject[i].InvalidCharactersEnd, actualTestResourceComponentServiceResponse.ResponseObject[i].InvalidCharactersEnd);
                 Assert.Equal(expectedTestResourceComponentServiceResponse.ResponseObject[i].InvalidCharactersConsecutive, actualTestResourceComponentServiceResponse.ResponseObject[i].InvalidCharactersConsecutive);
-
                 Assert.Equal(expectedTestResourceComponentServiceResponse.ResponseObject[i].Regx, actualTestResourceComponentServiceResponse.ResponseObject[i].Regx);
                 Assert.Equal(expectedTestResourceComponentServiceResponse.ResponseObject[i].StaticValues, actualTestResourceComponentServiceResponse.ResponseObject[i].StaticValues);
-
                 Assert.Equal(expectedTestResourceComponentServiceResponse.ResponseObject[i].Enabled, actualTestResourceComponentServiceResponse.ResponseObject[i].Enabled);
             };
 

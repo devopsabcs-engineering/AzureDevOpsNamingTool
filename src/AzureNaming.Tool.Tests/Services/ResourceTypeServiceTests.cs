@@ -13,10 +13,6 @@ namespace AzureNaming.Tool.Services
 
         public ResourceTypeServiceTests()
         {
-            //string fileName = "settings/resourcetypes.json";
-            //string jsonString = File.ReadAllText(fileName);
-            //List<ResourceType> allResourceTypes = JsonSerializer.Deserialize<List<ResourceType>>(jsonString)!;
-
             _expectedResourceTypeServiceResponse = new ServiceResponse
             {
                 ResponseMessage = "",
@@ -53,26 +49,20 @@ namespace AzureNaming.Tool.Services
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].Id, actualResourceTypeServiceResponse.ResponseObject[i].Id);
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].Resource, actualResourceTypeServiceResponse.ResponseObject[i].Resource);
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].Optional, actualResourceTypeServiceResponse.ResponseObject[i].Optional);
-
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].Exclude, actualResourceTypeServiceResponse.ResponseObject[i].Exclude);
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].Property, actualResourceTypeServiceResponse.ResponseObject[i].Property);
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].ShortName, actualResourceTypeServiceResponse.ResponseObject[i].ShortName);
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].Scope, actualResourceTypeServiceResponse.ResponseObject[i].Scope);
-
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].LengthMin, actualResourceTypeServiceResponse.ResponseObject[i].LengthMin);
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].LengthMax, actualResourceTypeServiceResponse.ResponseObject[i].LengthMax);
-
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].ValidText, actualResourceTypeServiceResponse.ResponseObject[i].ValidText);
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].InvalidText, actualResourceTypeServiceResponse.ResponseObject[i].InvalidText);
-
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].InvalidCharacters, actualResourceTypeServiceResponse.ResponseObject[i].InvalidCharacters);
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].InvalidCharactersStart, actualResourceTypeServiceResponse.ResponseObject[i].InvalidCharactersStart);
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].InvalidCharactersEnd, actualResourceTypeServiceResponse.ResponseObject[i].InvalidCharactersEnd);
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].InvalidCharactersConsecutive, actualResourceTypeServiceResponse.ResponseObject[i].InvalidCharactersConsecutive);
-
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].Regx, actualResourceTypeServiceResponse.ResponseObject[i].Regx);
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].StaticValues, actualResourceTypeServiceResponse.ResponseObject[i].StaticValues);
-
                 Assert.Equal(_expectedResourceTypeServiceResponse.ResponseObject[i].Enabled, actualResourceTypeServiceResponse.ResponseObject[i].Enabled);
             };
 
